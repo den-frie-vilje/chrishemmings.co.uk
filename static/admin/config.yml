@@ -98,7 +98,8 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: titleAccent, label: Title descriptor (lighter line), widget: string }
               - { name: lead, label: Lead, widget: text }
-              - { name: portrait, label: Portrait image, widget: image, hint: "Also used for the home social-share (OG) image." }
+              - { name: portrait, label: Portrait (framed) — social share & SEO, widget: image, hint: "A normal framed photo. Used for the social-share (OG) card and search results, NOT shown on the page itself." }
+              - { name: cutout, label: Hero cutout (background removed), widget: image, hint: "The transparent PNG/WebP of Chris shown in the hero, leaning in from the right." }
               - { name: portraitAlt, label: Portrait alt text, widget: string }
               - { name: ctaPrimary, label: Primary CTA, widget: string }
               - { name: ctaSecondary, label: Secondary CTA, widget: string }

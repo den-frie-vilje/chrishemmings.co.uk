@@ -33,7 +33,7 @@
 
   <!-- md+ : absolute, bleeds off the section's right edge. -->
   <img
-    src="/img/chris-hero-cutout.webp"
+    src={home.hero.cutout}
     alt={home.hero.portraitAlt}
     width="1200"
     height="879"
@@ -60,7 +60,7 @@
 
     <!-- small screens : in-flow below the copy, right-aligned, bleeding right. -->
     <img
-      src="/img/chris-hero-cutout.webp"
+      src={home.hero.cutout}
       alt={home.hero.portraitAlt}
       width="1200"
       height="879"

@@ -105,7 +105,10 @@ export interface Home {
     /** Lighter-weight descriptor shown under the name in the hero H1. */
     titleAccent: string;
     lead: string;
+    /** Framed JPG — used for the OG/social card and JSON-LD imagery. */
     portrait: string;
+    /** Background-removed cutout shown in the hero itself. */
+    cutout: string;
     portraitAlt: string;
     ctaPrimary: string;
     ctaSecondary: string;

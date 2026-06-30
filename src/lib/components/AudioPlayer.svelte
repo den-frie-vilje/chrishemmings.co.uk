@@ -15,13 +15,22 @@
     /** Bump from the parent to (re)start playback on a new selection. 0
      *  (default) is passive — no autoplay on first mount. */
     playKey?: number;
+    /** Bindable playback state + element, so a parent can render a second
+     *  (compact) controller over the SAME audio. */
+    paused?: boolean;
+    currentTime?: number;
+    duration?: number;
+    audio?: HTMLAudioElement;
   }
-  let { src, durationLabel = '', playKey = 0 }: Props = $props();
-
-  let audio = $state<HTMLAudioElement>();
-  let paused = $state(true);
-  let currentTime = $state(0);
-  let duration = $state(0);
+  let {
+    src,
+    durationLabel = '',
+    playKey = 0,
+    paused = $bindable(true),
+    currentTime = $bindable(0),
+    duration = $bindable(0),
+    audio = $bindable<HTMLAudioElement | undefined>()
+  }: Props = $props();
 
   // Start playing whenever the parent signals a fresh selection (playKey > 0).
   // The src has already updated by the time this runs, so play() loads + plays

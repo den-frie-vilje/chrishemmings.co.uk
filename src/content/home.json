@@ -6,6 +6,7 @@
     "titleAccent": "Therapist & Coach for Men",
     "lead": "I specialise in working with men who want to make sense of their lives, their relationships and their emotional experiences.",
     "portrait": "/img/chris-hero.jpg",
+    "cutout": "/img/chris-hero-cutout.webp",
     "portraitAlt": "Chris Hemmings — Men's Therapist",
     "ctaPrimary": "Book a free 15-minute consultation",
     "ctaSecondary": "How I work"
@@ -17,22 +18,54 @@
   "founder": {
     "intro": "I am the founder of:",
     "orgs": [
-      { "name": "Men's Therapy Hub", "href": "https://menstherapyhub.com", "logo": "/img/logos/mth-mono.png" },
-      { "name": "M-Path", "href": "https://m-path.co.uk", "logo": "/img/logos/m-path-mono.png" }
+      {
+        "name": "Men's Therapy Hub",
+        "href": "https://menstherapyhub.com",
+        "logo": "/img/logos/mth-mono.png"
+      },
+      {
+        "name": "M-Path",
+        "href": "https://m-path.co.uk",
+        "logo": "/img/logos/m-path-mono.png"
+      }
     ]
   },
   "interests": {
     "title": "Areas of specific interest",
     "intro": "I have experience working with clients with a wide range of challenges, including:",
     "items": [
-      { "title": "Anxiety", "body": "Exploring the roots of worry, overthinking and tension — and finding ways to feel calmer, more grounded and in control." },
-      { "title": "Depression", "body": "When life feels heavy or flat, we can create a space for you to reconnect with yourself, your emotions and what brings meaning." },
-      { "title": "Anger", "body": "Anger often hides pain, shame or fear. Together we'll unpack where it comes from and how to express it in healthier ways." },
-      { "title": "Relationships", "body": "From conflict to communication issues, we'll explore how you relate to others — and to yourself — to create connection in your life." },
-      { "title": "Addiction", "body": "Whether it's substances, behaviours or patterns, we'll work to understand what's driving the cycle and how to break it with compassion." },
-      { "title": "Masculinity", "body": "If you are questioning what kind of man you want to be, or feeling stuck between expectations and your true self." },
-      { "title": "Low self-esteem", "body": "If your inner critic is loud or constant, therapy can help you challenge unhelpful beliefs and build a stronger sense of self." },
-      { "title": "Emotional expression", "body": "If you've grown up being told to hide how you feel, we can work to unlearn that and reconnect you with your full emotional range." }
+      {
+        "title": "Anxiety",
+        "body": "Exploring the roots of worry, overthinking and tension — and finding ways to feel calmer, more grounded and in control."
+      },
+      {
+        "title": "Depression",
+        "body": "When life feels heavy or flat, we can create a space for you to reconnect with yourself, your emotions and what brings meaning."
+      },
+      {
+        "title": "Anger",
+        "body": "Anger often hides pain, shame or fear. Together we'll unpack where it comes from and how to express it in healthier ways."
+      },
+      {
+        "title": "Relationships",
+        "body": "From conflict to communication issues, we'll explore how you relate to others — and to yourself — to create connection in your life."
+      },
+      {
+        "title": "Addiction",
+        "body": "Whether it's substances, behaviours or patterns, we'll work to understand what's driving the cycle and how to break it with compassion."
+      },
+      {
+        "title": "Masculinity",
+        "body": "If you are questioning what kind of man you want to be, or feeling stuck between expectations and your true self."
+      },
+      {
+        "title": "Low self-esteem",
+        "body": "If your inner critic is loud or constant, therapy can help you challenge unhelpful beliefs and build a stronger sense of self."
+      },
+      {
+        "title": "Emotional expression",
+        "body": "If you've grown up being told to hide how you feel, we can work to unlearn that and reconnect you with your full emotional range."
+      }
     ]
   },
   "speakingPromo": {
