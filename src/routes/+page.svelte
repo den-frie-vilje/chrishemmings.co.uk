@@ -99,7 +99,7 @@
     <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       {#each home.interests.items as item, i (item.title)}
         <li class="rounded-lg border border-line bg-paper p-6">
-          <span class="font-serif text-2xl text-orange-600" aria-hidden="true">{num(i)}</span>
+          <span class="font-serif text-2xl text-orange-700" aria-hidden="true">{num(i)}</span>
           <h3 class="t-h3 mt-2 text-navy-900">{item.title}</h3>
           <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{item.body}</p>
         </li>

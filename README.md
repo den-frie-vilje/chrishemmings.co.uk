@@ -1,42 +1,29 @@
-# sv
+# chrishemmings.co.uk
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Static marketing site for **Chris Hemmings** — UK psychotherapist & coach for men, public
+speaker, and co-host of the *No Man's an Island* podcast.
 
-## Creating a project
+SvelteKit 5 (runes) · adapter-static · Tailwind v4 · Sveltia CMS · self-hosted via the
+nas-sites pull-only deploy model. See [CLAUDE.md](CLAUDE.md) for the full guide and
+[DECISIONS.md](DECISIONS.md) for the rationale behind the key choices.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
+## Develop
 
 ```sh
-# recreate this project
-npx sv@0.16.1 create --template minimal --types ts --add tailwindcss="plugins:typography" sveltekit-adapter="adapter:static" --no-download-check --no-install chscaffold
+pkgx pnpm install
+pkgx pnpm dev       # http://localhost:5173
+pkgx pnpm build     # static output → build/
+pkgx pnpm check     # svelte-check + tsc (run before pushing)
 ```
 
-## Developing
+## Structure
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+- `src/content/*.json` — all site copy (prose fields are markdown strings).
+- `src/lib/` — content loader, markdown + podcast helpers, SEO, components.
+- `src/routes/` — home, working-together, public-speaking, podcast, get-in-touch, admin.
+- `static/` — images, robots.txt, Sveltia admin config.
+- `deploy/` + `.github/workflows/` — Docker image, Caddy/nginx, signed CI deploy.
 
-```sh
-npm run dev
+## Content editing
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Editors use Sveltia CMS at `/admin` on staging (GitHub backend). Prose is edited as markdown.
