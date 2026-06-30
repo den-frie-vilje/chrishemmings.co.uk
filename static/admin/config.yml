@@ -24,7 +24,7 @@ collections:
     label: Pages
     files:
       - name: site
-        label: Site & navigation
+        label: Site
         file: src/content/site.json
         fields:
           - { name: name, label: Site name, widget: string }
