@@ -31,7 +31,7 @@
        sits bottom-right in flow). -->
   <div
     class="pointer-events-none absolute inset-0 z-0 hidden md:block"
-    style="background: radial-gradient(120% 135% at 82% 34%, color-mix(in srgb, #4a3826 17%, transparent) 0%, color-mix(in srgb, #4a3826 7%, transparent) 45%, transparent 80%);"
+    style="background: radial-gradient(120% 135% at 82% 34%, color-mix(in srgb, #4a3826 30%, transparent) 0%, color-mix(in srgb, #4a3826 12%, transparent) 45%, transparent 82%);"
     aria-hidden="true"
   ></div>
 
@@ -43,8 +43,8 @@
     height="879"
     fetchpriority="high"
     class="pointer-events-none absolute bottom-0 right-0 z-0 hidden select-none object-contain object-bottom
-           md:block md:w-[52%] md:max-w-[560px]
-           lg:w-[47%] lg:max-w-[660px] lg:translate-x-[4%]"
+           md:block md:w-[58%] md:max-w-[620px] md:translate-x-[8%]
+           lg:w-[52%] lg:max-w-[760px] lg:translate-x-[11%]"
   />
   <div
     class="container-page relative z-10 flex flex-col py-12
