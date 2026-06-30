@@ -95,8 +95,8 @@
   <div class="container-page">
     <h2 class="t-h2 text-ink">{ps.talks.title}</h2>
     {#each ps.talks.groups as group, gi (group.name)}
-      <h3 class="t-eyebrow {gi === 0 ? 'mt-10' : 'mt-14'}">{group.name}</h3>
-      <div class="mt-5 grid gap-6 lg:grid-cols-2">
+      <h3 class="t-h3 text-ink {gi === 0 ? 'mt-12' : 'mt-16'}">{group.name}</h3>
+      <div class="mt-6 grid gap-6 lg:grid-cols-2">
         {#each group.items as talk (talk.title)}
           <article class="flex flex-col rounded-xl border border-line bg-paper-2 p-7">
             <h4 class="t-h3 text-navy-900">{talk.title}</h4>
