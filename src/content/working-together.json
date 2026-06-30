@@ -1,0 +1,29 @@
+{
+  "hero": {
+    "eyebrow": "Therapy & Coaching",
+    "title": "Psychotherapy, Counselling & Coaching for Men",
+    "subtitle": "Online therapist, counsellor & coach.",
+    "portraitAlt": "Chris Hemmings, psychotherapist & coach"
+  },
+  "intro": "I specialise in working with those who may feel disconnected, overwhelmed or unsure how to express what they're feeling.\n\nI work with depression, anxiety, low self-esteem, addiction, relationship difficulties, workplace stress, burnout and anger — and have a particular interest in supporting men who are struggling with drug or alcohol use, compulsive porn use and body image concerns, including body dysmorphia.\n\nI offer a person-centred, collaborative approach, combining therapy and coaching techniques. That means I won't sit in silence — I'll work with you actively, offering encouragement, challenge and guidance as we explore what's going on for you.\n\nMy sessions are flexible and tailored to your needs.\n\nI understand how difficult it can be to open up emotionally. I aim to create a space where you don't have to hide anything — a space where you'll be met with compassion and understanding.\n\nI'm based in Copenhagen and work with clients across Europe, online.\n\nIf any of this resonates, feel free to get in touch — I offer a free 15-minute intro call so we can see if we're a good fit.",
+  "qualifications": {
+    "title": "Training & Qualifications",
+    "items": [
+      "Registered member of the British Association of Counselling & Psychotherapy (BACP)",
+      "PGDip Integrative Counselling and Coaching (University of East London)",
+      "Foundation in Psychodynamic Counselling Skills — WPF Therapy"
+    ],
+    "regulatorNote": "Accountable to the Professional Standards Authority via the BACP register."
+  },
+  "fees": {
+    "eyebrow": "Fees",
+    "range": "£95–£145",
+    "unit": "per 50-minute session",
+    "headline": "I have a sliding scale of £95–£145 per 50-minute session.",
+    "body": "I understand that therapy can be expensive for some, so I hope to make it as affordable as possible by offering a sliding scale, based on income. I also offer concessionary rates, on a case-by-case basis. Please get in touch if you'd like to enquire about that.\n\nWe'll work in blocks of four, paid upfront before each block commences."
+  },
+  "furtherInfo": {
+    "title": "Further information",
+    "body": "I offer a free 15-minute intro call to help you decide whether I'm the right fit for you. Feel free to call, text or email to discuss finding a time.\n\nYou'll sign a contract which includes all the details you need to know, and we can discuss this further if needed."
+  }
+}

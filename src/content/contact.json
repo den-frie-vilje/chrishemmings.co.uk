@@ -1,0 +1,14 @@
+{
+  "heading": "Get in touch",
+  "intro": "I'm happy to be contacted by email, phone or text:",
+  "email": "chrishemmings@live.co.uk",
+  "emailHref": "mailto:chrishemmings@live.co.uk?subject=Contact from website",
+  "phone": "+44 7745 553680",
+  "phoneHref": "tel:+447745553680",
+  "location": "Based in Copenhagen, working with clients across Europe and beyond — online.",
+  "booking": {
+    "label": "Book a free 15-minute consultation",
+    "sub": "No obligation, 15-minute video chat to discuss how we might work together.",
+    "href": "/get-in-touch"
+  }
+}

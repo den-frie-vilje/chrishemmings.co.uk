@@ -1,0 +1,48 @@
+{
+  "hero": {
+    "eyebrow": "Public Speaking",
+    "title": "Men's Mental Health Talks & Workshops",
+    "subtitle": "Keynote speaker & workshop facilitator",
+    "intro": "I am a men's mental health speaker delivering honest, impactful and engaging talks and workshops — engaging men with conversations that historically they have been reluctant to have.",
+    "portraitAlt": "Chris Hemmings speaking at Nike",
+    "cta": "Enquire about speaking"
+  },
+  "orgsWorkedWith": {
+    "title": "Organisations I've worked with",
+    "logoStrip": "/img/organisations-logo-strip.png",
+    "logoStripAlt": "Logos of organisations Chris Hemmings has worked with"
+  },
+  "experienced": {
+    "title": "An experienced speaker on men's mental health and masculinity",
+    "body": "Drawing on my background in both journalism and therapy, I combine lived experience, professional insight and powerful storytelling to create meaningful conversations that resonate with diverse audiences.\n\nOver the past decade, I have delivered keynote talks, workshops and training sessions in schools, universities, workplaces and conferences. My work explores the pressures facing men and boys today, the emotional impact of traditional gender expectations and the importance of creating spaces where people feel able to speak openly, seek support and build genuine connection.\n\nWhether I am speaking to students in a school assembly, delivering a workplace wellbeing session or presenting at a national conference, I aim to meet people where they are. My approach combines empathy, warmth and challenge, encouraging audiences to reflect on their experiences while engaging with practical ideas for change."
+  },
+  "story": {
+    "title": "My story, and why this work matters",
+    "body": "Much of my work is informed by my own journey. Following the death of my father, I struggled with drug misuse and emotional isolation before eventually seeking support and training as a therapist. These experiences gave me a deeper understanding of the challenges many men face, and continue to shape the way I speak about mental health, resilience and personal growth.\n\nI speak openly about the impact of silence, shame and emotional suppression, while offering audiences hope, practical tools and new perspectives on what it means to be a man in today's world. My goal is not simply to raise awareness but to help people start conversations that lead to lasting change.\n\nEvery talk and workshop is tailored to the needs of the audience. I regularly work with schools, colleges, universities, employers, mental health organisations and community groups to support wellbeing, strengthen cultures and encourage healthier relationships.\n\nWhether you are looking for a men's mental health keynote speaker, a workplace wellbeing facilitator, a speaker on masculinity and emotional wellbeing or a workshop leader for young people, I deliver sessions that continue to resonate long after the event has ended."
+  },
+  "talks": {
+    "title": "Keynote talks, workshops and training",
+    "items": [
+      {
+        "title": "Understanding Men's Mental Health and Emotional Wellbeing",
+        "body": "An engaging and thought-provoking workshop exploring the challenges facing men and boys today, including mental health, loneliness, emotional suppression and help-seeking. This session examines how traditional cultural expectations placed on men can impact mental health and wellbeing, and offers practical ways to create healthier conversations, stronger relationships and more supportive communities.",
+        "popularWith": "Workplaces, conferences, universities, charities and community organisations."
+      },
+      {
+        "title": "Developing Empathy and Emotional Intelligence",
+        "body": "Empathy is one of the most important skills for building healthier relationships, stronger teams and more inclusive cultures. This talk explores how empathy can be developed, why emotional intelligence matters and how greater understanding can improve leadership, communication and workplace wellbeing.\n\nParticipants leave with practical tools for listening more effectively, understanding different perspectives and creating environments where people feel seen, heard and valued.",
+        "popularWith": "Leadership teams, workplaces, schools and professional conferences."
+      },
+      {
+        "title": "Improving Communication and Building Stronger Relationships",
+        "body": "Poor communication sits at the heart of many workplace, family and relationship challenges. This practical and engaging session explores how people can communicate more openly, confidently and effectively, particularly around difficult conversations and emotional topics.\n\nDrawing on therapeutic principles and real-world experience, I help audiences understand common communication barriers and develop skills that improve trust, connection and collaboration.",
+        "popularWith": "Organisations, schools, universities and leadership teams."
+      },
+      {
+        "title": "The Case for Male Inclusion in Diversity, Equity and Inclusion (DEI)",
+        "body": "Many organisations are committed to creating more inclusive workplaces, yet conversations about gender often overlook the experiences and challenges facing men and boys. This evidence-informed talk explores why male inclusion matters within Diversity, Equity and Inclusion strategies, and how organisations can support men without diminishing support for other groups.\n\nThe session examines issues such as mental health, educational outcomes, fatherhood, workplace culture and belonging, offering a balanced and constructive approach to building truly inclusive environments.",
+        "popularWith": "HR teams, DEI professionals, public sector organisations and leadership conferences."
+      }
+    ]
+  }
+}

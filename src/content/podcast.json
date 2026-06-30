@@ -1,0 +1,16 @@
+{
+  "hero": {
+    "eyebrow": "Podcast",
+    "title": "No Man's an Island",
+    "subtitle": "A podcast powered by Men's Therapy Hub",
+    "intro": "Honest, grounded conversations about men's mental, physical and emotional health — co-hosted by Chris Hemmings and US clinical psychologist Dr Jett Stone. New episode every Tuesday.",
+    "cover": "/img/podcast-cover.jpg",
+    "coverAlt": "No Man's an Island podcast cover"
+  },
+  "about": "**No Man's an Island** explores men's mental, physical and emotional health through honest and grounded conversations. Hosted by UK psychotherapist Chris Hemmings and US clinical psychologist Dr Jett Stone, the show brings together voices from therapy, research, advocacy, politics, music and education to discuss what really shapes men's lives today.\n\nPowered by Men's Therapy Hub — the UK's first directory connecting male clients with qualified male therapists — the podcast challenges the idea that men don't create healthy, healing spaces for one another.",
+  "feedPath": "/api/podcast-feed",
+  "platforms": [
+    { "name": "Apple Podcasts", "href": "https://podcasts.apple.com/us/podcast/no-mans-an-island/id1849171262" },
+    { "name": "Listen on Acast", "href": "https://shows.acast.com/no-mans-an-island" }
+  ]
+}
