@@ -31,7 +31,7 @@
     src="/img/chris-hero-cutout.webp"
     alt={home.hero.portraitAlt}
     width="1200"
-    height="865"
+    height="879"
     fetchpriority="high"
     class="pointer-events-none absolute bottom-0 right-0 z-0 hidden select-none object-contain object-bottom
            md:block md:w-[52%] md:max-w-[560px]
@@ -58,7 +58,7 @@
       src="/img/chris-hero-cutout.webp"
       alt={home.hero.portraitAlt}
       width="1200"
-      height="865"
+      height="879"
       class="-mb-12 mt-10 ml-auto block w-[78%] max-w-[340px] translate-x-[10%] select-none md:hidden"
     />
   </div>
