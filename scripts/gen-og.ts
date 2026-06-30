@@ -86,7 +86,8 @@ const CARDS: Card[] = [
     eyebrow: podcast.hero.eyebrow,
     title: podcast.hero.title,
     subtitle: podcast.hero.subtitle,
-    portrait: podcast.hero.cover,
+    // A photo of Chris — NOT the show/episode artwork.
+    portrait: home.hero.portrait,
     cta: contact.booking.label
   },
   {
@@ -103,20 +104,30 @@ const NAVY = '#093449';
 const ORANGE = '#ff9902';
 const ORANGE_LIGHT = '#ffc57e';
 const CLOUD = '#e9eff2';
+const NBSP = String.fromCharCode(160);
+
+/** Bind the last two words with a non-breaking space so a wrapped line
+ *  never leaves a single-word orphan. */
+function noOrphans(text: string): string {
+  const words = text.trim().split(' ');
+  if (words.length < 2) return text;
+  const last = words.pop();
+  return `${words.join(' ')}${NBSP}${last}`;
+}
 
 function markup(card: Card): string {
   const portrait = dataUri(card.portrait);
   return `
   <div style="display:flex;width:1200px;height:630px;background:${NAVY};font-family:'Hanken Grotesk';">
-    <div style="display:flex;flex-direction:column;justify-content:space-between;width:730px;height:100%;padding:72px 64px;">
+    <div style="display:flex;flex-direction:column;justify-content:space-between;width:740px;height:100%;padding:76px 64px;">
       <div style="display:flex;flex-direction:column;">
-        <div style="color:${ORANGE_LIGHT};font-size:26px;font-weight:600;letter-spacing:4px;text-transform:uppercase;">${card.eyebrow}</div>
-        <div style="color:#ffffff;font-size:76px;font-weight:800;letter-spacing:-2px;line-height:1.02;margin-top:20px;">${card.title}</div>
-        <div style="color:${CLOUD};font-size:30px;font-weight:400;line-height:1.3;margin-top:26px;">${card.subtitle}</div>
+        <div style="color:${ORANGE_LIGHT};font-size:28px;font-weight:600;letter-spacing:4px;text-transform:uppercase;">${card.eyebrow}</div>
+        <div style="color:#ffffff;font-size:84px;font-weight:800;letter-spacing:-2.5px;line-height:1.0;margin-top:22px;">${noOrphans(card.title)}</div>
+        <div style="color:${CLOUD};font-size:34px;font-weight:400;line-height:1.28;margin-top:28px;">${noOrphans(card.subtitle)}</div>
       </div>
-      <div style="display:flex;align-items:center;color:${ORANGE};font-size:25px;font-weight:600;">${card.cta}</div>
+      <div style="display:flex;align-items:center;color:${ORANGE};font-size:27px;font-weight:600;">${noOrphans(card.cta)}</div>
     </div>
-    <div style="display:flex;width:470px;height:100%;background-image:url(${portrait});background-size:cover;background-position:center;"></div>
+    <img src="${portrait}" width="460" height="630" style="width:460px;height:630px;object-fit:cover;object-position:50% 32%;" />
   </div>`;
 }
 
