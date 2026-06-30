@@ -11,6 +11,8 @@
 
 import siteData from '../../content/site.json';
 import contactData from '../../content/contact.json';
+import bookingData from '../../content/booking.json';
+import getInTouchData from '../../content/get-in-touch.json';
 import homeData from '../../content/home.json';
 import workingTogetherData from '../../content/working-together.json';
 import publicSpeakingData from '../../content/public-speaking.json';
@@ -47,16 +49,26 @@ export interface Booking {
   href: string;
 }
 
+/** Overarching contact details (general collection) — reused site-wide by
+ *  the contact section, footer and SEO. NOT the Get-in-touch page copy. */
 export interface Contact {
-  navLabel: string;
+  /** Eyebrow shown above the contact CTA block. */
   heading: string;
-  intro: string;
   email: string;
   emailHref: string;
   phone: string;
   phoneHref: string;
   location: string;
-  booking: Booking;
+}
+
+/** Get-in-touch PAGE copy (pages collection): editorial only — the
+ *  contact details + booking CTA are pulled from the general collection. */
+export interface GetInTouch {
+  navLabel: string;
+  heading: string;
+  intro: string;
+  /** Markdown. */
+  body: string;
   og: Og;
 }
 
@@ -184,6 +196,8 @@ export interface Testimonials {
 
 export const site: Site = siteData;
 export const contact: Contact = contactData;
+export const booking: Booking = bookingData;
+export const getInTouch: GetInTouch = getInTouchData;
 export const home: Home = homeData;
 export const workingTogether: WorkingTogether = workingTogetherData;
 export const publicSpeaking: PublicSpeaking = publicSpeakingData;
@@ -201,7 +215,7 @@ export const nav: NavItem[] = [
   { href: '/working-together', label: workingTogether.navLabel },
   { href: '/public-speaking', label: publicSpeaking.navLabel },
   { href: '/podcast', label: podcast.navLabel },
-  { href: '/get-in-touch', label: contact.navLabel }
+  { href: '/get-in-touch', label: getInTouch.navLabel }
 ];
 
 /** Footer note with the `{year}` placeholder resolved. */

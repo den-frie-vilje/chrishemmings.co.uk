@@ -26,7 +26,7 @@ const home = readJson('src/content/home.json');
 const wt = readJson('src/content/working-together.json');
 const ps = readJson('src/content/public-speaking.json');
 const podcast = readJson('src/content/podcast.json');
-const contact = readJson('src/content/contact.json');
+const getInTouch = readJson('src/content/get-in-touch.json');
 
 const FONTS = [
   { name: 'Hanken Grotesk', weight: 400 as const, file: 'hanken-grotesk-latin-400-normal.woff' },
@@ -65,7 +65,7 @@ const CARDS: Card[] = [
   { slug: 'working-together', ...wt.og, portrait: wt.hero.portrait },
   { slug: 'public-speaking', ...ps.og, portrait: ps.hero.portrait },
   { slug: 'podcast', ...podcast.og, portrait: home.hero.portrait },
-  { slug: 'get-in-touch', ...contact.og, portrait: home.hero.portrait }
+  { slug: 'get-in-touch', ...getInTouch.og, portrait: home.hero.portrait }
 ];
 
 const NAVY = '#093449';

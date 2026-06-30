@@ -1,10 +1,15 @@
 # Sveltia CMS configuration — single-locale (English).
 #
-# Editing happens on STAGING (chrishemmings-co-uk.stage.denfrievilje.dk/admin) against the
-# GitHub backend via the OAuth proxy (Caddy `/auth/*` → sveltia-auth).
-# Prose fields use the `markdown` widget so copy stays flowing prose, not
-# arrays of bullets. Structured lists (nav, interests, qualifications,
-# talks, platforms) are genuine lists.
+# Editing happens on STAGING (chrishemmings-co-uk.stage.denfrievilje.dk/admin)
+# against the GitHub backend via the OAuth proxy (Caddy `/auth/*` →
+# sveltia-auth). Prose fields use the `markdown` widget so copy stays flowing
+# prose, not arrays of bullets.
+#
+# Two collections:
+#   • General — site-wide settings reused across pages (site, contact details,
+#     booking CTA, testimonials).
+#   • Pages   — the actual pages (Home, Therapy & Coaching, Public Speaking,
+#     Podcast, Get in touch).
 
 backend:
   name: github
@@ -20,8 +25,8 @@ media_folder: static/img
 public_folder: /img
 
 collections:
-  - name: pages
-    label: Pages
+  - name: general
+    label: General
     files:
       - name: site
         label: Site
@@ -37,34 +42,51 @@ collections:
       - name: contact
         label: Contact details
         file: src/content/contact.json
+        hint: "Overarching contact info — shown in the contact section site-wide and in the footer. The Get in touch PAGE copy lives under Pages → Get in touch."
         fields:
-          - { name: navLabel, label: Navigation label, widget: string, hint: "How the Get in touch page appears in the site menu." }
-          - { name: heading, label: Heading, widget: string }
-          - { name: intro, label: Intro, widget: string }
+          - { name: heading, label: Contact section heading, widget: string }
           - { name: email, label: Email, widget: string }
           - { name: emailHref, label: Email link, widget: string }
           - { name: phone, label: Phone (display), widget: string }
           - { name: phoneHref, label: Phone link, widget: string }
           - { name: location, label: Location, widget: text }
-          - name: booking
-            label: Booking CTA
-            widget: object
-            fields:
-              - { name: label, label: Button label, widget: string }
-              - { name: sub, label: Subtext, widget: text }
-              - { name: href, label: Link, widget: string }
-          - name: og
-            label: Social-share image (OG)
-            widget: object
-            hint: "These lines appear on the social-share image shown when the GET IN TOUCH page URL is shared. The name/tagline lockup and photo are added automatically."
-            fields:
-              - { name: eyebrow, label: Eyebrow, widget: string }
-              - { name: title, label: Title, widget: string }
-              - { name: subtitle, label: Subtitle, widget: string }
-              - { name: cta, label: CTA pill, widget: string }
 
+      - name: booking
+        label: Booking CTA
+        file: src/content/booking.json
+        hint: "The 'Book a free consultation' call-to-action used in the header, hero buttons and contact section."
+        fields:
+          - { name: label, label: Button label, widget: string }
+          - { name: sub, label: Subtext, widget: text }
+          - { name: href, label: Link, widget: string }
+
+      - name: testimonials
+        label: Testimonials
+        file: src/content/testimonials.json
+        fields:
+          - name: therapy
+            label: Therapy clients (anonymised)
+            widget: list
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: name, label: Attribution, widget: string, hint: "Anonymised, e.g. \"Client, M, 28\"." }
+              - { name: detail, label: Detail, widget: string, required: false }
+              - { name: org, label: Organisation, widget: string, required: false }
+          - name: speaking
+            label: Public-speaking / commercial clients
+            widget: list
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: name, label: Name / organisation, widget: string }
+              - { name: detail, label: Role, widget: string, required: false }
+              - { name: org, label: Organisation, widget: string, required: false }
+              - { name: logo, label: Client logo, widget: image, required: false }
+
+  - name: pages
+    label: Pages
+    files:
       - name: home
-        label: Home page
+        label: Home
         file: src/content/home.json
         fields:
           - { name: navLabel, label: Navigation label, widget: string, hint: "How this page appears in the site menu." }
@@ -84,7 +106,7 @@ collections:
             label: "Testimonials → edit separately"
             widget: string
             required: false
-            hint: "Testimonials are NOT edited here. They live in their own entry — open **Pages → Testimonials** (admin URL ends `/collections/pages/entries/testimonials`) to add or edit client and commercial quotes. The homepage shows the first therapy testimonial automatically."
+            hint: "Testimonials are NOT edited here. They live under **General → Testimonials** (admin URL ends `/collections/general/entries/testimonials`). The homepage shows the first therapy testimonial automatically."
           - name: about
             label: About
             widget: object
@@ -274,24 +296,21 @@ collections:
               - { name: subtitle, label: Subtitle, widget: string }
               - { name: cta, label: CTA pill, widget: string }
 
-      - name: testimonials
-        label: Testimonials
-        file: src/content/testimonials.json
+      - name: get-in-touch
+        label: Get in touch
+        file: src/content/get-in-touch.json
+        hint: "Page copy only. The email, phone, location and booking CTA shown below it come from General → Contact details and General → Booking CTA."
         fields:
-          - name: therapy
-            label: Therapy clients (anonymised)
-            widget: list
+          - { name: navLabel, label: Navigation label, widget: string, hint: "How this page appears in the site menu." }
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro, widget: text }
+          - { name: body, label: Body, widget: markdown }
+          - name: og
+            label: Social-share image (OG)
+            widget: object
+            hint: "These lines appear on the social-share image shown when the GET IN TOUCH page URL is shared. The name/tagline lockup and photo are added automatically."
             fields:
-              - { name: quote, label: Quote, widget: text }
-              - { name: name, label: Attribution, widget: string, hint: "Anonymised, e.g. \"Client, M, 28\"." }
-              - { name: detail, label: Detail, widget: string, required: false }
-              - { name: org, label: Organisation, widget: string, required: false }
-          - name: speaking
-            label: Public-speaking / commercial clients
-            widget: list
-            fields:
-              - { name: quote, label: Quote, widget: text }
-              - { name: name, label: Name / organisation, widget: string }
-              - { name: detail, label: Role, widget: string, required: false }
-              - { name: org, label: Organisation, widget: string, required: false }
-              - { name: logo, label: Client logo, widget: image, required: false }
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: cta, label: CTA pill, widget: string }

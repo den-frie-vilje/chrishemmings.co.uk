@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { site, home, contact, testimonials } from '$lib/content';
+  import { site, home, booking, testimonials } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
@@ -30,7 +30,7 @@
       </h1>
       <p class="t-lead mt-6 max-w-xl text-ink-soft">{home.hero.lead}</p>
       <div class="mt-8 flex flex-wrap gap-3">
-        <a class="btn btn-primary" href={contact.booking.href}>{home.hero.ctaPrimary}</a>
+        <a class="btn btn-primary" href={booking.href}>{home.hero.ctaPrimary}</a>
         <a class="btn btn-outline" href="/working-together">{home.hero.ctaSecondary}</a>
       </div>
     </div>

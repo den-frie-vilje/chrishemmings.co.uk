@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { site, workingTogether as wt, contact, testimonials } from '$lib/content';
+  import { site, workingTogether as wt, booking, testimonials } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
@@ -24,7 +24,7 @@
       <h1 class="t-display mt-4 text-paper">{wt.hero.title}</h1>
       <p class="t-lead mt-5 text-cloud">{wt.hero.subtitle}</p>
       <div class="mt-8">
-        <a class="btn btn-primary" href={contact.booking.href}>{contact.booking.label}</a>
+        <a class="btn btn-primary" href={booking.href}>{booking.label}</a>
       </div>
     </div>
     <div class="md:justify-self-end">

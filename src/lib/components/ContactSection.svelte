@@ -3,7 +3,7 @@
   page. Navy surface so the warm orange CTA reads strongly (AA contrast).
 -->
 <script lang="ts">
-  import { contact } from '$lib/content';
+  import { contact, booking } from '$lib/content';
 
   interface Props {
     /** Show the email/phone details (off when only the CTA is wanted). */
@@ -16,8 +16,8 @@
   <div class="container-page">
     <div class="mx-auto max-w-2xl text-center">
       <p class="t-eyebrow !text-orange-300">{contact.heading}</p>
-      <h2 class="t-h2 mt-3 text-paper">{contact.booking.label}</h2>
-      <p class="t-lead mx-auto mt-4 max-w-xl text-cloud">{contact.booking.sub}</p>
+      <h2 class="t-h2 mt-3 text-paper">{booking.label}</h2>
+      <p class="t-lead mx-auto mt-4 max-w-xl text-cloud">{booking.sub}</p>
 
       <div class="mt-7 flex flex-wrap justify-center gap-3">
         <a class="btn btn-primary" href={contact.emailHref}>Email Chris</a>

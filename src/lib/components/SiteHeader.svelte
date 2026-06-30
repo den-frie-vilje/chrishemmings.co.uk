@@ -10,7 +10,7 @@
 -->
 <script lang="ts">
   import { page } from '$app/state';
-  import { site, contact, nav } from '$lib/content';
+  import { site, booking, nav } from '$lib/content';
 
   let open = $state(false);
 
@@ -60,7 +60,7 @@
       {/each}
       <!-- CTA hidden in the cramped md–navfull range; reappears at navfull. -->
       <span class="hidden navfull:block">
-        <a href={contact.booking.href} class="btn btn-primary !py-2.5 !px-4 text-[0.9rem]">
+        <a href={booking.href} class="btn btn-primary !py-2.5 !px-4 text-[0.9rem]">
           Free consultation
         </a>
       </span>
@@ -107,11 +107,11 @@
         {/each}
         <li class="pt-3">
           <a
-            href={contact.booking.href}
+            href={booking.href}
             class="btn btn-primary w-full"
             onclick={close}
           >
-            {contact.booking.label}
+            {booking.label}
           </a>
         </li>
       </ul>
