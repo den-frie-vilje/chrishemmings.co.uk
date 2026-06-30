@@ -64,6 +64,7 @@ export interface Home {
     eyebrow: string;
     title: string;
     lead: string;
+    portrait: string;
     portraitAlt: string;
     ctaPrimary: string;
     ctaSecondary: string;
@@ -75,7 +76,7 @@ export interface Home {
 }
 
 export interface WorkingTogether {
-  hero: { eyebrow: string; title: string; subtitle: string; portraitAlt: string };
+  hero: { eyebrow: string; title: string; subtitle: string; portrait: string; portraitAlt: string };
   /** Markdown. */
   intro: string;
   qualifications: { title: string; items: string[]; regulatorNote: string };
@@ -103,6 +104,7 @@ export interface PublicSpeaking {
     title: string;
     subtitle: string;
     intro: string;
+    portrait: string;
     portraitAlt: string;
     cta: string;
   };

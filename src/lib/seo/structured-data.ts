@@ -132,11 +132,17 @@ interface BuildPageSeoInput {
   image?: string;
 }
 
+/** Map a site-relative path to its OG slug (`/` → home). */
+function ogSlug(path: string): string {
+  if (path === '/') return 'home';
+  return path.replace(/^\//, '').replace(/\/$/, '');
+}
+
 /** Assemble the `PageSeo` for a page. */
 export function buildPageSeo(input: BuildPageSeoInput): PageSeo {
   const canonical = absUrl(input.path);
   const ogTitle = input.ogTitle ?? input.title;
-  const imageUrl = absUrl(input.image ?? '/img/og/home.jpg');
+  const imageUrl = absUrl(input.image ?? `/img/og/${ogSlug(input.path)}.png`);
 
   return {
     title: input.title,
@@ -155,7 +161,7 @@ export function buildPageSeo(input: BuildPageSeoInput): PageSeo {
         alt: `${site.name} — ${site.tagline}`,
         width: 1200,
         height: 630,
-        type: 'image/jpeg'
+        type: 'image/png'
       }
     },
     twitter: {

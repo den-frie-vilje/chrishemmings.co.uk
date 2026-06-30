@@ -10,8 +10,7 @@
   const seo = buildPageSeo({
     path: '/podcast',
     title: `No Man's an Island — Podcast · ${site.name}`,
-    description: podcast.hero.intro,
-    image: '/img/podcast-cover.jpg'
+    description: podcast.hero.intro
   });
 
   type FeedState = 'loading' | 'ready' | 'error';

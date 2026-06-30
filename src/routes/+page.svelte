@@ -32,7 +32,7 @@
     </div>
     <div class="md:justify-self-end">
       <img
-        src="/img/chris-hero.jpg"
+        src={home.hero.portrait}
         alt={home.hero.portraitAlt}
         width="520"
         height="600"

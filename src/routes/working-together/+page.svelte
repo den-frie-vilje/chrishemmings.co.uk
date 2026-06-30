@@ -28,7 +28,7 @@
     </div>
     <div class="md:justify-self-end">
       <img
-        src="/img/chris-working.jpg"
+        src={wt.hero.portrait}
         alt={wt.hero.portraitAlt}
         width="460"
         height="560"

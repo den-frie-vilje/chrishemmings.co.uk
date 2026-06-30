@@ -31,7 +31,7 @@
     </div>
     <div class="md:justify-self-end">
       <img
-        src="/img/chris-nike.png"
+        src={ps.hero.portrait}
         alt={ps.hero.portraitAlt}
         width="420"
         height="420"
