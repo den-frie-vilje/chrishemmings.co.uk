@@ -15,8 +15,8 @@
   "founder": {
     "intro": "I am the founder of:",
     "orgs": [
-      { "name": "Men's Therapy Hub", "href": "https://menstherapyhub.com", "logo": "/img/logos/mth.png" },
-      { "name": "M-Path", "href": "https://m-path.co.uk", "logo": "/img/logos/m-path-white.png" }
+      { "name": "Men's Therapy Hub", "href": "https://menstherapyhub.com", "logo": "/img/logos/mth-mono.png" },
+      { "name": "M-Path", "href": "https://m-path.co.uk", "logo": "/img/logos/m-path-mono.png" }
     ]
   },
   "interests": {

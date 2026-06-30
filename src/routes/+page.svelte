@@ -68,16 +68,26 @@
         class="aspect-[4/5] w-full rounded-lg object-cover shadow-md"
         loading="lazy"
       />
-      <div class="mt-8">
+      <div class="mt-5">
         <p class="t-eyebrow">{home.founder.intro}</p>
-        <div class="mt-4 inline-flex flex-wrap items-center gap-x-9 gap-y-5 rounded-xl bg-navy-900 px-8 py-6">
+        <!-- Two equal cards spanning the photo's width, sitting under it.
+             Logos are dark-green monochrome marks on the section ground. -->
+        <div class="mt-3 grid grid-cols-2 gap-4">
           {#each home.founder.orgs as org (org.name)}
             {#if org.href}
-              <a href={org.href} target="_blank" rel="noopener" aria-label={org.name}>
-                <img src={org.logo} alt={`${org.name} logo`} class="h-12 w-auto" loading="lazy" />
+              <a
+                href={org.href}
+                target="_blank"
+                rel="noopener"
+                aria-label={org.name}
+                class="flex h-24 items-center justify-center rounded-xl border border-line transition-colors hover:bg-paper-2"
+              >
+                <img src={org.logo} alt={`${org.name} logo`} class="max-h-12 w-auto px-5" loading="lazy" />
               </a>
             {:else}
-              <img src={org.logo} alt={`${org.name} logo`} class="h-12 w-auto" loading="lazy" />
+              <span class="flex h-24 items-center justify-center rounded-xl border border-line">
+                <img src={org.logo} alt={`${org.name} logo`} class="max-h-12 w-auto px-5" loading="lazy" />
+              </span>
             {/if}
           {/each}
         </div>

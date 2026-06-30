@@ -110,9 +110,9 @@
   /* Animated equaliser — "sound-like" while playing, flat when paused. */
   .eq {
     display: inline-flex;
-    align-items: flex-end;
+    align-items: center;
     gap: 2px;
-    height: 16px;
+    height: 18px;
     flex-shrink: 0;
   }
   .eq i {
@@ -120,7 +120,7 @@
     height: 100%;
     background: var(--color-orange-700);
     transform: scaleY(0.25);
-    transform-origin: bottom;
+    transform-origin: center;
   }
   .eq.playing i {
     animation: eq 0.8s ease-in-out infinite;
@@ -168,7 +168,8 @@
   /* Hairline seek bar — ~stem thickness (2px), monochrome orange. */
   .bar {
     flex: 1;
-    height: 2px;
+    height: 4px;
+    border-radius: 9999px;
     appearance: none;
     -webkit-appearance: none;
     background: linear-gradient(
