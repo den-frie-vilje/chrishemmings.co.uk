@@ -70,7 +70,7 @@
 <SeoHead {seo} />
 
 <!-- Hero -->
-<section class="relative isolate overflow-hidden bg-navy-900 text-paper section-y">
+<section class="relative isolate z-10 bg-navy-900 text-paper section-y">
   <!-- Large radial pooling a slightly darker navy behind the cover so the
        (navy-toned) artwork doesn't blend into the flat hero. Follows the
        cover: bottom on small screens, left column on md+. -->
@@ -90,7 +90,7 @@
         {/each}
       </div>
     </div>
-    <div class="md:order-1 md:justify-self-start">
+    <div class="relative -mb-[135px] md:order-1 md:mb-0 md:justify-self-start">
       <img
         src={podcast.hero.cover}
         alt={podcast.hero.coverAlt}
@@ -102,9 +102,10 @@
   </div>
 </section>
 
-<!-- About the show -->
+<!-- About the show — extra top room on mobile so the copy clears the cover
+     that overlaps down from the navy hero. -->
 <section class="bg-paper section-y">
-  <div class="container-page max-w-3xl">
+  <div class="container-page max-w-3xl max-md:mt-24">
     <Prose md={podcast.about} />
   </div>
 </section>
