@@ -58,7 +58,7 @@ collections:
         fields:
           - { name: label, label: Button label, widget: string }
           - { name: sub, label: Subtext, widget: text }
-          - { name: href, label: Link, widget: string }
+          - { name: href, label: Link, widget: string, hint: "A mailto: link so the button opens the visitor's email client, e.g. mailto:you@example.com?subject=Free 15-minute consultation" }
 
       - name: testimonials
         label: Testimonials
