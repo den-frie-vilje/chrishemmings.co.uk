@@ -1,9 +1,11 @@
 <!--
   Sticky site header: navy surface, wordmark left, nav + primary CTA
-  right. Three stages, no wrapping:
-    • below md (<768px): hamburger + overlay menu;
-    • md–navfull (768–928px): inline nav links, CTA button hidden;
-    • navfull+ (≥928px): inline nav links + the "Free consultation" CTA.
+  right. Gradual collapse, no wrapping:
+    • < navmini (<720px): just the hamburger + overlay menu;
+    • navmini–md (720–768px): three primary links inline + a partial burger
+      (Home + Podcast live in the menu);
+    • md–navfull (768–928px): all five links inline, CTA hidden, burger off;
+    • navfull+ (≥928px): all five links + the "Free consultation" CTA.
 -->
 <script lang="ts">
   import { page } from '$app/state';
@@ -18,6 +20,12 @@
   function close() {
     open = false;
   }
+
+  // Primary links stay inline down to `navmini`; the rest (Home — the logo
+  // already links home — and Podcast) only show from `md`, otherwise they
+  // live in the partial burger.
+  const PRIMARY = new Set(['/working-together', '/public-speaking', '/get-in-touch']);
+  const linkVisibility = (href: string) => (PRIMARY.has(href) ? '' : 'hidden md:inline');
 </script>
 
 <header class="sticky top-0 z-50 bg-navy-900 text-paper">
@@ -31,11 +39,13 @@
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden flex-nowrap items-center gap-6 whitespace-nowrap md:flex" aria-label="Primary">
+    <nav class="hidden flex-nowrap items-center gap-6 whitespace-nowrap navmini:flex" aria-label="Primary">
       {#each site.nav as item (item.href)}
         <a
           href={item.href}
-          class="text-[0.93rem] font-medium transition-colors hover:text-orange-300"
+          class="text-[0.93rem] font-medium transition-colors hover:text-orange-300 {linkVisibility(
+            item.href
+          )}"
           class:text-orange-300={isActive(item.href)}
           aria-current={isActive(item.href) ? 'page' : undefined}
         >

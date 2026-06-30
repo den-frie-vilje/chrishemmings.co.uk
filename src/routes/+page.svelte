@@ -24,7 +24,9 @@
   <div class="container-page grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
     <div>
       <p class="t-eyebrow">{home.hero.eyebrow}</p>
-      <h1 class="t-display mt-4 text-ink">{home.hero.title}</h1>
+      <h1 class="t-display mt-4 text-ink">
+        {home.hero.title}<span class="block text-ink-soft">{home.hero.titleAccent}</span>
+      </h1>
       <p class="t-lead mt-6 max-w-xl text-ink-soft">{home.hero.lead}</p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a class="btn btn-primary" href={contact.booking.href}>{home.hero.ctaPrimary}</a>

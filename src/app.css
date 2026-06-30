@@ -48,8 +48,12 @@
   --spacing-section: 84px;
   --container-page: 1160px;
 
-  /* Extra breakpoint: width at which the inline nav can also fit the
-     "Free consultation" CTA button (links appear at md). */
+  /* Header nav breakpoints (mobile → desktop):
+       navmini (45rem/720px) — the three primary links appear (Home +
+         Podcast stay in the partial burger);
+       md      (768px)       — Home + Podcast join the inline nav, burger off;
+       navfull (58rem/928px) — the "Free consultation" CTA fits too. */
+  --breakpoint-navmini: 45rem;
   --breakpoint-navfull: 58rem;
 }
 

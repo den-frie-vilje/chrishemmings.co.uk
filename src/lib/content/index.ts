@@ -64,6 +64,8 @@ export interface Home {
   hero: {
     eyebrow: string;
     title: string;
+    /** Lighter-weight descriptor shown under the name in the hero H1. */
+    titleAccent: string;
     lead: string;
     portrait: string;
     portraitAlt: string;

@@ -68,6 +68,7 @@ collections:
             fields:
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: title, label: Title, widget: string }
+              - { name: titleAccent, label: Title descriptor (lighter line), widget: string }
               - { name: lead, label: Lead, widget: text }
               - { name: portrait, label: Portrait image, widget: image, hint: "Also used for the home social-share (OG) image." }
               - { name: portraitAlt, label: Portrait alt text, widget: string }
