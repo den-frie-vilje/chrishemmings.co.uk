@@ -6,9 +6,9 @@
 -->
 <script lang="ts">
   import type { Episode } from '$lib/podcast';
+  import AudioPlayer from '$lib/components/AudioPlayer.svelte';
 
   let { episodes }: { episodes: Episode[] } = $props();
-  let openGuid = $state<string | null>(null);
 </script>
 
 <ul class="border-t border-line">
@@ -36,19 +36,10 @@
             <p class="mt-2 line-clamp-2 text-[0.97rem] leading-relaxed text-ink-soft">{ep.excerpt}</p>
           {/if}
 
-          {#if openGuid === ep.guid}
-            <!-- svelte-ignore a11y_autofocus -->
-            <audio class="mt-4 w-full" controls preload="none" src={ep.audioUrl}></audio>
-          {:else}
-            <button
-              class="mt-3 inline-flex items-center gap-2 font-semibold text-orange-700 hover:text-orange-600"
-              onclick={() => (openGuid = ep.guid)}
-            >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-              Play episode
-            </button>
+          {#if ep.audioUrl}
+            <div class="mt-4 max-w-xl">
+              <AudioPlayer src={ep.audioUrl} durationLabel={ep.durationLabel} />
+            </div>
           {/if}
         </div>
       </div>

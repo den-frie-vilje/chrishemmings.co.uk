@@ -6,6 +6,7 @@
 -->
 <script lang="ts">
   import type { Episode } from '$lib/podcast';
+  import AudioPlayer from '$lib/components/AudioPlayer.svelte';
 
   let { episodes }: { episodes: Episode[] } = $props();
 </script>
@@ -37,7 +38,9 @@
         {#if ep.excerpt}
           <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">{ep.excerpt}</p>
         {/if}
-        <audio class="mt-auto w-full pt-4" controls preload="none" src={ep.audioUrl}></audio>
+        <div class="mt-auto pt-4">
+          <AudioPlayer src={ep.audioUrl} durationLabel={ep.durationLabel} />
+        </div>
       </div>
     </li>
   {/each}
