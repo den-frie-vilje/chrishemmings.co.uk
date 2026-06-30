@@ -59,7 +59,11 @@
     {#if paused}
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
     {:else}
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
+      <!-- Pause bars sized to ~4px rendered — matching the seek bar thickness. -->
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
+        <rect x="6.6" y="5" width="4.4" height="14" rx="0.4" />
+        <rect x="13" y="5" width="4.4" height="14" rx="0.4" />
+      </svg>
     {/if}
   </button>
 
@@ -156,17 +160,21 @@
     }
   }
 
-  /* Timecodes — same type as the "Play episode" label. */
+  /* Timecodes — heading font (Hanken Grotesk), bold for substance, with
+     looser kerning than headings (which run tight). */
   .t {
+    font-family: var(--font-sans);
     font-size: 0.92rem;
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     color: var(--color-orange-700);
     font-variant-numeric: tabular-nums;
-    min-width: 3ch;
+    min-width: 3.3ch;
   }
 
-  /* Hairline seek bar — ~stem thickness (2px), monochrome orange. */
+  /* Seek bar — monochrome orange; brightens on hover like the play button. */
   .bar {
+    --bar-color: var(--color-orange-700);
     flex: 1;
     height: 4px;
     border-radius: 9999px;
@@ -174,10 +182,13 @@
     -webkit-appearance: none;
     background: linear-gradient(
       to right,
-      var(--color-orange-700) var(--pct, 0%),
-      color-mix(in srgb, var(--color-orange-700) 22%, transparent) var(--pct, 0%)
+      var(--bar-color) var(--pct, 0%),
+      color-mix(in srgb, var(--bar-color) 22%, transparent) var(--pct, 0%)
     );
     cursor: pointer;
+  }
+  .bar:hover:not(:disabled) {
+    --bar-color: var(--color-orange-600);
   }
   .bar:disabled {
     cursor: default;
@@ -188,14 +199,22 @@
     width: 11px;
     height: 11px;
     border-radius: 9999px;
-    background: var(--color-orange-700);
+    background: var(--bar-color);
+    transition: transform 0.15s ease;
   }
   .bar::-moz-range-thumb {
     width: 11px;
     height: 11px;
     border: none;
     border-radius: 9999px;
-    background: var(--color-orange-700);
+    background: var(--bar-color);
+    transition: transform 0.15s ease;
+  }
+  .bar:hover:not(:disabled)::-webkit-slider-thumb {
+    transform: scale(1.25);
+  }
+  .bar:hover:not(:disabled)::-moz-range-thumb {
+    transform: scale(1.25);
   }
   .bar:focus-visible {
     outline: 3px solid var(--color-orange-500);

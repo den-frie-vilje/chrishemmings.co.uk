@@ -19,7 +19,7 @@
       {#each loop as org, i (org.name + '-' + i)}
         <li aria-hidden={i >= logos.length ? 'true' : undefined}>
           <span class="card">
-            <img src={org.logo} alt={i < logos.length ? org.name : ''} loading="lazy" />
+            <img src={org.logo} alt={i < logos.length ? org.name : ''} loading="eager" />
           </span>
         </li>
       {/each}
@@ -47,19 +47,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 84px;
-    /* Auto width + fixed logo HEIGHT → every logo is the same height
-       (no tiny wide logos like Barclays); cards just get wider/narrower. */
-    width: auto;
-    padding: 0 30px;
+    /* Equal-sized cards. The logo is contained within a consistent inner
+       box so every card matches; per-logo width quirks are normalised by
+       trimming the SVGs' own padding (e.g. Barclays). */
+    height: 82px;
+    width: 176px;
+    padding: 16px 24px;
     background: #fff;
     border: 1px solid var(--color-line);
     border-radius: 10px;
   }
   .card img {
-    height: 44px;
-    width: auto;
-    max-width: 220px;
+    max-height: 100%;
+    max-width: 100%;
     object-fit: contain;
     filter: grayscale(1);
     opacity: 0.62;
