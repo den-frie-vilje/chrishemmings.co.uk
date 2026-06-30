@@ -1,13 +1,13 @@
 <!--
-  Minimal, page-styled audio player (no native chrome). Orange round
-  play/pause button (matching the editorial accent), a seekable progress
-  bar with an orange fill, and current/total timecodes. Borderless.
-
-  `preload="none"` — the audio file isn't fetched until the listener
-  hits play, so a page of 38 players costs nothing until used. Duration
-  shows the feed-provided label until real metadata loads.
+  Minimal, monochrome-orange audio player styled to match the editorial
+  "Play episode" type. Icon-only play/pause (no button background), an
+  animated equaliser waveform while playing, a hairline seek bar (the same
+  thickness as the lettering stems) with orange fill, and orange timecodes.
+  Only one player on the page plays at a time (see $lib/audioBus).
 -->
 <script lang="ts">
+  import { claim, release } from '$lib/audioBus';
+
   interface Props {
     src: string;
     /** Feed-provided duration label shown until metadata loads (e.g. "44 min"). */
@@ -43,22 +43,31 @@
 </script>
 
 <div class="player">
-  <audio bind:this={audio} {src} preload="none" bind:paused bind:currentTime bind:duration></audio>
+  <audio
+    bind:this={audio}
+    {src}
+    preload="none"
+    bind:paused
+    bind:currentTime
+    bind:duration
+    onplay={() => audio && claim(audio)}
+    onpause={() => audio && release(audio)}
+    onended={() => audio && release(audio)}
+  ></audio>
 
-  <button
-    type="button"
-    class="play"
-    onclick={toggle}
-    aria-label={paused ? 'Play episode' : 'Pause episode'}
-  >
+  <button type="button" class="ctrl" onclick={toggle} aria-label={paused ? 'Play episode' : 'Pause episode'}>
     {#if paused}
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
     {:else}
-      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z" /></svg>
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" /></svg>
     {/if}
   </button>
 
-  <span class="time tabular">{fmt(currentTime)}</span>
+  <span class="eq" class:playing={!paused} aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i>
+  </span>
+
+  <span class="t">{fmt(currentTime)}</span>
 
   <input
     class="bar"
@@ -73,85 +82,129 @@
     disabled={duration === 0}
   />
 
-  <span class="time tabular">{duration > 0 ? fmt(duration) : durationLabel}</span>
+  <span class="t">{duration > 0 ? fmt(duration) : durationLabel}</span>
 </div>
 
 <style>
   .player {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-  }
-  .play {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    width: 42px;
-    height: 42px;
-    border-radius: 9999px;
-    background: var(--color-orange-500);
-    color: var(--color-navy-950);
-    transition:
-      background-color 0.18s ease,
-      transform 0.12s ease;
-  }
-  .play:hover {
-    background: var(--color-orange-600);
-    color: #fff;
-  }
-  .play:active {
-    transform: scale(0.94);
-  }
-  /* Nudge the play triangle to look optically centred. */
-  .play svg {
-    margin-left: 1px;
-  }
-  .time {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--color-ink-soft);
-    min-width: 3.1ch;
-  }
-  .tabular {
-    font-variant-numeric: tabular-nums;
+    gap: 0.7rem;
+    color: var(--color-orange-700);
   }
 
+  /* Icon-only control — no background, monochrome orange. */
+  .ctrl {
+    display: flex;
+    flex-shrink: 0;
+    color: var(--color-orange-700);
+    transition: color 0.15s ease;
+  }
+  .ctrl:hover {
+    color: var(--color-orange-600);
+  }
+  .ctrl svg {
+    display: block;
+  }
+
+  /* Animated equaliser — "sound-like" while playing, flat when paused. */
+  .eq {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .eq i {
+    width: 2px;
+    height: 100%;
+    background: var(--color-orange-700);
+    transform: scaleY(0.25);
+    transform-origin: bottom;
+  }
+  .eq.playing i {
+    animation: eq 0.8s ease-in-out infinite;
+  }
+  /* Staggered durations/delays so the bars read as random, not in sync. */
+  .eq.playing i:nth-child(1) {
+    animation-duration: 0.7s;
+    animation-delay: -0.2s;
+  }
+  .eq.playing i:nth-child(2) {
+    animation-duration: 0.52s;
+    animation-delay: -0.4s;
+  }
+  .eq.playing i:nth-child(3) {
+    animation-duration: 0.9s;
+    animation-delay: -0.1s;
+  }
+  .eq.playing i:nth-child(4) {
+    animation-duration: 0.61s;
+    animation-delay: -0.33s;
+  }
+  .eq.playing i:nth-child(5) {
+    animation-duration: 0.78s;
+    animation-delay: -0.15s;
+  }
+  @keyframes eq {
+    0%,
+    100% {
+      transform: scaleY(0.2);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  /* Timecodes — same type as the "Play episode" label. */
+  .t {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--color-orange-700);
+    font-variant-numeric: tabular-nums;
+    min-width: 3ch;
+  }
+
+  /* Hairline seek bar — ~stem thickness (2px), monochrome orange. */
   .bar {
     flex: 1;
-    height: 6px;
+    height: 2px;
     appearance: none;
     -webkit-appearance: none;
-    border-radius: 9999px;
     background: linear-gradient(
       to right,
-      var(--color-orange-500) var(--pct, 0%),
-      color-mix(in srgb, var(--color-ink-soft) 28%, transparent) var(--pct, 0%)
+      var(--color-orange-700) var(--pct, 0%),
+      color-mix(in srgb, var(--color-orange-700) 22%, transparent) var(--pct, 0%)
     );
     cursor: pointer;
   }
   .bar:disabled {
     cursor: default;
-    opacity: 0.6;
+    opacity: 0.55;
   }
   .bar::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
+    width: 11px;
+    height: 11px;
     border-radius: 9999px;
-    background: var(--color-orange-500);
-    border: 2px solid var(--color-paper);
-    box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-ink-soft) 30%, transparent);
+    background: var(--color-orange-700);
   }
   .bar::-moz-range-thumb {
-    width: 14px;
-    height: 14px;
-    border: 2px solid var(--color-paper);
+    width: 11px;
+    height: 11px;
+    border: none;
     border-radius: 9999px;
-    background: var(--color-orange-500);
+    background: var(--color-orange-700);
   }
   .bar:focus-visible {
     outline: 3px solid var(--color-orange-500);
-    outline-offset: 3px;
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .eq.playing i {
+      animation: none;
+      transform: scaleY(0.6);
+    }
   }
 </style>

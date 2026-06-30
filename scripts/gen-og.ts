@@ -63,23 +63,23 @@ interface Card {
 const CARDS: Card[] = [
   {
     slug: 'home',
-    eyebrow: 'Online Therapy for Men',
-    title: 'Therapy & coaching for men',
-    subtitle: 'Make sense of your life, relationships and emotions',
+    eyebrow: 'For men · online · worldwide',
+    title: 'Make sense of your life and relationships',
+    subtitle: 'Anxiety, anger, addiction, masculinity & more',
     portrait: home.hero.portrait,
     cta: 'Book a free 15-minute consultation'
   },
   {
     slug: 'working-together',
-    eyebrow: 'Therapy & Coaching',
+    eyebrow: 'How I work',
     title: 'A space without judgement',
-    subtitle: 'Person-centred therapy & coaching for men',
+    subtitle: 'Person-centred, collaborative, tailored to you',
     portrait: wt.hero.portrait,
     cta: 'Book a free 15-minute consultation'
   },
   {
     slug: 'public-speaking',
-    eyebrow: 'Public Speaking',
+    eyebrow: 'For workplaces & events',
     title: 'Talks & workshops',
     subtitle: "Men's mental health, masculinity & wellbeing",
     portrait: ps.hero.portrait,
@@ -87,7 +87,7 @@ const CARDS: Card[] = [
   },
   {
     slug: 'podcast',
-    eyebrow: 'Podcast · No Man’s an Island',
+    eyebrow: 'Podcast',
     title: 'No Man’s an Island',
     subtitle: 'Honest conversations on men’s wellbeing',
     // A photo of Chris — NOT the show/episode artwork.

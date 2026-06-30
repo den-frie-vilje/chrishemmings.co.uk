@@ -47,16 +47,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 78px;
-    width: 168px;
-    padding: 14px 20px;
+    height: 84px;
+    /* Auto width + fixed logo HEIGHT → every logo is the same height
+       (no tiny wide logos like Barclays); cards just get wider/narrower. */
+    width: auto;
+    padding: 0 30px;
     background: #fff;
     border: 1px solid var(--color-line);
     border-radius: 10px;
   }
   .card img {
-    max-height: 100%;
-    max-width: 100%;
+    height: 44px;
+    width: auto;
+    max-width: 220px;
     object-fit: contain;
     filter: grayscale(1);
     opacity: 0.62;
