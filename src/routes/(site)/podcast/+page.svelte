@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { site, podcast } from '$lib/content';
   import { parseFeed, groupBySeason, type Episode } from '$lib/podcast';
-  import { buildPageSeo } from '$lib/seo/structured-data';
+  import { buildPageSeo, absUrl } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Prose from '$lib/components/Prose.svelte';
@@ -18,7 +18,20 @@
   const seo = buildPageSeo({
     path: '/podcast',
     title: `No Man's an Island — Podcast · ${site.name}`,
-    description: podcast.hero.intro
+    description:
+      "No Man's an Island — honest conversations about men's mental health, co-hosted by Chris Hemmings. New episode every Tuesday.",
+    graph: [
+      {
+        '@type': 'PodcastSeries',
+        name: podcast.hero.title,
+        url: absUrl('/podcast'),
+        description:
+          "Honest, grounded conversations about men's mental health and masculinity, powered by Men's Therapy Hub.",
+        image: absUrl(podcast.hero.cover),
+        webFeed: absUrl(podcast.feedPath),
+        sameAs: podcast.platforms.map((p) => p.href)
+      }
+    ]
   });
 
   type FeedState = 'loading' | 'ready' | 'error';
@@ -29,6 +42,17 @@
   // a single season stays a flat list.
   const seasons = $derived(groupBySeason(episodes));
   const useSeasons = $derived(seasons.length > 1);
+
+  // Stable status string for a single persistent live region, so the
+  // resolved/failed state is announced reliably (rather than mounting and
+  // unmounting separate aria-live nodes).
+  const status = $derived(
+    feedState === 'loading'
+      ? 'Loading episodes…'
+      : feedState === 'error'
+        ? "Episodes couldn't be loaded."
+        : `${episodes.length} episode${episodes.length === 1 ? '' : 's'} loaded.`
+  );
 
   onMount(async () => {
     try {
@@ -86,10 +110,13 @@
   <div class="container-page">
     <h2 class="t-h2 text-ink">Latest episodes</h2>
 
+    <!-- Single persistent live region — reliably announces each state change. -->
+    <p class="sr-only" role="status" aria-live="polite">{status}</p>
+
     {#if feedState === 'loading'}
-      <p class="mt-8 text-ink-soft" aria-live="polite">Loading episodes…</p>
+      <p class="mt-8 text-ink-soft">Loading episodes…</p>
     {:else if feedState === 'error'}
-      <div class="mt-8 rounded-lg border border-line bg-paper p-6" aria-live="polite">
+      <div class="mt-8 rounded-lg border border-line bg-paper p-6">
         <p class="text-ink">Episodes couldn't be loaded right now.</p>
         <p class="mt-2 text-ink-soft">
           You can listen on

@@ -9,7 +9,7 @@
  */
 
 import { env } from '$env/dynamic/public';
-import { site, contact } from '$lib/content';
+import { site, contact, home, podcast } from '$lib/content';
 
 function normalizeSiteUrl(raw: string | undefined): string {
   const fallback = 'https://chrishemmings.co.uk';
@@ -33,21 +33,35 @@ function toE164(phone: string): string {
 const BUSINESS_ID = `${SITE_URL}/#practice`;
 const PERSON_ID = `${SITE_URL}/#chris`;
 
+/** BACP membership number, single-sourced from the register URL. */
+const bacpMembership = site.bacpRegisterUrl.split('/').filter(Boolean).pop() ?? '';
+
+/** External profiles that disambiguate the entity (E-E-A-T). Single-sourced
+ *  from content: BACP register + founded orgs + podcast platforms. */
+const personSameAs = [
+  site.bacpRegisterUrl,
+  ...home.founder.orgs.map((o) => o.href).filter((h): h is string => Boolean(h)),
+  ...podcast.platforms.map((p) => p.href)
+];
+
 /**
- * Site-wide JSON-LD graph: ProfessionalService + Person. Emitted on
- * every page so the entity is reinforced site-wide. `serviceType` and
- * the Person's `knowsAbout` advertise the men's-therapy specialism.
+ * Site-wide JSON-LD nodes: ProfessionalService + Person. Reinforced on
+ * every page so the entity is consistent site-wide. `serviceType` and the
+ * Person's `knowsAbout` advertise the men's-therapy specialism; `sameAs`
+ * and `hasCredential` strengthen entity disambiguation and E-E-A-T.
  */
-export function buildSiteJsonLd(): object {
+function siteGraph(): object[] {
   const practice = {
     '@type': ['ProfessionalService', 'LocalBusiness'],
     '@id': BUSINESS_ID,
     name: site.name,
     url: `${SITE_URL}/`,
+    image: absUrl(home.hero.portrait),
     telephone: toE164(contact.phone),
     email: contact.email,
     description: site.description,
     serviceType: 'Psychotherapy and coaching for men',
+    priceRange: '££',
     areaServed: [
       { '@type': 'Country', name: 'United Kingdom' },
       { '@type': 'Place', name: 'Europe (online)' }
@@ -65,6 +79,8 @@ export function buildSiteJsonLd(): object {
     '@type': 'Person',
     '@id': PERSON_ID,
     name: site.name,
+    url: `${SITE_URL}/`,
+    image: absUrl(home.hero.portrait),
     jobTitle: 'Psychotherapist & Coach',
     description:
       'Psychotherapist and coach specialising in working with men; founder of Men’s Therapy Hub and M-Path; former BBC journalist and author of ‘Be a Man’ (2017).',
@@ -81,12 +97,30 @@ export function buildSiteJsonLd(): object {
     ],
     memberOf: {
       '@type': 'Organization',
-      name: 'British Association for Counselling and Psychotherapy (BACP)'
+      name: 'British Association for Counselling and Psychotherapy (BACP)',
+      url: 'https://www.bacp.co.uk'
     },
+    hasCredential: {
+      '@type': 'EducationalOccupationalCredential',
+      credentialCategory: 'Professional registration',
+      identifier: bacpMembership,
+      recognizedBy: {
+        '@type': 'Organization',
+        name: 'British Association for Counselling and Psychotherapy (BACP)',
+        url: 'https://www.bacp.co.uk'
+      }
+    },
+    sameAs: personSameAs,
     knowsLanguage: ['en']
   };
 
-  return { '@context': 'https://schema.org', '@graph': [practice, person] };
+  return [practice, person];
+}
+
+/** Site-wide JSON-LD graph, optionally extended with page-specific nodes
+ *  (e.g. a `PodcastSeries` on the podcast page). */
+export function buildSiteJsonLd(extra: object[] = []): object {
+  return { '@context': 'https://schema.org', '@graph': [...siteGraph(), ...extra] };
 }
 
 export interface PageSeoImage {
@@ -130,6 +164,10 @@ interface BuildPageSeoInput {
   ogTitle?: string;
   /** Site-relative OG image path; defaults to the shared home OG. */
   image?: string;
+  /** Alt text for the OG image (defaults to the name + tagline lockup). */
+  imageAlt?: string;
+  /** Extra JSON-LD `@graph` nodes for this page (e.g. `PodcastSeries`). */
+  graph?: object[];
 }
 
 /** Map a site-relative path to its OG slug (`/` → home). */
@@ -143,6 +181,7 @@ export function buildPageSeo(input: BuildPageSeoInput): PageSeo {
   const canonical = absUrl(input.path);
   const ogTitle = input.ogTitle ?? input.title;
   const imageUrl = absUrl(input.image ?? `/img/og/${ogSlug(input.path)}.png`);
+  const imageAlt = input.imageAlt ?? `${site.name} — ${site.tagline}`;
 
   return {
     title: input.title,
@@ -158,7 +197,7 @@ export function buildPageSeo(input: BuildPageSeoInput): PageSeo {
       url: canonical,
       image: {
         url: imageUrl,
-        alt: `${site.name} — ${site.tagline}`,
+        alt: imageAlt,
         width: 1200,
         height: 630,
         type: 'image/png'
@@ -170,6 +209,6 @@ export function buildPageSeo(input: BuildPageSeoInput): PageSeo {
       description: input.description,
       image: imageUrl
     },
-    jsonLd: JSON.stringify(buildSiteJsonLd())
+    jsonLd: JSON.stringify(buildSiteJsonLd(input.graph))
   };
 }

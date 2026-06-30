@@ -10,7 +10,7 @@
   const seo = buildPageSeo({
     path: '/',
     title: `${site.name} — ${site.tagline} | Online Therapy`,
-    ogTitle: site.name,
+    ogTitle: `${site.name} — ${site.tagline}`,
     description:
       'Chris Hemmings is a psychotherapist and coach for men, offering online therapy across the UK, Europe and beyond. Book a free 15-minute consultation.'
   });

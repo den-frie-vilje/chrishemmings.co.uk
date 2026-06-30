@@ -38,6 +38,7 @@
   <meta name="twitter:title" content={seo.twitter.title} />
   <meta name="twitter:description" content={seo.twitter.description} />
   <meta name="twitter:image" content={seo.twitter.image} />
+  <meta name="twitter:image:alt" content={seo.og.image.alt} />
 
   <!-- Schema.org @graph -->
   {@html `<script type="application/ld+json">${seo.jsonLd}</script>`}

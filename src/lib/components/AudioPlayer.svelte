@@ -82,7 +82,8 @@
     step="0.1"
     oninput={seek}
     style="--pct:{pct}%"
-    aria-label="Seek"
+    aria-label="Seek through episode"
+    aria-valuetext={`${fmt(currentTime)} of ${duration > 0 ? fmt(duration) : durationLabel || 'unknown'}`}
     disabled={duration === 0}
   />
 

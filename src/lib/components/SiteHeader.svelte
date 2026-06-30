@@ -13,6 +13,8 @@
   import { site, booking, nav } from '$lib/content';
 
   let open = $state(false);
+  let toggleBtn = $state<HTMLButtonElement>();
+  let mobileNav = $state<HTMLElement>();
 
   const current = $derived(page.url.pathname);
   function isActive(href: string): boolean {
@@ -21,6 +23,18 @@
   function close() {
     open = false;
   }
+  // Esc closes the overlay and returns focus to the toggle (2.1.2 / 2.4.3).
+  function onKeydown(e: KeyboardEvent) {
+    if (e.key === 'Escape' && open) {
+      open = false;
+      toggleBtn?.focus();
+    }
+  }
+  // When the overlay opens, move focus into it so keyboard/AT users land on
+  // the menu rather than continuing behind it.
+  $effect(() => {
+    if (open) mobileNav?.querySelector<HTMLAnchorElement>('a')?.focus();
+  });
 
   // Per-link inline visibility, by priority. Therapy & Public stay inline
   // longest (from navtight); Get in touch joins at navmini; Home (the logo
@@ -33,6 +47,8 @@
   };
   const linkVisibility = (href: string) => LINK_VIS[href] ?? 'hidden md:inline';
 </script>
+
+<svelte:window onkeydown={onKeydown} />
 
 <header class="sticky top-0 z-50 bg-navy-900 text-paper">
   <div class="container-page flex h-[68px] items-center justify-between gap-4">
@@ -68,6 +84,7 @@
 
     <!-- Mobile toggle -->
     <button
+      bind:this={toggleBtn}
       class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded text-paper"
       aria-expanded={open}
       aria-controls="mobile-nav"
@@ -87,6 +104,7 @@
   <!-- Mobile overlay menu -->
   {#if open}
     <nav
+      bind:this={mobileNav}
       id="mobile-nav"
       class="md:hidden border-t border-white/10 bg-navy-900"
       aria-label="Primary"

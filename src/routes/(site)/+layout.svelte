@@ -10,9 +10,16 @@
   let { children } = $props();
 </script>
 
+<a
+  href="#main"
+  class="sr-only z-[100] rounded bg-navy-900 px-4 py-2 font-medium text-paper focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
+>
+  Skip to content
+</a>
+
 <div class="flex min-h-dvh flex-col">
   <SiteHeader />
-  <main class="flex-1">
+  <main id="main" tabindex="-1" class="flex-1 scroll-mt-20 focus:outline-none">
     {@render children()}
   </main>
   <SiteFooter />
