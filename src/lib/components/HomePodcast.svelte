@@ -35,7 +35,7 @@
       <div class="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p class="t-eyebrow">{podcast.hero.eyebrow} · {podcast.hero.title}</p>
-          <h2 class="t-h2 mt-2 text-ink">Latest episode</h2>
+          <h2 class="t-h2 mt-2 text-ink">Latest podcast episode</h2>
         </div>
         {#if moreCount > 0}
           <a

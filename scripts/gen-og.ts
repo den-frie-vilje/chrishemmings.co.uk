@@ -97,8 +97,8 @@ const CARDS: Card[] = [
   {
     slug: 'get-in-touch',
     eyebrow: 'Get in touch',
-    title: 'Let’s see if we’re a good fit',
-    subtitle: 'A free 15-minute intro call',
+    title: 'Considering therapy or coaching?',
+    subtitle: 'Book a free 15-minute intro call',
     portrait: home.hero.portrait,
     cta: 'Book a free 15-minute consultation'
   }
