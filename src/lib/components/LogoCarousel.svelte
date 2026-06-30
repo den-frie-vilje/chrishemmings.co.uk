@@ -1,55 +1,39 @@
 <!--
   Auto-scrolling logo marquee. Logos sit on uniform white cards (equal
   height, object-contain — so Chris's non-proportional strip scaling is
-  gone) and render monochrome until hovered. Pauses on hover and via a
-  keyboard-focusable pause/play control (WCAG 2.2.2); falls back to a
-  static centred wrap when the user prefers reduced motion.
+  gone) and render monochrome until hovered. Pauses on hover and via the
+  bindable `paused` prop (the caller renders the keyboard-focusable
+  pause/play control — WCAG 2.2.2); falls back to a static centred wrap
+  when the user prefers reduced motion.
 -->
 <script lang="ts">
   import type { OrgLogo } from '$lib/content';
 
-  let { logos, label = 'Organisations' }: { logos: OrgLogo[]; label?: string } = $props();
-
-  let paused = $state(false);
+  let {
+    logos,
+    label = 'Organisations',
+    paused = $bindable(false)
+  }: { logos: OrgLogo[]; label?: string; paused?: boolean } = $props();
 
   // Duplicate the list so the track can loop seamlessly (translateX -50%).
   const loop = $derived([...logos, ...logos]);
 </script>
 
 {#if logos.length}
-  <div class="wrap">
-    <div class="marquee" role="group" aria-label={label}>
-      <ul class="track" class:paused>
-        {#each loop as org, i (org.name + '-' + i)}
-          <li aria-hidden={i >= logos.length ? 'true' : undefined}>
-            <span class="card">
-              <img src={org.logo} alt={i < logos.length ? org.name : ''} loading="eager" />
-            </span>
-          </li>
-        {/each}
-      </ul>
-    </div>
-
-    <button
-      type="button"
-      class="toggle"
-      aria-pressed={paused}
-      aria-label={paused ? 'Play logo animation' : 'Pause logo animation'}
-      onclick={() => (paused = !paused)}
-    >
-      {#if paused}
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-      {:else}
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.5" height="14" rx="0.5" /><rect x="13.5" y="5" width="3.5" height="14" rx="0.5" /></svg>
-      {/if}
-    </button>
+  <div class="marquee" role="group" aria-label={label}>
+    <ul class="track" class:paused>
+      {#each loop as org, i (org.name + '-' + i)}
+        <li aria-hidden={i >= logos.length ? 'true' : undefined}>
+          <span class="card">
+            <img src={org.logo} alt={i < logos.length ? org.name : ''} loading="eager" />
+          </span>
+        </li>
+      {/each}
+    </ul>
   </div>
 {/if}
 
 <style>
-  .wrap {
-    position: relative;
-  }
   .marquee {
     overflow: hidden;
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
@@ -95,34 +79,6 @@
     opacity: 1;
   }
 
-  /* Pause/play control — sits outside the faded mask edge so it stays
-     legible; small and unobtrusive over the marquee. */
-  .toggle {
-    position: absolute;
-    top: -2.6rem;
-    right: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 2rem;
-    width: 2rem;
-    border-radius: 9999px;
-    background: #fff;
-    border: 1px solid var(--color-line);
-    color: var(--color-orange-700);
-    transition:
-      color 0.15s ease,
-      box-shadow 0.15s ease;
-  }
-  .toggle:hover {
-    color: var(--color-orange-600);
-    box-shadow: 0 1px 6px rgb(9 52 73 / 0.12);
-  }
-  .toggle:focus-visible {
-    outline: 3px solid var(--color-orange-500);
-    outline-offset: 2px;
-  }
-
   @keyframes marquee {
     from {
       transform: translateX(0);
@@ -137,10 +93,6 @@
       flex-wrap: wrap;
       width: 100%;
       justify-content: center;
-    }
-    /* No animation to control, so the toggle is meaningless — hide it. */
-    .toggle {
-      display: none;
     }
   }
 </style>

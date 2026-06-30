@@ -15,6 +15,8 @@
   });
 
   const speakingHref = 'mailto:chrishemmings@live.co.uk?subject=Speaking enquiry';
+
+  let orgsPaused = $state(false);
 </script>
 
 <SeoHead {seo} />
@@ -46,9 +48,28 @@
 <!-- Organisations worked with -->
 <section class="bg-paper-2 border-b border-line py-12">
   <div class="container-page">
-    <p class="t-eyebrow text-center">{ps.orgsWorkedWith.title}</p>
+    <div class="flex items-center justify-center gap-2">
+      <p class="t-eyebrow">{ps.orgsWorkedWith.title}</p>
+      <button
+        type="button"
+        class="text-orange-700 transition-colors hover:text-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 motion-reduce:hidden"
+        aria-pressed={orgsPaused}
+        aria-label={orgsPaused ? 'Play logo animation' : 'Pause logo animation'}
+        onclick={() => (orgsPaused = !orgsPaused)}
+      >
+        {#if orgsPaused}
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+        {:else}
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.5" height="14" rx="0.5" /><rect x="13.5" y="5" width="3.5" height="14" rx="0.5" /></svg>
+        {/if}
+      </button>
+    </div>
     <div class="mt-6">
-      <LogoCarousel logos={ps.orgsWorkedWith.logos} label={ps.orgsWorkedWith.title} />
+      <LogoCarousel
+        logos={ps.orgsWorkedWith.logos}
+        label={ps.orgsWorkedWith.title}
+        bind:paused={orgsPaused}
+      />
     </div>
   </div>
 </section>

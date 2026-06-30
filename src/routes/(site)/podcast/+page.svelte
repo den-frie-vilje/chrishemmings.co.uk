@@ -86,7 +86,7 @@
         {/each}
       </div>
     </div>
-    <div class="md:order-1 md:justify-self-start">
+    <div class="hidden md:order-1 md:block md:justify-self-start">
       <img
         src={podcast.hero.cover}
         alt={podcast.hero.coverAlt}

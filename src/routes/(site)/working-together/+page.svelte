@@ -84,6 +84,20 @@
           loading="lazy"
         />
       </span>
+      <a
+        class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6 transition-shadow hover:shadow-md"
+        href="https://menstherapyhub.co.uk/therapist/chris-hemmings/"
+        target="_blank"
+        rel="noopener"
+        aria-label="Chris Hemmings' profile on Men's Therapy Hub"
+      >
+        <img
+          src="/img/logos/mth-mono.png"
+          alt="Men's Therapy Hub"
+          class="max-h-12 w-auto"
+          loading="lazy"
+        />
+      </a>
     </div>
   </div>
 </section>

@@ -19,6 +19,17 @@ marked.use({
     if (token.type === 'heading') {
       token.depth = token.depth <= 2 ? 2 : 3;
     }
+  },
+  renderer: {
+    // Absolute (off-site) links open in a new tab with safe rel; in-page
+    // and relative links keep default behaviour.
+    link(token) {
+      const text = this.parser.parseInline(token.tokens);
+      const title = token.title ? ` title="${token.title}"` : '';
+      const external = /^https?:\/\//i.test(token.href);
+      const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return `<a href="${token.href}"${title}${attrs}>${text}</a>`;
+    }
   }
 });
 
