@@ -14,7 +14,7 @@
   <div class="container-page grid gap-10 py-14 md:grid-cols-3">
     <div>
       <p class="font-extrabold tracking-[-0.02em] text-[1.15rem] text-paper">{site.name}</p>
-      <p class="mt-2 max-w-xs text-sm text-cloud/80">{site.tagline}. {contact.location}</p>
+      <p class="mt-2 max-w-xs text-sm text-cloud/80">{site.tagline}</p>
     </div>
 
     <nav aria-label="Footer">
@@ -40,7 +40,7 @@
   <div class="border-t border-white/10">
     <div class="container-page flex flex-col gap-1 py-5 text-xs text-cloud/70 sm:flex-row sm:justify-between">
       <p>{footerNote(year)}</p>
-      <p>Online therapy &amp; coaching for men · UK · Europe · worldwide</p>
+      <p>BACP registered member · Online worldwide</p>
     </div>
   </div>
 </footer>

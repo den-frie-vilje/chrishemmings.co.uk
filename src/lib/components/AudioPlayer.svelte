@@ -120,10 +120,10 @@
     flex-shrink: 0;
   }
   .eq i {
+    /* Resting = a 2px square; grows vertically (scaleY) while playing. */
     width: 2px;
-    height: 100%;
+    height: 2px;
     background: var(--color-orange-700);
-    transform: scaleY(0.25);
     transform-origin: center;
   }
   .eq.playing i {
@@ -153,10 +153,10 @@
   @keyframes eq {
     0%,
     100% {
-      transform: scaleY(0.2);
+      transform: scaleY(1);
     }
     50% {
-      transform: scaleY(1);
+      transform: scaleY(7);
     }
   }
 
@@ -224,7 +224,7 @@
   @media (prefers-reduced-motion: reduce) {
     .eq.playing i {
       animation: none;
-      transform: scaleY(0.6);
+      transform: scaleY(4);
     }
   }
 </style>

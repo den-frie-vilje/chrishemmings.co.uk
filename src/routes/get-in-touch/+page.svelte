@@ -18,7 +18,6 @@
   <div class="container-page max-w-2xl text-center">
     <h1 class="t-display text-ink">{contact.heading}</h1>
     <p class="t-lead mt-5 text-ink-soft">{contact.intro}</p>
-    <p class="mt-3 text-ink-soft">{contact.location}</p>
   </div>
 </section>
 
