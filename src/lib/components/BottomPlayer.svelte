@@ -8,6 +8,8 @@
 <script lang="ts">
   import { player } from '$lib/player.svelte';
   import { splitTitle } from '$lib/podcast';
+  import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
+  import ChevronIcon from '$lib/components/ChevronIcon.svelte';
 
   let audio = $state<HTMLAudioElement>();
   let paused = $state(true);
@@ -127,11 +129,7 @@
         aria-label={paused ? 'Play episode' : 'Pause episode'}
         class="shrink-0 text-orange-700 transition-colors hover:text-orange-600"
       >
-        {#if paused}
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-        {:else}
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.6" height="14" rx="0.5" /><rect x="13.4" y="5" width="3.6" height="14" rx="0.5" /></svg>
-        {/if}
+        <PlayPauseIcon playing={!paused} />
       </button>
       <button
         type="button"
@@ -162,16 +160,7 @@
           aria-controls="player-detail"
           class="p-1 text-ink-soft transition-colors hover:text-navy-900"
         >
-          <svg
-            class="h-6 w-6 transition-transform {player.expanded ? '' : 'rotate-180'}"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            aria-hidden="true"
-          >
-            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
+          <ChevronIcon class="h-6 w-6 transition-transform {player.expanded ? '' : 'rotate-180'}" />
         </button>
         <button
           type="button"

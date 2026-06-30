@@ -8,8 +8,9 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { podcast } from '$lib/content';
-  import { parseFeed, type Episode } from '$lib/podcast';
+  import { loadEpisodes, type Episode } from '$lib/podcast';
   import { player, playEpisode } from '$lib/player.svelte';
+  import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
 
   let episodes = $state<Episode[]>([]);
   let ready = $state(false);
@@ -19,9 +20,7 @@
 
   onMount(async () => {
     try {
-      const res = await fetch(podcast.feedPath, { headers: { accept: 'application/rss+xml' } });
-      if (!res.ok) return;
-      episodes = parseFeed(await res.text());
+      episodes = await loadEpisodes(podcast.feedPath);
       ready = episodes.length > 0;
     } catch (err) {
       console.error('Home podcast teaser failed to load:', err);
@@ -76,11 +75,7 @@
                 class="mt-4 inline-flex items-center gap-2 font-semibold text-orange-700 transition-colors hover:text-orange-600"
               >
                 <span class="flex shrink-0 items-center justify-center" aria-hidden="true">
-                  {#if player.current?.guid === latest.guid}
-                    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><rect x="7" y="5" width="3.6" height="14" rx="0.5" /><rect x="13.4" y="5" width="3.6" height="14" rx="0.5" /></svg>
-                  {:else}
-                    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                  {/if}
+                  <PlayPauseIcon playing={player.current?.guid === latest.guid} />
                 </span>
                 {player.current?.guid === latest.guid ? 'Now playing' : 'Play episode'}
               </button>

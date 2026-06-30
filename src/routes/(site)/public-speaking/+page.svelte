@@ -5,6 +5,7 @@
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Testimonials from '$lib/components/Testimonials.svelte';
   import LogoCarousel from '$lib/components/LogoCarousel.svelte';
+  import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -57,11 +58,7 @@
         aria-label={orgsPaused ? 'Play logo animation' : 'Pause logo animation'}
         onclick={() => (orgsPaused = !orgsPaused)}
       >
-        {#if orgsPaused}
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
-        {:else}
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.5" height="14" rx="0.5" /><rect x="13.5" y="5" width="3.5" height="14" rx="0.5" /></svg>
-        {/if}
+        <PlayPauseIcon playing={!orgsPaused} size={14} />
       </button>
     </div>
     <div class="mt-6">

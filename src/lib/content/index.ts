@@ -22,6 +22,15 @@ import testimonialsData from '../../content/testimonials.json';
 export interface NavItem {
   label: string;
   href: string;
+  /**
+   * Responsive collapse priority — which breakpoint this link stays inline
+   * to before dropping into the burger. Travels WITH the item (not keyed to
+   * the slug), so renaming a route can't silently change the header layout;
+   * a new route must make an explicit choice. `'always'` = inline whenever
+   * the desktop nav shows; `'navmini'` = from the navmini breakpoint up;
+   * `'md'` (default) = only md+ (lives in the burger below that).
+   */
+  collapse?: 'always' | 'navmini' | 'md';
 }
 
 /** Per-page social-share (OG) card copy. Name + tagline lockup and the
@@ -227,11 +236,11 @@ export const testimonials: Testimonials = testimonialsData;
  * URLs to type in the CMS. Order is the only nav-specific decision here.
  */
 export const nav: NavItem[] = [
-  { href: '/', label: home.navLabel },
-  { href: '/working-together', label: workingTogether.navLabel },
-  { href: '/public-speaking', label: publicSpeaking.navLabel },
-  { href: '/podcast', label: podcast.navLabel },
-  { href: '/get-in-touch', label: getInTouch.navLabel }
+  { href: '/', label: home.navLabel, collapse: 'md' },
+  { href: '/working-together', label: workingTogether.navLabel, collapse: 'always' },
+  { href: '/public-speaking', label: publicSpeaking.navLabel, collapse: 'always' },
+  { href: '/podcast', label: podcast.navLabel, collapse: 'md' },
+  { href: '/get-in-touch', label: getInTouch.navLabel, collapse: 'navmini' }
 ];
 
 /** Footer note with the `{year}` placeholder resolved. */

@@ -8,6 +8,8 @@
   import type { Episode } from '$lib/podcast';
   import { groupBySeason, splitTitle } from '$lib/podcast';
   import { player, playEpisode } from '$lib/player.svelte';
+  import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
+  import ChevronIcon from '$lib/components/ChevronIcon.svelte';
 
   let { episodes }: { episodes: Episode[] } = $props();
 
@@ -37,7 +39,7 @@
             : 'text-ink-soft'}"
           aria-hidden="true"
         >
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          <PlayPauseIcon />
         </span>
         <span class="sr-only">{active ? 'Restart episode:' : 'Play episode:'}</span>
         <span class="min-w-0 flex-1 text-[0.97rem] leading-snug {active ? 'text-orange-700' : ''}">
@@ -79,16 +81,7 @@
           <span class="text-[1.2rem] font-bold tracking-[-0.01em] text-navy-900">Season {s.number}</span>
           <span class="flex items-center gap-2 text-sm text-ink-soft">
             {s.episodes.length} episode{s.episodes.length === 1 ? '' : 's'}
-            <svg
-              class="h-4 w-4 transition-transform group-open:rotate-180"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              aria-hidden="true"
-            >
-              <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <ChevronIcon class="h-4 w-4 transition-transform group-open:rotate-180" />
           </span>
         </summary>
         <ul class="pb-1">

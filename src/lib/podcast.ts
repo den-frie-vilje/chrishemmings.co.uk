@@ -138,6 +138,15 @@ export function parseFeed(xml: string): Episode[] {
   });
 }
 
+/** Fetch the (same-origin, Caddy-proxied) Acast feed and parse it into
+ *  episodes. Throws on a non-OK response; callers own their loading/error
+ *  state. Shared by the podcast page and the home-page teaser. */
+export async function loadEpisodes(feedPath: string): Promise<Episode[]> {
+  const res = await fetch(feedPath, { headers: { accept: 'application/rss+xml' } });
+  if (!res.ok) throw new Error(`Feed responded ${res.status}`);
+  return parseFeed(await res.text());
+}
+
 /**
  * Group episodes by season, newest season first, preserving feed order
  * within each season. Returns an empty array when the feed carries no

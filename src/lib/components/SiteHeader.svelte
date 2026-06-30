@@ -10,7 +10,7 @@
 -->
 <script lang="ts">
   import { page } from '$app/state';
-  import { site, booking, nav } from '$lib/content';
+  import { site, booking, nav, type NavItem } from '$lib/content';
 
   let open = $state(false);
   let toggleBtn = $state<HTMLButtonElement>();
@@ -36,16 +36,17 @@
     if (open) mobileNav?.querySelector<HTMLAnchorElement>('a')?.focus();
   });
 
-  // Per-link inline visibility, by priority. Therapy & Public stay inline
-  // longest (from navtight); Get in touch joins at navmini; Home (the logo
-  // already links home) and Podcast at md. Anything hidden lives in the
-  // burger, which is present below md.
-  const LINK_VIS: Record<string, string> = {
-    '/working-together': '',
-    '/public-speaking': '',
-    '/get-in-touch': 'hidden navmini:inline'
-  };
-  const linkVisibility = (href: string) => LINK_VIS[href] ?? 'hidden md:inline';
+  // Per-link inline visibility, driven by each nav item's own `collapse`
+  // tier (defined alongside the route, not keyed to its slug here). Therapy
+  // & Public stay inline longest (`always`, from navtight); Get in touch
+  // joins at navmini; Home (the logo already links home) and Podcast at md.
+  // Anything hidden lives in the burger, which is present below md.
+  const COLLAPSE_VIS = {
+    always: '',
+    navmini: 'hidden navmini:inline',
+    md: 'hidden md:inline'
+  } as const;
+  const linkVisibility = (item: NavItem) => COLLAPSE_VIS[item.collapse ?? 'md'];
 </script>
 
 <svelte:window onkeydown={onKeydown} />
@@ -66,7 +67,7 @@
         <a
           href={item.href}
           class="text-[0.93rem] font-medium transition-colors hover:text-orange-300 {linkVisibility(
-            item.href
+            item
           )}"
           class:text-orange-300={isActive(item.href)}
           aria-current={isActive(item.href) ? 'page' : undefined}

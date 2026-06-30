@@ -116,15 +116,21 @@
     <h2 class="t-h2 text-ink">{home.interests.title}</h2>
     <p class="t-lead mt-3 max-w-2xl text-ink-soft">{home.interests.intro}</p>
 
-    <ul class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {#each home.interests.items as item, i (item.title)}
-        <li class="rounded-lg border border-line bg-paper p-6">
-          <span class="font-serif text-2xl text-orange-700" aria-hidden="true">{num(i)}</span>
-          <h3 class="t-h3 mt-2 text-navy-900">{item.title}</h3>
-          <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{item.body}</p>
-        </li>
-      {/each}
-    </ul>
+    {#if home.interests.items.length}
+      <!-- auto-fit/minmax so the grid flows to the item count (1–2 cards
+           fill the width instead of stranding far-left, and any count wraps
+           without a hardcoded column number that orphans the last row). At
+           the container's max width this still settles to four columns. -->
+      <ul class="mt-10 grid gap-5 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]">
+        {#each home.interests.items as item, i (item.title)}
+          <li class="rounded-lg border border-line bg-paper p-6">
+            <span class="font-serif text-2xl text-orange-700" aria-hidden="true">{num(i)}</span>
+            <h3 class="t-h3 mt-2 text-navy-900">{item.title}</h3>
+            <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{item.body}</p>
+          </li>
+        {/each}
+      </ul>
+    {/if}
   </div>
 </section>
 

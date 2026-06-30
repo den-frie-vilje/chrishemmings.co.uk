@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { site, podcast } from '$lib/content';
-  import { parseFeed, type Episode } from '$lib/podcast';
+  import { loadEpisodes, type Episode } from '$lib/podcast';
   import { buildPageSeo, absUrl } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
@@ -45,9 +45,7 @@
 
   onMount(async () => {
     try {
-      const res = await fetch(podcast.feedPath, { headers: { accept: 'application/rss+xml' } });
-      if (!res.ok) throw new Error(`Feed responded ${res.status}`);
-      episodes = parseFeed(await res.text());
+      episodes = await loadEpisodes(podcast.feedPath);
       feedState = 'ready';
     } catch (err) {
       console.error('Podcast feed load failed:', err);

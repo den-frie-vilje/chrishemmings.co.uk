@@ -38,24 +38,3 @@ marked.use({
 export function renderMarkdown(md: string): string {
   return marked.parse((md ?? '').trim(), { async: false });
 }
-
-/** Inline-render a single markdown string (no block wrapper) — for
- *  one-line fields that allow only inline marks (bold/italic/links). */
-export function renderInline(md: string): string {
-  return marked.parseInline((md ?? '').trim()) as string;
-}
-
-/**
- * Flatten markdown to plain text — for meta descriptions / JSON-LD where
- * markup must not leak. First-party build-time content, so a tag-strip
- * is sufficient.
- */
-export function markdownToPlainText(md: string): string {
-  const html = marked.parse((md ?? '').trim(), { async: false });
-  return html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&#39;/g, "'")
-    .replace(/\s+/g, ' ')
-    .trim();
-}
