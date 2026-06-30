@@ -26,6 +26,15 @@
      it drops into flow below the copy (right-aligned, bleeding right) so it
      never crowds the text. -->
 <section class="relative isolate overflow-hidden bg-paper">
+  <!-- Off-axis radial wash, a touch darker behind Chris (upper-right) so the
+       cutout lifts off the flat paper. Subtle; md+ only (on small screens he
+       sits bottom-right in flow). -->
+  <div
+    class="pointer-events-none absolute inset-0 z-0 hidden md:block"
+    style="background: radial-gradient(75% 95% at 80% 36%, color-mix(in srgb, var(--color-navy-900) 14%, transparent) 0%, color-mix(in srgb, var(--color-navy-900) 5%, transparent) 34%, transparent 64%);"
+    aria-hidden="true"
+  ></div>
+
   <!-- md+ : absolute, bleeds off the section's right edge. -->
   <img
     src="/img/chris-hero-cutout.webp"
