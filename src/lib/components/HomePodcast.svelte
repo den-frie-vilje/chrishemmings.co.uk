@@ -9,7 +9,7 @@
   import { onMount } from 'svelte';
   import { podcast } from '$lib/content';
   import { parseFeed, type Episode } from '$lib/podcast';
-  import AudioPlayer from './AudioPlayer.svelte';
+  import { player, playEpisode } from '$lib/player.svelte';
 
   let episodes = $state<Episode[]>([]);
   let ready = $state(false);
@@ -70,9 +70,20 @@
               <p class="mt-2 line-clamp-2 text-[0.97rem] leading-relaxed text-ink-soft">{latest.excerpt}</p>
             {/if}
             {#if latest.audioUrl}
-              <div class="mt-4">
-                <AudioPlayer src={latest.audioUrl} durationLabel={latest.durationLabel} />
-              </div>
+              <button
+                type="button"
+                onclick={() => playEpisode(latest)}
+                class="mt-4 inline-flex items-center gap-2.5 font-semibold text-orange-700 transition-colors hover:text-orange-600"
+              >
+                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-orange-700 text-paper">
+                  {#if player.current?.guid === latest.guid}
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.6" height="14" rx="0.5" /><rect x="13.4" y="5" width="3.6" height="14" rx="0.5" /></svg>
+                  {:else}
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                  {/if}
+                </span>
+                {player.current?.guid === latest.guid ? 'Now playing' : 'Play episode'}
+              </button>
             {/if}
           </div>
         </div>

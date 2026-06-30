@@ -28,26 +28,26 @@
         type="button"
         onclick={() => playEpisode(ep)}
         aria-current={active ? 'true' : undefined}
-        class="flex w-full items-start gap-3 border-t border-line py-4 pr-1 text-left transition-colors hover:bg-paper-2"
+        class="flex w-full items-center gap-3 border-t border-line py-4 pr-1 text-left transition-colors hover:bg-paper-2"
         class:bg-paper-2={active}
       >
         <span
-          class="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-colors {active
-            ? 'border-orange-700 text-orange-700'
-            : 'border-line text-ink-soft'}"
+          class="flex h-6 w-6 shrink-0 items-center justify-center transition-colors {active
+            ? 'text-orange-700'
+            : 'text-ink-soft'}"
           aria-hidden="true"
         >
-          <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
         </span>
         <span class="min-w-0 flex-1 text-[0.97rem] leading-snug {active ? 'text-orange-700' : ''}">
           <span class="font-semibold {active ? '' : 'text-navy-900'}">{t.head}</span><span
             class="font-normal {active ? '' : 'text-ink-soft'}">{t.tail}</span
           >
         </span>
-        <span class="mt-0.5 hidden shrink-0 text-sm text-ink-soft md:block md:w-28 md:text-right">
+        <span class="hidden shrink-0 text-sm text-ink-soft md:block md:w-28 md:text-right">
           {ep.dateLabel}
         </span>
-        <span class="mt-0.5 shrink-0 text-sm tabular-nums text-ink-soft md:w-14 md:text-right">
+        <span class="shrink-0 text-sm tabular-nums text-ink-soft md:w-14 md:text-right">
           {ep.durationLabel}
         </span>
       </button>

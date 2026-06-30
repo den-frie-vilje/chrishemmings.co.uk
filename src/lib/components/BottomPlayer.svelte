@@ -72,7 +72,12 @@
 
     {#if player.expanded}
       <div class="container-page border-b border-line py-5">
-        <div class="flex gap-4">
+        <button
+          type="button"
+          onclick={() => (player.expanded = !player.expanded)}
+          aria-label="Collapse player"
+          class="flex w-full gap-4 text-left"
+        >
           <img
             src={ep.image}
             alt=""
@@ -80,14 +85,16 @@
             height="160"
             class="h-24 w-24 shrink-0 rounded-xl object-cover sm:h-28 sm:w-28"
           />
-          <div class="flex min-w-0 flex-col justify-center gap-0.5">
-            {#if ep.dateLabel}<p class="text-sm font-semibold text-navy-900">{ep.dateLabel}</p>{/if}
-            {#if ep.durationLabel}<p class="text-sm text-ink-soft">{ep.durationLabel}</p>{/if}
-            {#if ep.season}<p class="text-sm text-ink-soft">Season {ep.season}</p>{/if}
-          </div>
-        </div>
+          <span class="flex min-w-0 flex-col justify-center gap-0.5">
+            {#if ep.dateLabel}<span class="text-sm font-semibold text-navy-900">{ep.dateLabel}</span>{/if}
+            {#if ep.durationLabel}<span class="text-sm text-ink-soft">{ep.durationLabel}</span>{/if}
+            {#if ep.season}<span class="text-sm text-ink-soft">Season {ep.season}</span>{/if}
+          </span>
+        </button>
         <h3 class="t-h3 mt-3 text-balance">
-          <span class="text-navy-900">{title.head}</span><span class="text-ink-soft">{title.tail}</span>
+          <button type="button" onclick={() => (player.expanded = !player.expanded)} class="text-left">
+            <span class="text-navy-900">{title.head}</span><span class="text-ink-soft">{title.tail}</span>
+          </button>
         </h3>
         {#if ep.excerpt}
           <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{ep.excerpt}</p>
@@ -117,17 +124,25 @@
           <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.6" height="14" rx="0.5" /><rect x="13.4" y="5" width="3.6" height="14" rx="0.5" /></svg>
         {/if}
       </button>
-      <img src={ep.image} alt="" class="h-9 w-9 shrink-0 rounded object-cover" />
-      <div class="min-w-0 flex-1">
-        <p class="truncate text-sm leading-tight">
-          <span class="font-semibold text-navy-900">{title.head}</span><span class="text-ink-soft">{title.tail}</span>
-        </p>
-        <p class="truncate text-xs text-ink-soft">
-          <span class="tabular-nums">{fmt(currentTime)} / {duration > 0 ? fmt(duration) : ep.durationLabel || '—'}</span>
-          {#if ep.dateLabel}<span class="hidden sm:inline">&nbsp;·&nbsp;{ep.dateLabel}</span>{/if}
-          {#if ep.season}<span class="hidden lg:inline">&nbsp;·&nbsp;Season {ep.season}</span>{/if}
-        </p>
-      </div>
+      <button
+        type="button"
+        onclick={() => (player.expanded = !player.expanded)}
+        aria-label={player.expanded ? 'Collapse player' : 'Expand player'}
+        aria-expanded={player.expanded}
+        class="flex min-w-0 flex-1 items-center gap-3 text-left"
+      >
+        <img src={ep.image} alt="" class="h-9 w-9 shrink-0 rounded object-cover" />
+        <span class="min-w-0 flex-1">
+          <span class="block truncate text-sm leading-tight">
+            <span class="font-semibold text-navy-900">{title.head}</span><span class="text-ink-soft">{title.tail}</span>
+          </span>
+          <span class="block truncate text-xs text-ink-soft">
+            <span class="tabular-nums">{fmt(currentTime)} / {duration > 0 ? fmt(duration) : ep.durationLabel || '—'}</span>
+            {#if ep.dateLabel}<span class="hidden sm:inline">&nbsp;·&nbsp;{ep.dateLabel}</span>{/if}
+            {#if ep.season}<span class="hidden lg:inline">&nbsp;·&nbsp;Season {ep.season}</span>{/if}
+          </span>
+        </span>
+      </button>
       <div class="flex shrink-0 items-center gap-1">
         <button
           type="button"
