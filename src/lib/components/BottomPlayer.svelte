@@ -28,6 +28,11 @@
     if (audio.paused) audio.play();
     else audio.pause();
   }
+  function dismiss() {
+    audio?.pause();
+    player.current = null;
+    player.expanded = false;
+  }
   function seek(e: Event) {
     const v = Number((e.currentTarget as HTMLInputElement).value);
     if (audio) audio.currentTime = v;
@@ -112,33 +117,47 @@
           <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.6" height="14" rx="0.5" /><rect x="13.4" y="5" width="3.6" height="14" rx="0.5" /></svg>
         {/if}
       </button>
-      <img src={ep.image} alt="" class="hidden h-9 w-9 shrink-0 rounded object-cover sm:block" />
+      <img src={ep.image} alt="" class="h-9 w-9 shrink-0 rounded object-cover" />
       <div class="min-w-0 flex-1">
         <p class="truncate text-sm leading-tight">
           <span class="font-semibold text-navy-900">{title.head}</span><span class="text-ink-soft">{title.tail}</span>
         </p>
-        <p class="text-xs tabular-nums text-ink-soft">
-          {fmt(currentTime)} / {duration > 0 ? fmt(duration) : ep.durationLabel || '—'}
+        <p class="truncate text-xs text-ink-soft">
+          <span class="tabular-nums">{fmt(currentTime)} / {duration > 0 ? fmt(duration) : ep.durationLabel || '—'}</span>
+          {#if ep.dateLabel}<span class="hidden sm:inline">&nbsp;·&nbsp;{ep.dateLabel}</span>{/if}
+          {#if ep.season}<span class="hidden lg:inline">&nbsp;·&nbsp;Season {ep.season}</span>{/if}
         </p>
       </div>
-      <button
-        type="button"
-        onclick={() => (player.expanded = !player.expanded)}
-        aria-label={player.expanded ? 'Collapse player' : 'Expand player'}
-        aria-expanded={player.expanded}
-        class="shrink-0 text-ink-soft transition-colors hover:text-navy-900"
-      >
-        <svg
-          class="h-6 w-6 transition-transform {player.expanded ? '' : 'rotate-180'}"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          aria-hidden="true"
+      <div class="flex shrink-0 items-center gap-1">
+        <button
+          type="button"
+          onclick={() => (player.expanded = !player.expanded)}
+          aria-label={player.expanded ? 'Collapse player' : 'Expand player'}
+          aria-expanded={player.expanded}
+          class="p-1 text-ink-soft transition-colors hover:text-navy-900"
         >
-          <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </button>
+          <svg
+            class="h-6 w-6 transition-transform {player.expanded ? '' : 'rotate-180'}"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            aria-hidden="true"
+          >
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onclick={dismiss}
+          aria-label="Close player"
+          class="p-1 text-ink-soft transition-colors hover:text-navy-900"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
     </div>
   </section>
 {/if}
