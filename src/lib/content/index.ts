@@ -63,13 +63,24 @@ export interface Contact {
 
 /** Get-in-touch PAGE copy (pages collection): editorial only — the
  *  contact details + booking CTA are pulled from the general collection. */
+/** One of the two enquiry paths (individuals → therapy; organisations →
+ *  speaking) shown on the Get-in-touch page. */
+export interface GetInTouchPath {
+  eyebrow: string;
+  title: string;
+  body: string;
+  ctaLabel: string;
+  ctaHref: string;
+  linkLabel: string;
+  linkHref: string;
+}
+
 export interface GetInTouch {
   navLabel: string;
   heading: string;
   intro: string;
-  /** Markdown. */
-  body: string;
-  whatToExpect: { title: string; steps: { title: string; body: string }[] };
+  paths: GetInTouchPath[];
+  whatToExpect: { eyebrow: string; title: string; steps: { title: string; body: string }[] };
   reassurances: string[];
   og: Og;
 }

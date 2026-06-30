@@ -1,9 +1,29 @@
 {
   "navLabel": "Get in touch",
   "heading": "Get in touch",
-  "intro": "I'm happy to be contacted by email, phone or text.",
-  "body": "Reaching out can be the hardest part. Whether you already know you'd like to work together or you simply have a question, you're welcome to get in touch — there's no rush and no pressure.",
+  "intro": "Whether you're considering therapy or coaching for yourself, or looking to book me to speak or run a workshop, I'd be glad to hear from you.",
+  "paths": [
+    {
+      "eyebrow": "For individuals",
+      "title": "Therapy & coaching",
+      "body": "One-to-one support for men, in person or online — anxiety, relationships, addiction, masculinity and more.",
+      "ctaLabel": "Book a free 15-minute consultation",
+      "ctaHref": "#contact",
+      "linkLabel": "About therapy & coaching",
+      "linkHref": "/working-together"
+    },
+    {
+      "eyebrow": "For organisations",
+      "title": "Speaking & workshops",
+      "body": "Keynotes and workplace workshops on men's mental health, masculinity and wellbeing — for workplaces, schools, universities and conferences.",
+      "ctaLabel": "Enquire about speaking",
+      "ctaHref": "mailto:chrishemmings@live.co.uk?subject=Speaking enquiry",
+      "linkLabel": "See talks & workshops",
+      "linkHref": "/public-speaking"
+    }
+  ],
   "whatToExpect": {
+    "eyebrow": "If you're considering therapy",
     "title": "What happens next",
     "steps": [
       {
@@ -23,8 +43,8 @@
   "reassurances": ["No obligation", "I reply personally", "Completely confidential"],
   "og": {
     "eyebrow": "Get in touch",
-    "title": "Considering therapy or coaching?",
-    "subtitle": "Book a free 15-minute intro call",
+    "title": "Therapy, coaching & speaking",
+    "subtitle": "For individuals and organisations",
     "cta": "Book a free 15-minute consultation"
   }
 }

@@ -303,12 +303,24 @@ collections:
         fields:
           - { name: navLabel, label: Navigation label, widget: string, hint: "How this page appears in the site menu." }
           - { name: heading, label: Heading, widget: string }
-          - { name: intro, label: Intro, widget: text }
-          - { name: body, label: Body, widget: markdown }
+          - { name: intro, label: Intro, widget: text, hint: "Speak to both audiences — individuals seeking therapy and organisations booking talks/workshops." }
+          - name: paths
+            label: Enquiry paths
+            widget: list
+            hint: "The two ways to get in touch — one card per audience (e.g. therapy clients, and organisations booking speaking)."
+            fields:
+              - { name: eyebrow, label: Audience label, widget: string, hint: "e.g. \"For individuals\" / \"For organisations\"." }
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Description, widget: text }
+              - { name: ctaLabel, label: Button label, widget: string }
+              - { name: ctaHref, label: Button link, widget: string, hint: "e.g. \"#contact\" to jump to the booking block, or a mailto: link." }
+              - { name: linkLabel, label: Secondary link label, widget: string }
+              - { name: linkHref, label: Secondary link, widget: string }
           - name: whatToExpect
             label: What happens next
             widget: object
             fields:
+              - { name: eyebrow, label: Eyebrow, widget: string, hint: "Scopes the steps, e.g. \"If you're considering therapy\"." }
               - { name: title, label: Section title, widget: string }
               - name: steps
                 label: Steps
