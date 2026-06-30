@@ -20,30 +20,47 @@
 
 <SeoHead {seo} />
 
-<!-- Hero -->
-<section class="bg-paper section-y">
-  <div class="container-page grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
-    <div>
+<!-- Hero — Chris knocked out of his background, leaning in from the right
+     (off-centre, bleeding off the edge) over the warm paper ground. On md+
+     the cutout bleeds absolutely off the section's right; on small screens
+     it drops into flow below the copy (right-aligned, bleeding right) so it
+     never crowds the text. -->
+<section class="relative isolate overflow-hidden bg-paper">
+  <!-- md+ : absolute, bleeds off the section's right edge. -->
+  <img
+    src="/img/chris-hero-cutout.webp"
+    alt={home.hero.portraitAlt}
+    width="1200"
+    height="865"
+    fetchpriority="high"
+    class="pointer-events-none absolute bottom-0 right-0 z-0 hidden select-none object-contain object-bottom
+           md:block md:w-[52%] md:max-w-[560px]
+           lg:w-[47%] lg:max-w-[660px] lg:translate-x-[4%]"
+  />
+  <div
+    class="container-page relative z-10 flex flex-col py-12
+           md:min-h-[37rem] md:justify-center md:py-16"
+  >
+    <div class="max-w-xl">
       <p class="t-eyebrow">{home.hero.eyebrow}</p>
       <h1 class="t-display mt-4 text-ink">
         {home.hero.title}<span class="block text-ink-soft">{home.hero.titleAccent}</span>
       </h1>
-      <p class="t-lead mt-6 max-w-xl text-ink-soft">{home.hero.lead}</p>
+      <p class="t-lead mt-6 max-w-xl text-ink-soft md:max-w-sm lg:max-w-xl">{home.hero.lead}</p>
       <div class="mt-8 flex flex-wrap gap-3">
         <a class="btn btn-primary" href={booking.href}>{home.hero.ctaPrimary}</a>
         <a class="btn btn-outline" href="/working-together">{home.hero.ctaSecondary}</a>
       </div>
     </div>
-    <div class="md:justify-self-end">
-      <img
-        src={home.hero.portrait}
-        alt={home.hero.portraitAlt}
-        width="520"
-        height="600"
-        class="aspect-[5/6] w-full max-w-sm rounded-lg object-cover shadow-lg md:max-w-md"
-        fetchpriority="high"
-      />
-    </div>
+
+    <!-- small screens : in-flow below the copy, right-aligned, bleeding right. -->
+    <img
+      src="/img/chris-hero-cutout.webp"
+      alt={home.hero.portraitAlt}
+      width="1200"
+      height="865"
+      class="-mb-12 mt-10 ml-auto block w-[78%] max-w-[340px] translate-x-[10%] select-none md:hidden"
+    />
   </div>
 </section>
 
