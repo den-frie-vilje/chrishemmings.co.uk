@@ -3,7 +3,7 @@
 
   A one-button "push staging → main" page for the editor. Sveltia CMS
   writes edits to the `staging` branch; CI redeploys the staging host
-  (chris.denfrievilje.dk) within ~2 min; the editor reviews there, then
+  (chrishemmings-co-uk.stage.denfrievilje.dk) within ~2 min; the editor reviews there, then
   comes here and clicks "Publish" to squash-merge staging into main, which
   deploys chrishemmings.co.uk.
 
@@ -208,7 +208,7 @@
     <p class="subtitle">
       Changes saved via <a href="/admin">the admin editor</a> land first on
       <strong>staging</strong>
-      (chris.denfrievilje.dk) for review. When you're ready for the changes to go live on
+      (chrishemmings-co-uk.stage.denfrievilje.dk) for review. When you're ready for the changes to go live on
       <strong>chrishemmings.co.uk</strong>, click the button below.
     </p>
   </header>

@@ -1,6 +1,6 @@
 # Sveltia CMS configuration — single-locale (English).
 #
-# Editing happens on STAGING (chris.denfrievilje.dk/admin) against the
+# Editing happens on STAGING (chrishemmings-co-uk.stage.denfrievilje.dk/admin) against the
 # GitHub backend via the OAuth proxy (Caddy `/auth/*` → sveltia-auth).
 # Prose fields use the `markdown` widget so copy stays flowing prose, not
 # arrays of bullets. Structured lists (nav, interests, qualifications,
@@ -10,7 +10,7 @@ backend:
   name: github
   repo: den-frie-vilje/chrishemmings.co.uk
   branch: staging
-  base_url: https://chris.denfrievilje.dk
+  base_url: https://chrishemmings-co-uk.stage.denfrievilje.dk
   auth_endpoint: auth
 
 # Staging writes go straight to the staging branch (no editorial PR flow).
@@ -75,13 +75,11 @@ collections:
               - { name: portraitAlt, label: Portrait alt text, widget: string }
               - { name: ctaPrimary, label: Primary CTA, widget: string }
               - { name: ctaSecondary, label: Secondary CTA, widget: string }
-          - name: testimonial
-            label: Testimonial
-            widget: object
-            fields:
-              - { name: lead, label: Lead-in, widget: string }
-              - { name: quote, label: Quote, widget: text }
-              - { name: attribution, label: Attribution, widget: string }
+          - name: testimonialsNote
+            label: "Testimonials → edit separately"
+            widget: string
+            required: false
+            hint: "Testimonials are NOT edited here. They live in their own entry — open **Pages → Testimonials** (admin URL ends `/collections/pages/entries/testimonials`) to add or edit client and commercial quotes. The homepage shows the first therapy testimonial automatically."
           - name: about
             label: About
             widget: object

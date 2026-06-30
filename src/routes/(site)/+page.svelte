@@ -4,6 +4,7 @@
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Testimonials from '$lib/components/Testimonials.svelte';
+  import HomePodcast from '$lib/components/HomePodcast.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -112,6 +113,9 @@
     </ul>
   </div>
 </section>
+
+<!-- Latest podcast episode -->
+<HomePodcast />
 
 <!-- Public-speaking promo (secondary audience: workplaces). Warm sand
      surface so it reads distinct from the navy contact section below it. -->
