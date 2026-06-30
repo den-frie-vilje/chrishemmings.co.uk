@@ -87,7 +87,7 @@
           </div>
         </div>
         <h3 class="t-h3 mt-3 text-balance">
-          <span class="font-semibold text-navy-900">{title.head}</span><span class="font-normal text-ink-soft">{title.tail}</span>
+          <span class="text-navy-900">{title.head}</span><span class="text-ink-soft">{title.tail}</span>
         </h3>
         {#if ep.excerpt}
           <p class="mt-2 text-[0.95rem] leading-relaxed text-ink-soft">{ep.excerpt}</p>

@@ -19,7 +19,7 @@
   const visible = (eps: Episode[], key: string) => (expanded[key] ? eps : eps.slice(0, LIMIT));
 </script>
 
-<div class="max-w-2xl">
+<div>
   {#snippet row(ep: Episode)}
     {@const active = player.current?.guid === ep.guid}
     {@const t = splitTitle(ep.title)}
@@ -44,9 +44,12 @@
             class="font-normal {active ? '' : 'text-ink-soft'}">{t.tail}</span
           >
         </span>
-        {#if ep.durationLabel}
-          <span class="mt-0.5 shrink-0 text-sm tabular-nums text-ink-soft">{ep.durationLabel}</span>
-        {/if}
+        <span class="mt-0.5 hidden shrink-0 text-sm text-ink-soft md:block md:w-28 md:text-right">
+          {ep.dateLabel}
+        </span>
+        <span class="mt-0.5 shrink-0 text-sm tabular-nums text-ink-soft md:w-14 md:text-right">
+          {ep.durationLabel}
+        </span>
       </button>
     </li>
   {/snippet}
