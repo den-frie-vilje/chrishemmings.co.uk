@@ -37,6 +37,13 @@ export interface Season {
   episodes: Episode[];
 }
 
+/** Split a title at its first dash so the lead can be set bold and the
+ *  (often long) descriptive tail set lighter. Handles -, – and —. */
+export function splitTitle(title: string): { head: string; tail: string } {
+  const m = title.match(/^(.*?)(\s+[-–—]\s+.*)$/);
+  return m ? { head: m[1], tail: m[2] } : { head: title, tail: '' };
+}
+
 function text(item: Element, tag: string): string {
   const el = item.getElementsByTagName(tag)[0];
   return el?.textContent?.trim() ?? '';

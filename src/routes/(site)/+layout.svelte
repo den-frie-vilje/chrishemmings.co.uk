@@ -6,6 +6,8 @@
 <script lang="ts">
   import SiteHeader from '$lib/components/SiteHeader.svelte';
   import SiteFooter from '$lib/components/SiteFooter.svelte';
+  import BottomPlayer from '$lib/components/BottomPlayer.svelte';
+  import { player } from '$lib/player.svelte';
 
   let { children } = $props();
 </script>
@@ -17,10 +19,12 @@
   Skip to content
 </a>
 
-<div class="flex min-h-dvh flex-col">
+<div class="flex min-h-dvh flex-col {player.current ? 'pb-[60px]' : ''}">
   <SiteHeader />
   <main id="main" tabindex="-1" class="flex-1 scroll-mt-20 focus:outline-none">
     {@render children()}
   </main>
   <SiteFooter />
 </div>
+
+<BottomPlayer />
