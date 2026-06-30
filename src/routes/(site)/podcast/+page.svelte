@@ -70,8 +70,12 @@
 <SeoHead {seo} />
 
 <!-- Hero -->
-<section class="bg-navy-900 text-paper section-y">
-  <div class="container-page grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
+<section class="relative isolate overflow-hidden bg-navy-900 text-paper section-y">
+  <!-- Large radial pooling a slightly darker navy behind the cover so the
+       (navy-toned) artwork doesn't blend into the flat hero. Follows the
+       cover: bottom on small screens, left column on md+. -->
+  <div class="podcast-wash pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
+  <div class="container-page relative z-10 grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
     <div class="md:order-2">
       <p class="t-eyebrow !text-orange-300">{podcast.hero.eyebrow}</p>
       <h1 class="t-display mt-4 text-paper">{podcast.hero.title}</h1>
@@ -173,3 +177,26 @@
 </section>
 
 <ContactSection details={false} />
+
+<style>
+  /* Darker-navy radial behind the podcast cover. Bottom-centred on small
+     screens (cover sits below the copy), left column on md+. */
+  .podcast-wash {
+    background: radial-gradient(
+      90% 55% at 50% 86%,
+      rgba(3, 19, 28, 0.85) 0%,
+      rgba(3, 19, 28, 0.4) 42%,
+      transparent 74%
+    );
+  }
+  @media (min-width: 768px) {
+    .podcast-wash {
+      background: radial-gradient(
+        62% 95% at 26% 52%,
+        rgba(3, 19, 28, 0.85) 0%,
+        rgba(3, 19, 28, 0.4) 42%,
+        transparent 74%
+      );
+    }
+  }
+</style>
