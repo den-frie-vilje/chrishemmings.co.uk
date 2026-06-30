@@ -21,8 +21,10 @@ export interface Episode {
   audioUrl: string;
   /** Episode artwork URL (may be the show artwork as a fallback). */
   image: string;
-  /** Sanitised HTML description. */
+  /** Sanitised HTML description (Acast hosting footer stripped). */
   descriptionHtml: string;
+  /** Plain-text one-paragraph excerpt for compact cards. */
+  excerpt: string;
   /** Canonical episode page on Acast. */
   link: string;
 }
@@ -66,6 +68,25 @@ const SANITIZE_OPTS = {
   ALLOWED_ATTR: ['href', 'target', 'rel']
 };
 
+/** Strip the boilerplate Acast hosting footer + collapse whitespace. */
+function cleanDescription(raw: string): string {
+  // Acast appends `<hr><p>Hosted on Acast. See acast.com/privacy …</p>` —
+  // everything from the rule onward is boilerplate.
+  return raw.split(/<hr\b/i)[0];
+}
+
+/** Plain-text, single-paragraph excerpt for compact cards. */
+function excerptFrom(html: string, max = 200): string {
+  const text = html
+    .replace(/<\/(p|div|li)>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/Hosted on Acast.*$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (text.length <= max) return text;
+  return text.slice(0, max).replace(/\s+\S*$/, '') + '…';
+}
+
 /** Parse an Acast RSS feed XML string into episodes (newest first). */
 export function parseFeed(xml: string): Episode[] {
   const doc = new DOMParser().parseFromString(xml, 'application/xml');
@@ -81,7 +102,10 @@ export function parseFeed(xml: string): Episode[] {
     const enclosure = item.getElementsByTagName('enclosure')[0];
     const epImage =
       item.getElementsByTagName('itunes:image')[0]?.getAttribute('href') ?? showImage;
-    const rawDesc = text(item, 'description');
+    const descriptionHtml = DOMPurify.sanitize(
+      cleanDescription(text(item, 'description')),
+      SANITIZE_OPTS
+    );
 
     return {
       guid: text(item, 'guid') || text(item, 'link'),
@@ -91,7 +115,8 @@ export function parseFeed(xml: string): Episode[] {
       durationLabel: formatDuration(text(item, 'itunes:duration')),
       audioUrl: enclosure?.getAttribute('url') ?? '',
       image: epImage,
-      descriptionHtml: DOMPurify.sanitize(rawDesc, SANITIZE_OPTS),
+      descriptionHtml,
+      excerpt: excerptFrom(descriptionHtml),
       link: text(item, 'link')
     };
   });

@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { site, publicSpeaking as ps } from '$lib/content';
+  import { site, publicSpeaking as ps, testimonials } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
+  import Testimonials from '$lib/components/Testimonials.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -91,5 +92,7 @@
     </div>
   </div>
 </section>
+
+<Testimonials surface="paper" heading="What organisations say" items={testimonials.speaking} />
 
 <ContactSection details={false} />

@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { site, home, contact } from '$lib/content';
+  import { site, home, contact, testimonials } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
+  import Testimonials from '$lib/components/Testimonials.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -43,16 +44,13 @@
   </div>
 </section>
 
-<!-- Testimonial -->
-<section class="bg-sand section-y">
-  <div class="container-page mx-auto max-w-3xl text-center">
-    <p class="t-eyebrow">{home.testimonial.lead}</p>
-    <blockquote class="mt-5 font-serif text-[clamp(22px,3vw,32px)] italic leading-snug text-navy-900">
-      “{home.testimonial.quote}”
-    </blockquote>
-    <p class="mt-5 text-sm font-semibold tracking-wide text-ink-soft">— {home.testimonial.attribution}</p>
-  </div>
-</section>
+<!-- Testimonial (featured therapy client) -->
+<Testimonials
+  variant="featured"
+  surface="sand"
+  eyebrow="Here's what one client had to say:"
+  items={testimonials.therapy}
+/>
 
 <!-- About -->
 <section class="bg-paper section-y">
@@ -105,6 +103,20 @@
         </li>
       {/each}
     </ul>
+  </div>
+</section>
+
+<!-- Public-speaking promo (secondary audience: workplaces) -->
+<section class="bg-navy-900 text-paper section-y">
+  <div class="container-page grid items-center gap-8 md:grid-cols-[1.3fr_0.7fr]">
+    <div>
+      <p class="t-eyebrow !text-orange-300">{home.speakingPromo.eyebrow}</p>
+      <h2 class="t-h2 mt-3 text-paper">{home.speakingPromo.title}</h2>
+      <p class="t-lead mt-4 max-w-2xl text-cloud">{home.speakingPromo.body}</p>
+    </div>
+    <div class="md:justify-self-end">
+      <a class="btn btn-primary" href="/public-speaking">{home.speakingPromo.cta}</a>
+    </div>
   </div>
 </section>
 

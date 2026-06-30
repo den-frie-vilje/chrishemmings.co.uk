@@ -15,6 +15,7 @@ import homeData from '../../content/home.json';
 import workingTogetherData from '../../content/working-together.json';
 import publicSpeakingData from '../../content/public-speaking.json';
 import podcastData from '../../content/podcast.json';
+import testimonialsData from '../../content/testimonials.json';
 
 export interface NavItem {
   label: string;
@@ -69,10 +70,10 @@ export interface Home {
     ctaPrimary: string;
     ctaSecondary: string;
   };
-  testimonial: { lead: string; quote: string; attribution: string };
   about: { title: string; body: string };
   founder: { intro: string; orgs: Org[] };
   interests: { title: string; intro: string; items: Interest[] };
+  speakingPromo: { eyebrow: string; title: string; body: string; cta: string };
 }
 
 export interface WorkingTogether {
@@ -134,12 +135,31 @@ export interface Podcast {
   platforms: PodcastPlatform[];
 }
 
+export interface Testimonial {
+  quote: string;
+  /** Attribution name — anonymised for therapy ("Client, M, 28"),
+   *  real name for commercial/speaking clients. */
+  name: string;
+  /** Optional role / context (e.g. "Head of Wellbeing"). */
+  detail?: string;
+  /** Optional organisation (commercial testimonials). */
+  org?: string;
+}
+
+export interface Testimonials {
+  /** Anonymised therapy-client testimonials. */
+  therapy: Testimonial[];
+  /** Commercial / public-speaking client testimonials. */
+  speaking: Testimonial[];
+}
+
 export const site: Site = siteData;
 export const contact: Contact = contactData;
 export const home: Home = homeData;
 export const workingTogether: WorkingTogether = workingTogetherData;
 export const publicSpeaking: PublicSpeaking = publicSpeakingData;
 export const podcast: Podcast = podcastData;
+export const testimonials: Testimonials = testimonialsData;
 
 /** Footer note with the `{year}` placeholder resolved. */
 export function footerNote(year: number): string {

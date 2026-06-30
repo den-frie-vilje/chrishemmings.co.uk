@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { site, workingTogether as wt, contact } from '$lib/content';
+  import { site, workingTogether as wt, contact, testimonials } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
+  import Testimonials from '$lib/components/Testimonials.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -88,5 +89,7 @@
     <Prose md={wt.furtherInfo.body} class="mt-5" />
   </div>
 </section>
+
+<Testimonials surface="sand" heading="What clients say" items={testimonials.therapy} />
 
 <ContactSection />

@@ -6,6 +6,13 @@
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Prose from '$lib/components/Prose.svelte';
+  import EpisodesEditorial from '$lib/components/EpisodesEditorial.svelte';
+  import EpisodesCovers from '$lib/components/EpisodesCovers.svelte';
+
+  // Episode card direction — 'editorial' (text-forward list) or
+  // 'covers' (visual artwork grid). Flip to compare / once chosen.
+  type Variant = 'editorial' | 'covers';
+  const VARIANT = 'editorial' as Variant;
 
   const seo = buildPageSeo({
     path: '/podcast',
@@ -81,39 +88,13 @@
         </p>
       </div>
     {:else}
-      <ul class="mt-8 space-y-6">
-        {#each episodes as ep (ep.guid)}
-          <li class="rounded-xl border border-line bg-paper p-5 sm:p-6">
-            <article class="grid gap-5 sm:grid-cols-[120px_1fr]">
-              <img
-                src={ep.image}
-                alt=""
-                width="120"
-                height="120"
-                loading="lazy"
-                class="hidden h-[120px] w-[120px] rounded-lg object-cover sm:block"
-              />
-              <div>
-                <h3 class="t-h3 text-navy-900">
-                  <a class="hover:text-orange-600" href={ep.link} target="_blank" rel="noopener">{ep.title}</a>
-                </h3>
-                <p class="mt-1 text-sm text-ink-soft">
-                  {#if ep.isoDate}<time datetime={ep.isoDate}>{ep.dateLabel}</time>{/if}
-                  {#if ep.durationLabel}<span aria-hidden="true"> · </span>{ep.durationLabel}{/if}
-                </p>
-                {#if ep.descriptionHtml}
-                  <!-- Sanitised in $lib/podcast (DOMPurify) — third-party feed content. -->
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  <div class="prose-warm mt-3 line-clamp-4 text-[0.95rem]">{@html ep.descriptionHtml}</div>
-                {/if}
-                {#if ep.audioUrl}
-                  <audio class="mt-4 w-full" controls preload="none" src={ep.audioUrl}></audio>
-                {/if}
-              </div>
-            </article>
-          </li>
-        {/each}
-      </ul>
+      <div class="mt-8">
+        {#if VARIANT === 'covers'}
+          <EpisodesCovers {episodes} />
+        {:else}
+          <EpisodesEditorial {episodes} />
+        {/if}
+      </div>
     {/if}
   </div>
 </section>

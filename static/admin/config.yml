@@ -110,6 +110,14 @@ collections:
                 fields:
                   - { name: title, label: Title, widget: string }
                   - { name: body, label: Description, widget: text }
+          - name: speakingPromo
+            label: Public-speaking promo
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: text }
+              - { name: cta, label: CTA label, widget: string }
 
       - name: working-together
         label: Therapy & Coaching
@@ -217,3 +225,24 @@ collections:
             fields:
               - { name: name, label: Name, widget: string }
               - { name: href, label: Link, widget: string }
+
+      - name: testimonials
+        label: Testimonials
+        file: src/content/testimonials.json
+        fields:
+          - name: therapy
+            label: Therapy clients (anonymised)
+            widget: list
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: name, label: Attribution, widget: string, hint: "Anonymised, e.g. \"Client, M, 28\"." }
+              - { name: detail, label: Detail, widget: string, required: false }
+              - { name: org, label: Organisation, widget: string, required: false }
+          - name: speaking
+            label: Public-speaking / commercial clients
+            widget: list
+            fields:
+              - { name: quote, label: Quote, widget: text }
+              - { name: name, label: Name, widget: string }
+              - { name: detail, label: Role, widget: string, required: false }
+              - { name: org, label: Organisation, widget: string, required: false }
