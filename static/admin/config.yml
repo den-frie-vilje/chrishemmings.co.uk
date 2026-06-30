@@ -15,8 +15,8 @@ backend:
   name: github
   repo: den-frie-vilje/chrishemmings.co.uk
   branch: staging
-  base_url: https://chrishemmings-co-uk.stage.denfrievilje.dk
-  auth_endpoint: auth
+  base_url: https://chrishemmings-co-uk.stage.denfrievilje.dk/auth
+  site_domain: chrishemmings-co-uk.stage.denfrievilje.dk
 
 # Staging writes go straight to the staging branch (no editorial PR flow).
 publish_mode: simple

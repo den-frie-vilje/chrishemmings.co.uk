@@ -86,13 +86,13 @@
         {/each}
       </div>
     </div>
-    <div class="hidden md:order-1 md:block md:justify-self-start">
+    <div class="md:order-1 md:justify-self-start">
       <img
         src={podcast.hero.cover}
         alt={podcast.hero.coverAlt}
         width="360"
         height="360"
-        class="w-full max-w-[300px] rounded-xl shadow-lg"
+        class="mx-auto w-full max-w-[260px] rounded-xl shadow-lg sm:max-w-[300px] md:mx-0"
       />
     </div>
   </div>
