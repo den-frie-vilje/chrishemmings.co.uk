@@ -56,55 +56,62 @@ interface Card {
   cta: string;
 }
 
+// Bespoke share-card copy. Every card carries the Chris Hemmings name +
+// tagline lockup (rendered in the layout, sourced from site.json), a
+// subject-specific big title, and a CTA that varies with the subject so
+// it stays grounded (the podcast doesn't pivot to "book a consultation").
 const CARDS: Card[] = [
   {
     slug: 'home',
-    eyebrow: site.tagline,
-    title: site.name,
-    subtitle: 'Online therapy for men — UK · Europe · worldwide',
+    eyebrow: 'Online Therapy for Men',
+    title: 'Therapy & coaching for men',
+    subtitle: 'Make sense of your life, relationships and emotions',
     portrait: home.hero.portrait,
-    cta: contact.booking.label
+    cta: 'Book a free 15-minute consultation'
   },
   {
     slug: 'working-together',
-    eyebrow: wt.hero.eyebrow,
-    title: site.name,
-    subtitle: wt.hero.title,
+    eyebrow: 'Therapy & Coaching',
+    title: 'A space without judgement',
+    subtitle: 'Person-centred therapy & coaching for men',
     portrait: wt.hero.portrait,
-    cta: contact.booking.label
+    cta: 'Book a free 15-minute consultation'
   },
   {
     slug: 'public-speaking',
-    eyebrow: ps.hero.eyebrow,
-    title: site.name,
-    subtitle: ps.hero.title,
+    eyebrow: 'Public Speaking',
+    title: 'Talks & workshops',
+    subtitle: "Men's mental health, masculinity & wellbeing",
     portrait: ps.hero.portrait,
-    cta: ps.hero.cta
+    cta: 'Enquire about speaking'
   },
   {
     slug: 'podcast',
-    eyebrow: podcast.hero.eyebrow,
-    title: podcast.hero.title,
-    subtitle: podcast.hero.subtitle,
+    eyebrow: 'Podcast · No Man’s an Island',
+    title: 'No Man’s an Island',
+    subtitle: 'Honest conversations on men’s wellbeing',
     // A photo of Chris — NOT the show/episode artwork.
     portrait: home.hero.portrait,
-    cta: contact.booking.label
+    cta: 'New episode every Tuesday'
   },
   {
     slug: 'get-in-touch',
-    eyebrow: contact.heading,
-    title: site.name,
-    subtitle: site.tagline,
+    eyebrow: 'Get in touch',
+    title: 'Let’s see if we’re a good fit',
+    subtitle: 'A free 15-minute intro call',
     portrait: home.hero.portrait,
-    cta: contact.booking.label
+    cta: 'Book a free 15-minute consultation'
   }
 ];
 
 const NAVY = '#093449';
+const NAVY_950 = '#06283a';
 const ORANGE = '#ff9902';
 const ORANGE_LIGHT = '#ffc57e';
 const CLOUD = '#e9eff2';
 const NBSP = String.fromCharCode(160);
+const NAME: string = site.name;
+const TAGLINE: string = site.tagline;
 
 /** Bind the last two words with a non-breaking space so a wrapped line
  *  never leaves a single-word orphan. */
@@ -119,15 +126,21 @@ function markup(card: Card): string {
   const portrait = dataUri(card.portrait);
   return `
   <div style="display:flex;width:1200px;height:630px;background:${NAVY};font-family:'Hanken Grotesk';">
-    <div style="display:flex;flex-direction:column;justify-content:space-between;width:740px;height:100%;padding:76px 64px;">
-      <div style="display:flex;flex-direction:column;">
-        <div style="color:${ORANGE_LIGHT};font-size:28px;font-weight:600;letter-spacing:4px;text-transform:uppercase;">${card.eyebrow}</div>
-        <div style="color:#ffffff;font-size:84px;font-weight:800;letter-spacing:-2.5px;line-height:1.0;margin-top:22px;">${noOrphans(card.title)}</div>
-        <div style="color:${CLOUD};font-size:34px;font-weight:400;line-height:1.28;margin-top:28px;">${noOrphans(card.subtitle)}</div>
+    <div style="display:flex;flex-direction:column;justify-content:space-between;width:742px;height:100%;padding:62px;">
+      <div style="display:flex;align-items:baseline;">
+        <span style="color:#ffffff;font-size:25px;font-weight:700;letter-spacing:-0.3px;">${NAME}</span>
+        <span style="color:${ORANGE_LIGHT};font-size:25px;font-weight:500;margin-left:14px;">${TAGLINE}</span>
       </div>
-      <div style="display:flex;align-items:center;color:${ORANGE};font-size:27px;font-weight:600;">${noOrphans(card.cta)}</div>
+      <div style="display:flex;flex-direction:column;">
+        <div style="color:${ORANGE_LIGHT};font-size:26px;font-weight:600;letter-spacing:3px;text-transform:uppercase;">${card.eyebrow}</div>
+        <div style="color:#ffffff;font-size:78px;font-weight:800;letter-spacing:-2.5px;line-height:1.0;margin-top:18px;">${noOrphans(card.title)}</div>
+        <div style="color:${CLOUD};font-size:32px;font-weight:400;line-height:1.28;margin-top:24px;">${noOrphans(card.subtitle)}</div>
+      </div>
+      <div style="display:flex;">
+        <div style="display:flex;align-items:center;background:${ORANGE};color:${NAVY_950};font-size:24px;font-weight:700;padding:15px 30px;border-radius:9999px;">${noOrphans(card.cta)}</div>
+      </div>
     </div>
-    <img src="${portrait}" width="460" height="630" style="width:460px;height:630px;object-fit:cover;object-position:50% 32%;" />
+    <img src="${portrait}" width="458" height="630" style="width:458px;height:630px;object-fit:cover;object-position:50% 30%;" />
   </div>`;
 }
 
