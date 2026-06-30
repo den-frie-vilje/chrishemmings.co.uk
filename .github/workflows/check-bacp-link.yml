@@ -1,0 +1,59 @@
+# Monitors the BACP register link used on the site (the badge on
+# /working-together and the footer credential). If BACP ever changes their
+# URL scheme or Chris's membership lapses, the linked page would stop
+# showing his registered record — this catches that so the site never
+# links to a dead or wrong verification page.
+#
+# Runs weekly + on demand. A failure emails the repo owner (GitHub's
+# default notification for failed scheduled runs) — that's the alert.
+#
+# Keep MEMBERSHIP in sync with site.json's bacpRegisterUrl.
+
+name: Check BACP link
+
+on:
+  schedule:
+    # 08:00 UTC every Monday.
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    env:
+      MEMBERSHIP: '402932'
+      URL: 'https://www.bacp.co.uk/therapists/402932'
+    steps:
+      - name: Fetch the BACP profile and verify Chris's registered record
+        run: |
+          set -euo pipefail
+          echo "Checking $URL"
+
+          # Follow redirects; capture body + HTTP status. Retry a few times
+          # to ride out transient 5xx / network blips before alerting.
+          status=0
+          for attempt in 1 2 3; do
+            status=$(curl -sS -L -A "chrishemmings.co.uk link monitor" \
+              -o body.html -w '%{http_code}' "$URL" || echo 000)
+            [ "$status" = "200" ] && break
+            echo "Attempt $attempt got HTTP $status — retrying…"
+            sleep 10
+          done
+
+          if [ "$status" != "200" ]; then
+            echo "::error::BACP link returned HTTP $status (expected 200): $URL"
+            exit 1
+          fi
+
+          # The page must still identify Chris as a BACP-registered member.
+          missing=0
+          grep -qi "Hemmings"          body.html || { echo "::error::'Hemmings' not found on the BACP page"; missing=1; }
+          grep -qi "Registered member" body.html || { echo "::error::'Registered member' not found on the BACP page"; missing=1; }
+          grep -q  "$MEMBERSHIP"       body.html || { echo "::error::Membership number $MEMBERSHIP not found on the BACP page"; missing=1; }
+
+          if [ "$missing" = "1" ]; then
+            echo "::error::BACP link no longer shows Chris's registered record — update site.json bacpRegisterUrl."
+            exit 1
+          fi
+
+          echo "OK — BACP link still resolves to Chris Hemmings, Registered member ($MEMBERSHIP)."

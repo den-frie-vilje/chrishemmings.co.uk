@@ -20,4 +20,12 @@
   />
   <!-- Classic (non-module) script — Sveltia ships a UMD bundle. -->
   <script src="/admin/sveltia-cms.js"></script>
+
+  <!--
+    Floating "Publish" button injected into Sveltia's toolbar — links to
+    /publish, which squash-merges staging→main. Auth-aware, same-origin
+    (allowed by the CSP above's script-src 'self'). See
+    static/admin/publish-fab.js.
+  -->
+  <script src="/admin/publish-fab.js" defer></script>
 </svelte:head>

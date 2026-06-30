@@ -1,15 +1,11 @@
+<!--
+  Root layout: global styles only. The header/footer chrome lives in the
+  `(site)` group's layout, so editor routes (/admin, /publish) stay bare.
+-->
 <script lang="ts">
   import '../app.css';
-  import SiteHeader from '$lib/components/SiteHeader.svelte';
-  import SiteFooter from '$lib/components/SiteFooter.svelte';
 
   let { children } = $props();
 </script>
 
-<div class="flex min-h-dvh flex-col">
-  <SiteHeader />
-  <main class="flex-1">
-    {@render children()}
-  </main>
-  <SiteFooter />
-</div>
+{@render children()}
