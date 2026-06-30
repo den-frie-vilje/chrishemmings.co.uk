@@ -11,6 +11,8 @@
   "feedPath": "/api/podcast-feed",
   "platforms": [
     { "name": "Apple Podcasts", "href": "https://podcasts.apple.com/us/podcast/no-mans-an-island/id1849171262" },
-    { "name": "Listen on Acast", "href": "https://shows.acast.com/no-mans-an-island" }
+    { "name": "Spotify", "href": "https://open.spotify.com/show/5QgINHeUZKorBCE4LBoBXF" },
+    { "name": "YouTube", "href": "https://www.youtube.com/@MensTherapyHub" },
+    { "name": "Acast", "href": "https://shows.acast.com/no-mans-an-island" }
   ]
 }

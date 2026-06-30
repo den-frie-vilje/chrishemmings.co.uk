@@ -111,13 +111,14 @@
   </div>
 </section>
 
-<!-- Public-speaking promo (secondary audience: workplaces) -->
-<section class="bg-navy-900 text-paper section-y">
+<!-- Public-speaking promo (secondary audience: workplaces). Warm sand
+     surface so it reads distinct from the navy contact section below it. -->
+<section class="bg-sand section-y">
   <div class="container-page grid items-center gap-8 md:grid-cols-[1.3fr_0.7fr]">
     <div>
-      <p class="t-eyebrow !text-orange-300">{home.speakingPromo.eyebrow}</p>
-      <h2 class="t-h2 mt-3 text-paper">{home.speakingPromo.title}</h2>
-      <p class="t-lead mt-4 max-w-2xl text-cloud">{home.speakingPromo.body}</p>
+      <p class="t-eyebrow">{home.speakingPromo.eyebrow}</p>
+      <h2 class="t-h2 mt-3 text-ink">{home.speakingPromo.title}</h2>
+      <p class="t-lead mt-4 max-w-2xl text-ink-soft">{home.speakingPromo.body}</p>
     </div>
     <div class="md:justify-self-end">
       <a class="btn btn-primary" href="/public-speaking">{home.speakingPromo.cta}</a>

@@ -47,6 +47,10 @@
   /* Layout rhythm */
   --spacing-section: 84px;
   --container-page: 1160px;
+
+  /* Extra breakpoint: width at which the inline nav can also fit the
+     "Free consultation" CTA button (links appear at md). */
+  --breakpoint-navfull: 58rem;
 }
 
 :root {
