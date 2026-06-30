@@ -75,6 +75,9 @@
     display: block;
     width: 132px;
     height: 37px;
+    /* Nudge left for optical alignment with the text above (the mark's own
+       bounding box carries a little left whitespace). */
+    margin-left: -3px;
     background-color: var(--color-orange-300);
     transition: background-color 0.15s ease;
     -webkit-mask: url('/img/logos/mth-mono.png') left center / contain no-repeat;
