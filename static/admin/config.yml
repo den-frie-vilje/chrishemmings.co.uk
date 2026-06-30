@@ -31,12 +31,6 @@ collections:
           - { name: tagline, label: Tagline, widget: string }
           - { name: description, label: Meta description, widget: text }
           - { name: themeColor, label: Theme colour, widget: string }
-          - name: nav
-            label: Navigation
-            widget: list
-            fields:
-              - { name: label, label: Label, widget: string }
-              - { name: href, label: Link, widget: string }
           - { name: footerNote, label: Footer note, widget: string, hint: "Use {year} for the year." }
           - { name: bacpRegisterUrl, label: BACP register link, widget: string, hint: "Official BACP profile, e.g. https://www.bacp.co.uk/therapists/<membership-number>" }
 
@@ -44,6 +38,7 @@ collections:
         label: Contact details
         file: src/content/contact.json
         fields:
+          - { name: navLabel, label: Navigation label, widget: string, hint: "How the Get in touch page appears in the site menu." }
           - { name: heading, label: Heading, widget: string }
           - { name: intro, label: Intro, widget: string }
           - { name: email, label: Email, widget: string }
@@ -72,6 +67,7 @@ collections:
         label: Home page
         file: src/content/home.json
         fields:
+          - { name: navLabel, label: Navigation label, widget: string, hint: "How this page appears in the site menu." }
           - name: hero
             label: Hero
             widget: object
@@ -141,6 +137,7 @@ collections:
         label: Therapy & Coaching
         file: src/content/working-together.json
         fields:
+          - { name: navLabel, label: Navigation label, widget: string, hint: "How this page appears in the site menu." }
           - name: hero
             label: Hero
             widget: object
@@ -187,6 +184,7 @@ collections:
         label: Public Speaking
         file: src/content/public-speaking.json
         fields:
+          - { name: navLabel, label: Navigation label, widget: string, hint: "How this page appears in the site menu." }
           - name: hero
             label: Hero
             widget: object
@@ -247,6 +245,7 @@ collections:
         label: Podcast
         file: src/content/podcast.json
         fields:
+          - { name: navLabel, label: Navigation label, widget: string, hint: "How this page appears in the site menu." }
           - name: hero
             label: Hero
             widget: object

@@ -8,6 +8,7 @@
   import Prose from '$lib/components/Prose.svelte';
   import EpisodesEditorial from '$lib/components/EpisodesEditorial.svelte';
   import EpisodesCovers from '$lib/components/EpisodesCovers.svelte';
+  import PlatformIcon from '$lib/components/PlatformIcon.svelte';
 
   // Episode card direction — 'editorial' (text-forward list) or
   // 'covers' (visual artwork grid). Flip to compare / once chosen.
@@ -54,7 +55,10 @@
       <p class="t-lead mt-5 max-w-xl text-cloud">{podcast.hero.intro}</p>
       <div class="mt-7 flex flex-wrap gap-3">
         {#each podcast.platforms as p (p.name)}
-          <a class="btn btn-on-navy" href={p.href} target="_blank" rel="noopener">{p.name}</a>
+          <a class="btn btn-on-navy" href={p.href} target="_blank" rel="noopener">
+            <PlatformIcon name={p.name} class="h-5 w-5" />
+            {p.name}
+          </a>
         {/each}
       </div>
     </div>

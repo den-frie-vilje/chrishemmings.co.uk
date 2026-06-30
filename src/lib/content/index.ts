@@ -36,9 +36,8 @@ export interface Site {
   tagline: string;
   description: string;
   themeColor: string;
-  nav: NavItem[];
   footerNote: string;
-  /** Official BACP register deep-link (searches by certificate number). */
+  /** Official BACP register profile link — the single source of truth. */
   bacpRegisterUrl: string;
 }
 
@@ -49,6 +48,7 @@ export interface Booking {
 }
 
 export interface Contact {
+  navLabel: string;
   heading: string;
   intro: string;
   email: string;
@@ -73,6 +73,7 @@ export interface Interest {
 }
 
 export interface Home {
+  navLabel: string;
   hero: {
     eyebrow: string;
     title: string;
@@ -92,6 +93,7 @@ export interface Home {
 }
 
 export interface WorkingTogether {
+  navLabel: string;
   hero: { eyebrow: string; title: string; subtitle: string; portrait: string; portraitAlt: string };
   /** Markdown. */
   intro: string;
@@ -116,6 +118,7 @@ export interface Talk {
 }
 
 export interface PublicSpeaking {
+  navLabel: string;
   hero: {
     eyebrow: string;
     title: string;
@@ -138,6 +141,7 @@ export interface PodcastPlatform {
 }
 
 export interface Podcast {
+  navLabel: string;
   hero: {
     eyebrow: string;
     title: string;
@@ -185,6 +189,20 @@ export const workingTogether: WorkingTogether = workingTogetherData;
 export const publicSpeaking: PublicSpeaking = publicSpeakingData;
 export const podcast: Podcast = podcastData;
 export const testimonials: Testimonials = testimonialsData;
+
+/**
+ * Primary navigation — GENERATED, not hand-entered. Each item pairs a
+ * page's fixed route (the slug, owned by the route tree) with that page's
+ * own `navLabel`, so there's no separate nav list to keep in sync and no
+ * URLs to type in the CMS. Order is the only nav-specific decision here.
+ */
+export const nav: NavItem[] = [
+  { href: '/', label: home.navLabel },
+  { href: '/working-together', label: workingTogether.navLabel },
+  { href: '/public-speaking', label: publicSpeaking.navLabel },
+  { href: '/podcast', label: podcast.navLabel },
+  { href: '/get-in-touch', label: contact.navLabel }
+];
 
 /** Footer note with the `{year}` placeholder resolved. */
 export function footerNote(year: number): string {

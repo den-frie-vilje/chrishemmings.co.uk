@@ -67,7 +67,7 @@
         href={site.bacpRegisterUrl}
         target="_blank"
         rel="noopener"
-        aria-label="Verify Chris Hemmings on the BACP register (membership 402932)"
+        aria-label="Verify Chris Hemmings on the BACP register"
       >
         <img
           src="/img/bacp.png"

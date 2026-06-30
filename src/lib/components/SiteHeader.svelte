@@ -10,7 +10,7 @@
 -->
 <script lang="ts">
   import { page } from '$app/state';
-  import { site, contact } from '$lib/content';
+  import { site, contact, nav } from '$lib/content';
 
   let open = $state(false);
 
@@ -46,7 +46,7 @@
 
     <!-- Desktop nav -->
     <nav class="hidden flex-nowrap items-center gap-6 whitespace-nowrap navtight:flex" aria-label="Primary">
-      {#each site.nav as item (item.href)}
+      {#each nav as item (item.href)}
         <a
           href={item.href}
           class="text-[0.93rem] font-medium transition-colors hover:text-orange-300 {linkVisibility(
@@ -92,7 +92,7 @@
       aria-label="Primary"
     >
       <ul class="container-page flex flex-col py-3">
-        {#each site.nav as item (item.href)}
+        {#each nav as item (item.href)}
           <li>
             <a
               href={item.href}

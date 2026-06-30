@@ -1,36 +1,49 @@
-# Monitors the BACP register link used on the site (the badge on
-# /working-together and the footer credential). If BACP ever changes their
-# URL scheme or Chris's membership lapses, the linked page would stop
-# showing his registered record — this catches that so the site never
-# links to a dead or wrong verification page.
+# Monitors the BACP register link used on the site (badge on
+# /working-together + footer credential). The link lives in ONE place —
+# src/content/site.json `bacpRegisterUrl` — and this job reads it from
+# there, so there's nothing to keep in sync. If BACP changes their URL
+# scheme or Chris's membership lapses, the linked page stops showing his
+# registered record and this fails.
 #
-# Runs weekly + on demand. A failure emails the repo owner (GitHub's
-# default notification for failed scheduled runs) — that's the alert.
-#
-# Keep MEMBERSHIP in sync with site.json's bacpRegisterUrl.
+# Runs weekly + on demand. A failed scheduled run emails the repo owner
+# (GitHub's default) — that's the alert.
 
 name: Check BACP link
 
 on:
   schedule:
-    # 08:00 UTC every Monday.
-    - cron: '0 8 * * 1'
+    - cron: '0 8 * * 1' # 08:00 UTC every Monday
   workflow_dispatch:
 
 jobs:
   check:
     runs-on: ubuntu-latest
-    env:
-      MEMBERSHIP: '402932'
-      URL: 'https://www.bacp.co.uk/therapists/402932'
     steps:
-      - name: Fetch the BACP profile and verify Chris's registered record
+      - uses: actions/checkout@v4
+
+      - name: Read the BACP link from site.json
+        id: link
+        run: |
+          set -euo pipefail
+          url=$(jq -r '.bacpRegisterUrl' src/content/site.json)
+          if [ -z "$url" ] || [ "$url" = "null" ]; then
+            echo "::error::bacpRegisterUrl missing from src/content/site.json"
+            exit 1
+          fi
+          # Membership number = trailing digits of the profile URL.
+          num=$(printf '%s' "$url" | grep -oE '[0-9]+$' || true)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "num=$num" >> "$GITHUB_OUTPUT"
+          echo "Resolved $url (membership ${num:-unknown})"
+
+      - name: Verify it still shows Chris's registered record
+        env:
+          URL: ${{ steps.link.outputs.url }}
+          MEMBERSHIP: ${{ steps.link.outputs.num }}
         run: |
           set -euo pipefail
           echo "Checking $URL"
 
-          # Follow redirects; capture body + HTTP status. Retry a few times
-          # to ride out transient 5xx / network blips before alerting.
           status=0
           for attempt in 1 2 3; do
             status=$(curl -sS -L -A "chrishemmings.co.uk link monitor" \
@@ -45,15 +58,16 @@ jobs:
             exit 1
           fi
 
-          # The page must still identify Chris as a BACP-registered member.
           missing=0
           grep -qi "Hemmings"          body.html || { echo "::error::'Hemmings' not found on the BACP page"; missing=1; }
           grep -qi "Registered member" body.html || { echo "::error::'Registered member' not found on the BACP page"; missing=1; }
-          grep -q  "$MEMBERSHIP"       body.html || { echo "::error::Membership number $MEMBERSHIP not found on the BACP page"; missing=1; }
+          if [ -n "${MEMBERSHIP}" ]; then
+            grep -q "$MEMBERSHIP" body.html || { echo "::error::Membership number $MEMBERSHIP not found on the BACP page"; missing=1; }
+          fi
 
           if [ "$missing" = "1" ]; then
-            echo "::error::BACP link no longer shows Chris's registered record — update site.json bacpRegisterUrl."
+            echo "::error::BACP link no longer shows Chris's registered record — update bacpRegisterUrl in src/content/site.json."
             exit 1
           fi
 
-          echo "OK — BACP link still resolves to Chris Hemmings, Registered member ($MEMBERSHIP)."
+          echo "OK — $URL still shows Chris Hemmings, Registered member."

@@ -3,13 +3,6 @@
   "tagline": "Therapist & Coach for Men",
   "description": "Psychotherapist and coach specialising in working with men. Online therapy across the UK, Europe and beyond.",
   "themeColor": "#093449",
-  "nav": [
-    { "label": "Home", "href": "/" },
-    { "label": "Therapy & Coaching", "href": "/working-together" },
-    { "label": "Public Speaking", "href": "/public-speaking" },
-    { "label": "Podcast", "href": "/podcast" },
-    { "label": "Get in touch", "href": "/get-in-touch" }
-  ],
   "footerNote": "© {year} Chris Hemmings",
   "bacpRegisterUrl": "https://www.bacp.co.uk/therapists/402932"
 }

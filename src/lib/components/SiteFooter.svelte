@@ -3,7 +3,7 @@
   lives in <ContactSection>; the footer keeps to navigation + details.
 -->
 <script lang="ts">
-  import { site, contact, footerNote } from '$lib/content';
+  import { site, contact, footerNote, nav } from '$lib/content';
 
   // Build-time constant: the static build is rebuilt per deploy, so a
   // fixed year baked at prerender is fine and avoids a runtime `Date`.
@@ -20,7 +20,7 @@
     <nav aria-label="Footer">
       <p class="t-eyebrow !text-orange-300">Explore</p>
       <ul class="mt-3 space-y-2">
-        {#each site.nav as item (item.href)}
+        {#each nav as item (item.href)}
           <li>
             <a class="text-[0.95rem] hover:text-orange-300" href={item.href}>{item.label}</a>
           </li>
