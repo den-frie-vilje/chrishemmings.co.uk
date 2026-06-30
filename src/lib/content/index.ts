@@ -156,7 +156,7 @@ export interface PublicSpeaking {
   orgsWorkedWith: { title: string; logos: OrgLogo[] };
   experienced: { title: string; body: string };
   story: { title: string; body: string };
-  talks: { title: string; items: Talk[] };
+  talks: { title: string; groups: { name: string; items: Talk[] }[] };
   og: Og;
 }
 

@@ -94,18 +94,21 @@
 <section class="bg-paper section-y">
   <div class="container-page">
     <h2 class="t-h2 text-ink">{ps.talks.title}</h2>
-    <div class="mt-10 grid gap-6 lg:grid-cols-2">
-      {#each ps.talks.items as talk (talk.title)}
-        <article class="flex flex-col rounded-xl border border-line bg-paper-2 p-7">
-          <h3 class="t-h3 text-navy-900">{talk.title}</h3>
-          <Prose md={talk.body} class="mt-3 grow" />
-          <p class="mt-5 border-t border-line pt-4 text-sm text-ink-soft">
-            <span class="font-semibold text-ink">Popular with:</span>
-            {talk.popularWith}
-          </p>
-        </article>
-      {/each}
-    </div>
+    {#each ps.talks.groups as group, gi (group.name)}
+      <h3 class="t-eyebrow {gi === 0 ? 'mt-10' : 'mt-14'}">{group.name}</h3>
+      <div class="mt-5 grid gap-6 lg:grid-cols-2">
+        {#each group.items as talk (talk.title)}
+          <article class="flex flex-col rounded-xl border border-line bg-paper-2 p-7">
+            <h4 class="t-h3 text-navy-900">{talk.title}</h4>
+            <Prose md={talk.body} class="mt-3 grow" />
+            <p class="mt-5 border-t border-line pt-4 text-sm text-ink-soft">
+              <span class="font-semibold text-ink">Popular with:</span>
+              {talk.popularWith}
+            </p>
+          </article>
+        {/each}
+      </div>
+    {/each}
     <div class="mt-10">
       <a class="btn btn-primary" href={speakingHref}>{ps.hero.cta}</a>
     </div>

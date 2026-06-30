@@ -246,13 +246,18 @@ collections:
             widget: object
             fields:
               - { name: title, label: Section title, widget: string }
-              - name: items
-                label: Talks
+              - name: groups
+                label: Categories
                 widget: list
                 fields:
-                  - { name: title, label: Title, widget: string }
-                  - { name: body, label: Body, widget: markdown }
-                  - { name: popularWith, label: Popular with, widget: text }
+                  - { name: name, label: Category name, widget: string, hint: "e.g. \"Workshops\" or \"Talks and keynotes\"." }
+                  - name: items
+                    label: Talks
+                    widget: list
+                    fields:
+                      - { name: title, label: Title, widget: string }
+                      - { name: body, label: Body, widget: markdown }
+                      - { name: popularWith, label: Popular with, widget: text }
           - name: og
             label: Social-share image (OG)
             widget: object

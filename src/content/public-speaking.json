@@ -12,16 +12,46 @@
   "orgsWorkedWith": {
     "title": "Organisations I've worked with",
     "logos": [
-      { "name": "Barclays", "logo": "/img/logos/barclays.svg" },
-      { "name": "L'Oréal", "logo": "/img/logos/loreal.svg" },
-      { "name": "Nike", "logo": "/img/logos/nike.svg" },
-      { "name": "Monster Energy", "logo": "/img/logos/monster-energy.webp" },
-      { "name": "Merseyside Police", "logo": "/img/logos/merseyside-police.png" },
-      { "name": "SharkNinja", "logo": "/img/logos/sharkninja.svg" },
-      { "name": "KPMG", "logo": "/img/logos/kpmg.svg" },
-      { "name": "EssenceMediacom", "logo": "/img/logos/essencemediacom.svg" },
-      { "name": "Dalkia (Groupe EDF)", "logo": "/img/logos/dalkia.svg" },
-      { "name": "HFM Events", "logo": "/img/logos/hfm-events.jpg" }
+      {
+        "name": "Barclays",
+        "logo": "/img/logos/barclays.svg"
+      },
+      {
+        "name": "L'Oréal",
+        "logo": "/img/logos/loreal.svg"
+      },
+      {
+        "name": "Nike",
+        "logo": "/img/logos/nike.svg"
+      },
+      {
+        "name": "Monster Energy",
+        "logo": "/img/logos/monster-energy.webp"
+      },
+      {
+        "name": "Merseyside Police",
+        "logo": "/img/logos/merseyside-police.png"
+      },
+      {
+        "name": "SharkNinja",
+        "logo": "/img/logos/sharkninja.svg"
+      },
+      {
+        "name": "KPMG",
+        "logo": "/img/logos/kpmg.svg"
+      },
+      {
+        "name": "EssenceMediacom",
+        "logo": "/img/logos/essencemediacom.svg"
+      },
+      {
+        "name": "Dalkia (Groupe EDF)",
+        "logo": "/img/logos/dalkia.svg"
+      },
+      {
+        "name": "HFM Events",
+        "logo": "/img/logos/hfm-events.jpg"
+      }
     ]
   },
   "experienced": {
@@ -34,26 +64,36 @@
   },
   "talks": {
     "title": "Keynote talks, workshops and training",
-    "items": [
+    "groups": [
       {
-        "title": "Understanding Men's Mental Health and Emotional Wellbeing",
-        "body": "An engaging and thought-provoking workshop exploring the challenges facing men and boys today, including mental health, loneliness, emotional suppression and help-seeking. This session examines how traditional cultural expectations placed on men can impact mental health and wellbeing, and offers practical ways to create healthier conversations, stronger relationships and more supportive communities.",
-        "popularWith": "Workplaces, conferences, universities, charities and community organisations."
+        "name": "Workshops",
+        "items": [
+          {
+            "title": "Understanding Men's Mental Health and Emotional Wellbeing",
+            "body": "An engaging and thought-provoking workshop exploring the challenges facing men and boys today, including mental health, loneliness, emotional suppression and help-seeking. This session examines how traditional cultural expectations placed on men can impact mental health and wellbeing, and offers practical ways to create healthier conversations, stronger relationships and more supportive communities.",
+            "popularWith": "Workplaces, conferences, universities, charities and community organisations."
+          },
+          {
+            "title": "Developing Empathy and Emotional Intelligence",
+            "body": "Empathy is one of the most important skills for building healthier relationships, stronger teams and more inclusive cultures. This talk explores how empathy can be developed, why emotional intelligence matters and how greater understanding can improve leadership, communication and workplace wellbeing.\n\nParticipants leave with practical tools for listening more effectively, understanding different perspectives and creating environments where people feel seen, heard and valued.",
+            "popularWith": "Leadership teams, workplaces, schools and professional conferences."
+          }
+        ]
       },
       {
-        "title": "Developing Empathy and Emotional Intelligence",
-        "body": "Empathy is one of the most important skills for building healthier relationships, stronger teams and more inclusive cultures. This talk explores how empathy can be developed, why emotional intelligence matters and how greater understanding can improve leadership, communication and workplace wellbeing.\n\nParticipants leave with practical tools for listening more effectively, understanding different perspectives and creating environments where people feel seen, heard and valued.",
-        "popularWith": "Leadership teams, workplaces, schools and professional conferences."
-      },
-      {
-        "title": "Improving Communication and Building Stronger Relationships",
-        "body": "Poor communication sits at the heart of many workplace, family and relationship challenges. This practical and engaging session explores how people can communicate more openly, confidently and effectively, particularly around difficult conversations and emotional topics.\n\nDrawing on therapeutic principles and real-world experience, I help audiences understand common communication barriers and develop skills that improve trust, connection and collaboration.",
-        "popularWith": "Organisations, schools, universities and leadership teams."
-      },
-      {
-        "title": "The Case for Male Inclusion in Diversity, Equity and Inclusion (DEI)",
-        "body": "Many organisations are committed to creating more inclusive workplaces, yet conversations about gender often overlook the experiences and challenges facing men and boys. This evidence-informed talk explores why male inclusion matters within Diversity, Equity and Inclusion strategies, and how organisations can support men without diminishing support for other groups.\n\nThe session examines issues such as mental health, educational outcomes, fatherhood, workplace culture and belonging, offering a balanced and constructive approach to building truly inclusive environments.",
-        "popularWith": "HR teams, DEI professionals, public sector organisations and leadership conferences."
+        "name": "Talks and keynotes",
+        "items": [
+          {
+            "title": "Men, masculinity and mental health",
+            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "popularWith": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+          },
+          {
+            "title": "The Case for Male Inclusion in Diversity, Equity and Inclusion (DEI)",
+            "body": "Many organisations are committed to creating more inclusive workplaces, yet conversations about gender often overlook the experiences and challenges facing men and boys. This evidence-informed talk explores why male inclusion matters within Diversity, Equity and Inclusion strategies, and how organisations can support men without diminishing support for other groups.\n\nThe session examines issues such as mental health, educational outcomes, fatherhood, workplace culture and belonging, offering a balanced and constructive approach to building truly inclusive environments.",
+            "popularWith": "HR teams, DEI professionals, public sector organisations and leadership conferences."
+          }
+        ]
       }
     ]
   },
