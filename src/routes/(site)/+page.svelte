@@ -162,10 +162,10 @@
      flow), mid-right on md+ (behind the larger absolute cutout). */
   .hero-wash {
     background: radial-gradient(
-      95% 55% at 78% 90%,
+      150% 90% at 76% 88%,
       color-mix(in srgb, #4a3826 26%, transparent) 0%,
-      color-mix(in srgb, #4a3826 10%, transparent) 45%,
-      transparent 78%
+      color-mix(in srgb, #4a3826 11%, transparent) 48%,
+      transparent 88%
     );
   }
   @media (min-width: 768px) {
