@@ -59,10 +59,10 @@
     {#if paused}
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
     {:else}
-      <!-- Pause bars sized to ~4px rendered — matching the seek bar thickness. -->
+      <!-- Pause bars at ~2px rendered — same thickness as the waveform lines. -->
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true">
-        <rect x="6.6" y="5" width="4.4" height="14" rx="0.4" />
-        <rect x="13" y="5" width="4.4" height="14" rx="0.4" />
+        <rect x="8.6" y="4.5" width="2.2" height="15" />
+        <rect x="13.2" y="4.5" width="2.2" height="15" />
       </svg>
     {/if}
   </button>
@@ -176,7 +176,7 @@
   .bar {
     --bar-color: var(--color-orange-700);
     flex: 1;
-    height: 4px;
+    height: 2px;
     border-radius: 9999px;
     appearance: none;
     -webkit-appearance: none;
@@ -196,15 +196,15 @@
   }
   .bar::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 11px;
-    height: 11px;
+    width: 9px;
+    height: 9px;
     border-radius: 9999px;
     background: var(--bar-color);
     transition: transform 0.15s ease;
   }
   .bar::-moz-range-thumb {
-    width: 11px;
-    height: 11px;
+    width: 9px;
+    height: 9px;
     border: none;
     border-radius: 9999px;
     background: var(--bar-color);
