@@ -70,19 +70,17 @@
       />
       <div class="mt-8">
         <p class="t-eyebrow">{home.founder.intro}</p>
-        <ul class="mt-4 flex flex-wrap items-center gap-6">
+        <div class="mt-4 inline-flex flex-wrap items-center gap-x-9 gap-y-5 rounded-xl bg-navy-900 px-8 py-6">
           {#each home.founder.orgs as org (org.name)}
-            <li>
-              {#if org.href}
-                <a href={org.href} target="_blank" rel="noopener" aria-label={org.name}>
-                  <img src={org.logo} alt={`${org.name} logo`} class="h-14 w-auto" loading="lazy" />
-                </a>
-              {:else}
-                <img src={org.logo} alt={`${org.name} logo`} class="h-14 w-auto" loading="lazy" />
-              {/if}
-            </li>
+            {#if org.href}
+              <a href={org.href} target="_blank" rel="noopener" aria-label={org.name}>
+                <img src={org.logo} alt={`${org.name} logo`} class="h-12 w-auto" loading="lazy" />
+              </a>
+            {:else}
+              <img src={org.logo} alt={`${org.name} logo`} class="h-12 w-auto" loading="lazy" />
+            {/if}
           {/each}
-        </ul>
+        </div>
       </div>
     </div>
   </div>

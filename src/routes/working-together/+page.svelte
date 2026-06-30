@@ -61,9 +61,23 @@
       </ul>
       <p class="mt-5 text-sm text-ink-soft">{wt.qualifications.regulatorNote}</p>
     </div>
-    <div class="flex flex-wrap items-center gap-6 md:justify-end">
-      <img src="/img/bacp.png" alt="BACP — British Association for Counselling and Psychotherapy" class="h-16 w-auto" loading="lazy" />
-      <img src="/img/professional-standards-authority.png" alt="Professional Standards Authority accredited register" class="h-20 w-auto" loading="lazy" />
+    <div class="flex flex-wrap items-center gap-4 md:justify-end">
+      <span class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6">
+        <img
+          src="/img/bacp.png"
+          alt="BACP — British Association for Counselling and Psychotherapy"
+          class="max-h-11 w-auto"
+          loading="lazy"
+        />
+      </span>
+      <span class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6">
+        <img
+          src="/img/professional-standards-authority.png"
+          alt="Professional Standards Authority accredited register"
+          class="max-h-14 w-auto"
+          loading="lazy"
+        />
+      </span>
     </div>
   </div>
 </section>

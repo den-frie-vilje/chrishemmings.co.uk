@@ -10,8 +10,19 @@
   },
   "orgsWorkedWith": {
     "title": "Organisations I've worked with",
-    "logoStrip": "/img/organisations-logo-strip.png",
-    "logoStripAlt": "Logos of organisations Chris Hemmings has worked with"
+    "logos": [
+      { "name": "Barclays", "logo": "/img/logos/barclays.png" },
+      { "name": "L'Oréal", "logo": "/img/logos/loreal.png" },
+      { "name": "Nike", "logo": "/img/logos/nike.png" },
+      { "name": "Monster Energy", "logo": "/img/logos/monster-energy.png" },
+      { "name": "Merseyside Police", "logo": "/img/logos/merseyside-police.png" },
+      { "name": "SharkNinja", "logo": "/img/logos/sharkninja.png" },
+      { "name": "KPMG", "logo": "/img/logos/kpmg.png" },
+      { "name": "MediaCom", "logo": "/img/logos/mediacom.png" },
+      { "name": "Essence", "logo": "/img/logos/essence.png" },
+      { "name": "Dalkia (Groupe EDF)", "logo": "/img/logos/dalkia.png" },
+      { "name": "HFM Events", "logo": "/img/logos/hfm-events.jpg" }
+    ]
   },
   "experienced": {
     "title": "An experienced speaker on men's mental health and masculinity",

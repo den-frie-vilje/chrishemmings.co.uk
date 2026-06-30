@@ -176,8 +176,12 @@ collections:
             widget: object
             fields:
               - { name: title, label: Title, widget: string }
-              - { name: logoStrip, label: Logo strip, widget: image }
-              - { name: logoStripAlt, label: Logo strip alt text, widget: string }
+              - name: logos
+                label: Logos
+                widget: list
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: logo, label: Logo, widget: image }
           - name: experienced
             label: Experienced speaker
             widget: object
@@ -243,6 +247,7 @@ collections:
             widget: list
             fields:
               - { name: quote, label: Quote, widget: text }
-              - { name: name, label: Name, widget: string }
+              - { name: name, label: Name / organisation, widget: string }
               - { name: detail, label: Role, widget: string, required: false }
               - { name: org, label: Organisation, widget: string, required: false }
+              - { name: logo, label: Client logo, widget: image, required: false }

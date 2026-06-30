@@ -4,6 +4,7 @@
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Testimonials from '$lib/components/Testimonials.svelte';
+  import LogoCarousel from '$lib/components/LogoCarousel.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -44,14 +45,11 @@
 
 <!-- Organisations worked with -->
 <section class="bg-paper-2 border-b border-line py-12">
-  <div class="container-page text-center">
-    <p class="t-eyebrow">{ps.orgsWorkedWith.title}</p>
-    <img
-      src={ps.orgsWorkedWith.logoStrip}
-      alt={ps.orgsWorkedWith.logoStripAlt}
-      class="mx-auto mt-6 h-auto w-full max-w-3xl"
-      loading="lazy"
-    />
+  <div class="container-page">
+    <p class="t-eyebrow text-center">{ps.orgsWorkedWith.title}</p>
+    <div class="mt-6">
+      <LogoCarousel logos={ps.orgsWorkedWith.logos} label={ps.orgsWorkedWith.title} />
+    </div>
   </div>
 </section>
 

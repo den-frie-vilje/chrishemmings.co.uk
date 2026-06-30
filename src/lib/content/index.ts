@@ -109,7 +109,7 @@ export interface PublicSpeaking {
     portraitAlt: string;
     cta: string;
   };
-  orgsWorkedWith: { title: string; logoStrip: string; logoStripAlt: string };
+  orgsWorkedWith: { title: string; logos: OrgLogo[] };
   experienced: { title: string; body: string };
   story: { title: string; body: string };
   talks: { title: string; items: Talk[] };
@@ -144,6 +144,13 @@ export interface Testimonial {
   detail?: string;
   /** Optional organisation (commercial testimonials). */
   org?: string;
+  /** Optional logo (commercial testimonials show the client logo). */
+  logo?: string;
+}
+
+export interface OrgLogo {
+  name: string;
+  logo: string;
 }
 
 export interface Testimonials {

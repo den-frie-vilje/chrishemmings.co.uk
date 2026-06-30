@@ -60,8 +60,17 @@
               <blockquote class="font-serif text-[clamp(18px,2vw,22px)] italic leading-snug text-navy-900">
                 “{t.quote}”
               </blockquote>
-              <figcaption class="mt-5 text-sm font-semibold tracking-wide text-ink-soft">
-                — {attribution(t)}
+              <figcaption class="mt-5">
+                {#if t.logo}
+                  <img
+                    src={t.logo}
+                    alt={t.name}
+                    class="h-9 w-auto max-w-[140px] object-contain"
+                    loading="lazy"
+                  />
+                {:else}
+                  <span class="text-sm font-semibold tracking-wide text-ink-soft">— {attribution(t)}</span>
+                {/if}
               </figcaption>
             </figure>
           {/each}

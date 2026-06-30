@@ -5,5 +5,21 @@
       "name": "Client, M, 28"
     }
   ],
-  "speaking": []
+  "speaking": [
+    {
+      "quote": "We found Chris to be insightful and completely different to what we usually see during our speaker events. His honesty opens up the room to an engaging and open discussion around how we can solve these issues going forward.",
+      "name": "Barclays",
+      "logo": "/img/logos/barclays.png"
+    },
+    {
+      "quote": "Honest, thought-provoking and very engaging. Chris helped us realise how men have a huge responsibility in the journey towards gender equality, and we all have so much to gain from broadening the definition of masculinity in the future.",
+      "name": "L'Oréal",
+      "logo": "/img/logos/loreal.png"
+    },
+    {
+      "quote": "Chris is a regular speaker at our business conferences and we couldn't recommend him highly enough. His ability to be both engaging and challenging often creates lively debates and further discussion amongst our delegates both during and after his session.",
+      "name": "HFM Events",
+      "logo": "/img/logos/hfm-events.jpg"
+    }
+  ]
 }
