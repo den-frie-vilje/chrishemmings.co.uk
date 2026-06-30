@@ -31,7 +31,7 @@
        sits bottom-right in flow). -->
   <div
     class="pointer-events-none absolute inset-0 z-0 hidden md:block"
-    style="background: radial-gradient(120% 135% at 82% 34%, color-mix(in srgb, #4a3826 30%, transparent) 0%, color-mix(in srgb, #4a3826 12%, transparent) 45%, transparent 82%);"
+    style="background: radial-gradient(120% 135% at 82% 56%, color-mix(in srgb, #4a3826 30%, transparent) 0%, color-mix(in srgb, #4a3826 12%, transparent) 45%, transparent 82%);"
     aria-hidden="true"
   ></div>
 
