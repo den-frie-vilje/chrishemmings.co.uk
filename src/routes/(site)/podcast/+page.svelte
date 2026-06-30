@@ -85,7 +85,7 @@
         alt={podcast.hero.coverAlt}
         width="360"
         height="360"
-        class="mx-auto w-full max-w-[260px] rounded-xl shadow-lg sm:max-w-[300px] md:mx-0"
+        class="cover-zoom mx-auto w-full max-w-[260px] rounded-xl shadow-lg sm:max-w-[300px] md:mx-0"
       />
     </div>
   </div>
@@ -146,6 +146,29 @@
         rgba(3, 19, 28, 0.4) 42%,
         transparent 74%
       );
+    }
+  }
+
+  /* Mobile-only: the cover scales up slightly as the page scrolls
+     (scroll-driven). Progressive enhancement — does nothing where
+     scroll timelines or motion aren't available. Anchored at the bottom
+     so it grows up into the navy, not down over the copy. */
+  @keyframes cover-zoom {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.12);
+    }
+  }
+  @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .cover-zoom {
+        transform-origin: bottom center;
+        animation: cover-zoom linear both;
+        animation-timeline: view();
+        animation-range: contain 0% exit 100%;
+      }
     }
   }
 </style>
