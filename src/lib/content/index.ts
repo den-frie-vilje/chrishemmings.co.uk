@@ -69,6 +69,8 @@ export interface GetInTouch {
   intro: string;
   /** Markdown. */
   body: string;
+  whatToExpect: { title: string; steps: { title: string; body: string }[] };
+  reassurances: string[];
   og: Og;
 }
 

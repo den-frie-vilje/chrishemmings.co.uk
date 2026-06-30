@@ -2,7 +2,25 @@
   "navLabel": "Get in touch",
   "heading": "Get in touch",
   "intro": "I'm happy to be contacted by email, phone or text.",
-  "body": "Reaching out can be the hardest part. Whether you already know you'd like to work together or you simply have a question, you're welcome to get in touch — there's no obligation, and I'll always reply personally.\n\nIf you'd prefer, book a free 15-minute intro call and we can talk it through.",
+  "body": "Reaching out can be the hardest part. Whether you already know you'd like to work together or you simply have a question, you're welcome to get in touch — there's no rush and no pressure.",
+  "whatToExpect": {
+    "title": "What happens next",
+    "steps": [
+      {
+        "title": "Reach out",
+        "body": "Send an email, call or text — whatever feels easiest. Tell me as much or as little as you like."
+      },
+      {
+        "title": "A free 15-minute call",
+        "body": "We'll have a no-obligation video chat about what's going on and whether we're a good fit."
+      },
+      {
+        "title": "Your first session",
+        "body": "If it feels right, we'll find a time that works and begin — at your pace."
+      }
+    ]
+  },
+  "reassurances": ["No obligation", "I reply personally", "Completely confidential"],
   "og": {
     "eyebrow": "Get in touch",
     "title": "Considering therapy or coaching?",

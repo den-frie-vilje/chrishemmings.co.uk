@@ -305,6 +305,18 @@ collections:
           - { name: heading, label: Heading, widget: string }
           - { name: intro, label: Intro, widget: text }
           - { name: body, label: Body, widget: markdown }
+          - name: whatToExpect
+            label: What happens next
+            widget: object
+            fields:
+              - { name: title, label: Section title, widget: string }
+              - name: steps
+                label: Steps
+                widget: list
+                fields:
+                  - { name: title, label: Step title, widget: string }
+                  - { name: body, label: Step text, widget: text }
+          - { name: reassurances, label: Reassurance chips, widget: list, field: { name: item, label: Chip, widget: string }, hint: "Short reassurances shown as chips, e.g. \"No obligation\"." }
           - name: og
             label: Social-share image (OG)
             widget: object
