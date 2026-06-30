@@ -40,13 +40,13 @@
            asset and it tracks the orange token. -->
       <p class="t-eyebrow mt-6 !text-orange-300">Find me on</p>
       <a
-        class="group mt-3 inline-flex"
+        class="mth-link mt-3 inline-flex"
         href="https://menstherapyhub.co.uk/therapist/chris-hemmings/"
         target="_blank"
         rel="noopener"
         aria-label="Chris Hemmings' profile on Men's Therapy Hub"
       >
-        <span class="mth-mark transition-opacity group-hover:opacity-80" aria-hidden="true"></span>
+        <span class="mth-mark" aria-hidden="true"></span>
       </a>
     </div>
   </div>
@@ -75,8 +75,12 @@
     display: block;
     width: 132px;
     height: 37px;
-    background-color: var(--color-orange-500);
+    background-color: var(--color-orange-300);
+    transition: background-color 0.15s ease;
     -webkit-mask: url('/img/logos/mth-mono.png') left center / contain no-repeat;
     mask: url('/img/logos/mth-mono.png') left center / contain no-repeat;
+  }
+  .mth-link:hover .mth-mark {
+    background-color: var(--color-orange-500);
   }
 </style>
