@@ -32,12 +32,12 @@
         class:bg-paper-2={active}
       >
         <span
-          class="flex h-6 w-6 shrink-0 items-center justify-center transition-colors {active
+          class="flex shrink-0 items-center justify-center transition-colors {active
             ? 'text-orange-700'
             : 'text-ink-soft'}"
           aria-hidden="true"
         >
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
         </span>
         <span class="min-w-0 flex-1 text-[0.97rem] leading-snug {active ? 'text-orange-700' : ''}">
           <span class="font-semibold {active ? '' : 'text-navy-900'}">{t.head}</span><span

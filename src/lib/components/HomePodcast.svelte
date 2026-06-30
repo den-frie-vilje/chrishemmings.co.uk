@@ -73,13 +73,13 @@
               <button
                 type="button"
                 onclick={() => playEpisode(latest)}
-                class="mt-4 inline-flex items-center gap-2.5 font-semibold text-orange-700 transition-colors hover:text-orange-600"
+                class="mt-4 inline-flex items-center gap-2 font-semibold text-orange-700 transition-colors hover:text-orange-600"
               >
-                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-orange-700 text-paper">
+                <span class="flex shrink-0 items-center justify-center" aria-hidden="true">
                   {#if player.current?.guid === latest.guid}
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><rect x="7" y="5" width="3.6" height="14" rx="0.5" /><rect x="13.4" y="5" width="3.6" height="14" rx="0.5" /></svg>
+                    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><rect x="7" y="5" width="3.6" height="14" rx="0.5" /><rect x="13.4" y="5" width="3.6" height="14" rx="0.5" /></svg>
                   {:else}
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+                    <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
                   {/if}
                 </span>
                 {player.current?.guid === latest.guid ? 'Now playing' : 'Play episode'}
