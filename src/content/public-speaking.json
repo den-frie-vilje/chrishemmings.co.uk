@@ -11,16 +11,16 @@
   "orgsWorkedWith": {
     "title": "Organisations I've worked with",
     "logos": [
-      { "name": "Barclays", "logo": "/img/logos/barclays.png" },
-      { "name": "L'Oréal", "logo": "/img/logos/loreal.png" },
-      { "name": "Nike", "logo": "/img/logos/nike.png" },
-      { "name": "Monster Energy", "logo": "/img/logos/monster-energy.png" },
+      { "name": "Barclays", "logo": "/img/logos/barclays.svg" },
+      { "name": "L'Oréal", "logo": "/img/logos/loreal.svg" },
+      { "name": "Nike", "logo": "/img/logos/nike.svg" },
+      { "name": "Monster Energy", "logo": "/img/logos/monster-energy.webp" },
       { "name": "Merseyside Police", "logo": "/img/logos/merseyside-police.png" },
-      { "name": "SharkNinja", "logo": "/img/logos/sharkninja.png" },
-      { "name": "KPMG", "logo": "/img/logos/kpmg.png" },
-      { "name": "MediaCom", "logo": "/img/logos/mediacom.png" },
+      { "name": "SharkNinja", "logo": "/img/logos/sharkninja.svg" },
+      { "name": "KPMG", "logo": "/img/logos/kpmg.svg" },
+      { "name": "MediaCom", "logo": "/img/logos/mediacom.svg" },
       { "name": "Essence", "logo": "/img/logos/essence.png" },
-      { "name": "Dalkia (Groupe EDF)", "logo": "/img/logos/dalkia.png" },
+      { "name": "Dalkia (Groupe EDF)", "logo": "/img/logos/dalkia.svg" },
       { "name": "HFM Events", "logo": "/img/logos/hfm-events.jpg" }
     ]
   },
