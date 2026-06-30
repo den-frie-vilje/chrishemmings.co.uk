@@ -55,8 +55,12 @@ COPY . .
 ARG VITE_MODE=production
 ARG PUBLIC_GIT_SHA=
 ARG PUBLIC_BUILD_TIME=
+# Target repo for the /publish page's staging→main merge (GitHub API).
+# Empty → the page shows a "not configured" notice.
+ARG PUBLIC_GITHUB_REPO=
 ENV PUBLIC_GIT_SHA=$PUBLIC_GIT_SHA
 ENV PUBLIC_BUILD_TIME=$PUBLIC_BUILD_TIME
+ENV PUBLIC_GITHUB_REPO=$PUBLIC_GITHUB_REPO
 
 # Type check first — faster to fail here than in the (slower)
 # Vite build. Output lands in ./build via adapter-static. Same

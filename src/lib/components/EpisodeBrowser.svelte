@@ -34,17 +34,23 @@
   <div class="lg:sticky lg:top-24 lg:self-start">
     <article class="rounded-2xl border border-line bg-paper p-6 shadow-sm sm:p-7">
       <p class="t-eyebrow !text-orange-700">Now playing</p>
-      <img
-        src={selected.image}
-        alt=""
-        width="200"
-        height="200"
-        class="mt-4 h-40 w-40 rounded-xl object-cover"
-      />
-      <p class="mt-4 text-sm text-ink-soft">
-        {selected.dateLabel}{#if selected.durationLabel}&nbsp;·&nbsp;{selected.durationLabel}{/if}
-      </p>
-      <h3 class="t-h3 mt-1 text-balance text-navy-900">{selected.title}</h3>
+      <div class="mt-4 flex gap-4">
+        <img
+          src={selected.image}
+          alt=""
+          width="200"
+          height="200"
+          class="h-28 w-28 shrink-0 rounded-xl object-cover"
+        />
+        <div class="flex flex-col justify-center gap-0.5">
+          {#if selected.season}
+            <p class="text-sm font-semibold text-navy-900">Season {selected.season}</p>
+          {/if}
+          {#if selected.dateLabel}<p class="text-sm text-ink-soft">{selected.dateLabel}</p>{/if}
+          {#if selected.durationLabel}<p class="text-sm text-ink-soft">{selected.durationLabel}</p>{/if}
+        </div>
+      </div>
+      <h3 class="t-h3 mt-4 text-balance text-navy-900">{selected.title}</h3>
 
       {#if selected.excerpt}
         <p class="mt-3 text-[0.97rem] leading-relaxed text-ink-soft">{selected.excerpt}</p>
@@ -62,7 +68,7 @@
         target="_blank"
         rel="noopener"
       >
-        Show notes on Acast →
+        Show notes on Men's Therapy Hub →
       </a>
     </article>
   </div>

@@ -79,7 +79,7 @@
         {/each}
       </div>
     </div>
-    <div class="relative -mb-[135px] md:order-1 md:mb-0 md:justify-self-start">
+    <div class="relative -mb-[135px] mt-3 md:order-1 md:mb-0 md:mt-0 md:justify-self-start">
       <img
         src={podcast.hero.cover}
         alt={podcast.hero.coverAlt}
@@ -94,7 +94,7 @@
 <!-- About the show — extra top room on mobile so the copy clears the cover
      that overlaps down from the navy hero. -->
 <section class="bg-paper section-y">
-  <div class="container-page max-w-3xl max-md:mt-24">
+  <div class="container-page max-w-3xl max-md:mt-[5.5rem]">
     <Prose md={podcast.about} />
   </div>
 </section>
@@ -158,13 +158,13 @@
       transform: scale(1);
     }
     to {
-      transform: scale(1.12);
+      transform: scale(1.2);
     }
   }
   @media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .cover-zoom {
-        transform-origin: bottom center;
+        transform-origin: center;
         animation: cover-zoom linear both;
         animation-timeline: view();
         animation-range: contain 0% exit 100%;
