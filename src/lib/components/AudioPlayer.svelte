@@ -12,13 +12,26 @@
     src: string;
     /** Feed-provided duration label shown until metadata loads (e.g. "44 min"). */
     durationLabel?: string;
+    /** Bump from the parent to (re)start playback on a new selection. 0
+     *  (default) is passive — no autoplay on first mount. */
+    playKey?: number;
   }
-  let { src, durationLabel = '' }: Props = $props();
+  let { src, durationLabel = '', playKey = 0 }: Props = $props();
 
   let audio = $state<HTMLAudioElement>();
   let paused = $state(true);
   let currentTime = $state(0);
   let duration = $state(0);
+
+  // Start playing whenever the parent signals a fresh selection (playKey > 0).
+  // The src has already updated by the time this runs, so play() loads + plays
+  // the newly-selected episode. playKey === 0 (initial render) stays passive.
+  $effect(() => {
+    if (playKey > 0 && audio) {
+      currentTime = 0;
+      audio.play().catch(() => {});
+    }
+  });
 
   const pct = $derived(duration > 0 ? (currentTime / duration) * 100 : 0);
 
