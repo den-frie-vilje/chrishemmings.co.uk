@@ -13,5 +13,11 @@
     { "name": "Apple Podcasts", "href": "https://podcasts.apple.com/us/podcast/no-mans-an-island/id1849171262" },
     { "name": "Spotify", "href": "https://open.spotify.com/show/5QgINHeUZKorBCE4LBoBXF" },
     { "name": "YouTube", "href": "https://www.youtube.com/@MensTherapyHub" }
-  ]
+  ],
+  "og": {
+    "eyebrow": "Podcast",
+    "title": "No Man's an Island",
+    "subtitle": "Honest conversations on men's wellbeing",
+    "cta": "New episode every Tuesday"
+  }
 }

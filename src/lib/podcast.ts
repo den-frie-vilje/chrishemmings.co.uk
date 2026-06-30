@@ -27,6 +27,14 @@ export interface Episode {
   excerpt: string;
   /** Canonical episode page on Acast. */
   link: string;
+  /** itunes:season number (empty string if the feed has none). */
+  season: string;
+}
+
+export interface Season {
+  /** Season number as a string (feed order). */
+  number: string;
+  episodes: Episode[];
 }
 
 function text(item: Element, tag: string): string {
@@ -117,7 +125,25 @@ export function parseFeed(xml: string): Episode[] {
       image: epImage,
       descriptionHtml,
       excerpt: excerptFrom(descriptionHtml),
-      link: text(item, 'link')
+      link: text(item, 'link'),
+      season: text(item, 'itunes:season')
     };
   });
+}
+
+/**
+ * Group episodes by season, newest season first, preserving feed order
+ * within each season. Returns an empty array when the feed carries no
+ * usable season tags — callers fall back to a flat list in that case.
+ */
+export function groupBySeason(episodes: Episode[]): Season[] {
+  const byNumber = new Map<string, Episode[]>();
+  for (const ep of episodes) {
+    if (!ep.season) return []; // any episode missing a season → treat as unseasoned
+    if (!byNumber.has(ep.season)) byNumber.set(ep.season, []);
+    byNumber.get(ep.season)!.push(ep);
+  }
+  return [...byNumber.entries()]
+    .map(([number, eps]) => ({ number, episodes: eps }))
+    .sort((a, b) => Number(b.number) - Number(a.number));
 }

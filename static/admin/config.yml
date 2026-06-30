@@ -58,6 +58,15 @@ collections:
               - { name: label, label: Button label, widget: string }
               - { name: sub, label: Subtext, widget: text }
               - { name: href, label: Link, widget: string }
+          - name: og
+            label: Social-share image (OG)
+            widget: object
+            hint: "These lines appear on the social-share image shown when the GET IN TOUCH page URL is shared. The name/tagline lockup and photo are added automatically."
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: cta, label: CTA pill, widget: string }
 
       - name: home
         label: Home page
@@ -118,6 +127,15 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: body, label: Body, widget: text }
               - { name: cta, label: CTA label, widget: string }
+          - name: og
+            label: Social-share image (OG)
+            widget: object
+            hint: "These lines appear on the social-share image shown when the HOME page URL is shared (social media / chat previews). The 'Chris Hemmings · Therapist & Coach for Men' lockup and the photo are added automatically."
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: cta, label: CTA pill, widget: string }
 
       - name: working-together
         label: Therapy & Coaching
@@ -155,6 +173,15 @@ collections:
             fields:
               - { name: title, label: Title, widget: string }
               - { name: body, label: Body, widget: markdown }
+          - name: og
+            label: Social-share image (OG)
+            widget: object
+            hint: "These lines appear on the social-share image shown when the THERAPY & COACHING page URL is shared. The name/tagline lockup and photo are added automatically."
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: cta, label: CTA pill, widget: string }
 
       - name: public-speaking
         label: Public Speaking
@@ -206,6 +233,15 @@ collections:
                   - { name: title, label: Title, widget: string }
                   - { name: body, label: Body, widget: markdown }
                   - { name: popularWith, label: Popular with, widget: text }
+          - name: og
+            label: Social-share image (OG)
+            widget: object
+            hint: "These lines appear on the social-share image shown when the PUBLIC SPEAKING page URL is shared. The name/tagline lockup and photo are added automatically."
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: cta, label: CTA pill, widget: string }
 
       - name: podcast
         label: Podcast
@@ -229,6 +265,15 @@ collections:
             fields:
               - { name: name, label: Name, widget: string }
               - { name: href, label: Link, widget: string }
+          - name: og
+            label: Social-share image (OG)
+            widget: object
+            hint: "These lines appear on the social-share image shown when the PODCAST page URL is shared. The name/tagline lockup and photo of Chris are added automatically."
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: cta, label: CTA pill, widget: string }
 
       - name: testimonials
         label: Testimonials

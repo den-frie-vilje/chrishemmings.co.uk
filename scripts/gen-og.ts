@@ -56,52 +56,16 @@ interface Card {
   cta: string;
 }
 
-// Bespoke share-card copy. Every card carries the Chris Hemmings name +
-// tagline lockup (rendered in the layout, sourced from site.json), a
-// subject-specific big title, and a CTA that varies with the subject so
-// it stays grounded (the podcast doesn't pivot to "book a consultation").
+// Share-card copy comes from each page's `og` block in the content JSON
+// (CMS-editable). The name + tagline lockup is added by the layout below
+// (from site.json); the portrait is the page's hero photo (podcast +
+// get-in-touch reuse the home portrait — a photo of Chris, not artwork).
 const CARDS: Card[] = [
-  {
-    slug: 'home',
-    eyebrow: 'For men · online · worldwide',
-    title: 'Make sense of your life and relationships',
-    subtitle: 'Anxiety, anger, addiction, masculinity & more',
-    portrait: home.hero.portrait,
-    cta: 'Book a free 15-minute consultation'
-  },
-  {
-    slug: 'working-together',
-    eyebrow: 'How I work',
-    title: 'A space without judgement',
-    subtitle: 'Person-centred, collaborative, tailored to you',
-    portrait: wt.hero.portrait,
-    cta: 'Book a free 15-minute consultation'
-  },
-  {
-    slug: 'public-speaking',
-    eyebrow: 'For workplaces & events',
-    title: 'Talks & workshops',
-    subtitle: "Men's mental health, masculinity & wellbeing",
-    portrait: ps.hero.portrait,
-    cta: 'Enquire about speaking'
-  },
-  {
-    slug: 'podcast',
-    eyebrow: 'Podcast',
-    title: 'No Man’s an Island',
-    subtitle: 'Honest conversations on men’s wellbeing',
-    // A photo of Chris — NOT the show/episode artwork.
-    portrait: home.hero.portrait,
-    cta: 'New episode every Tuesday'
-  },
-  {
-    slug: 'get-in-touch',
-    eyebrow: 'Get in touch',
-    title: 'Considering therapy or coaching?',
-    subtitle: 'Book a free 15-minute intro call',
-    portrait: home.hero.portrait,
-    cta: 'Book a free 15-minute consultation'
-  }
+  { slug: 'home', ...home.og, portrait: home.hero.portrait },
+  { slug: 'working-together', ...wt.og, portrait: wt.hero.portrait },
+  { slug: 'public-speaking', ...ps.og, portrait: ps.hero.portrait },
+  { slug: 'podcast', ...podcast.og, portrait: home.hero.portrait },
+  { slug: 'get-in-touch', ...contact.og, portrait: home.hero.portrait }
 ];
 
 const NAVY = '#093449';

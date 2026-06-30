@@ -26,5 +26,11 @@
   "furtherInfo": {
     "title": "Further information",
     "body": "I offer a free 15-minute intro call to help you decide whether I'm the right fit for you. Feel free to call, text or email to discuss finding a time.\n\nYou'll sign a contract which includes all the details you need to know, and we can discuss this further if needed."
+  },
+  "og": {
+    "eyebrow": "How I work",
+    "title": "A space without judgement",
+    "subtitle": "Person-centred, collaborative, tailored to you",
+    "cta": "Book a free 15-minute consultation"
   }
 }

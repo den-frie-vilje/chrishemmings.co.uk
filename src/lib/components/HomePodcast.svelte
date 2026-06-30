@@ -70,7 +70,7 @@
               <p class="mt-2 line-clamp-2 text-[0.97rem] leading-relaxed text-ink-soft">{latest.excerpt}</p>
             {/if}
             {#if latest.audioUrl}
-              <div class="mt-4 max-w-xl">
+              <div class="mt-4">
                 <AudioPlayer src={latest.audioUrl} durationLabel={latest.durationLabel} />
               </div>
             {/if}

@@ -37,7 +37,7 @@
           {/if}
 
           {#if ep.audioUrl}
-            <div class="mt-4 max-w-xl">
+            <div class="mt-4">
               <AudioPlayer src={ep.audioUrl} durationLabel={ep.durationLabel} />
             </div>
           {/if}

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { site, podcast } from '$lib/content';
-  import { parseFeed, type Episode } from '$lib/podcast';
+  import { parseFeed, groupBySeason, type Episode } from '$lib/podcast';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
@@ -23,6 +23,11 @@
   type FeedState = 'loading' | 'ready' | 'error';
   let feedState = $state<FeedState>('loading');
   let episodes = $state<Episode[]>([]);
+
+  // Group into seasons only when the feed actually spans more than one;
+  // a single season stays a flat list.
+  const seasons = $derived(groupBySeason(episodes));
+  const useSeasons = $derived(seasons.length > 1);
 
   onMount(async () => {
     try {
@@ -88,11 +93,48 @@
         </p>
       </div>
     {:else}
-      <div class="mt-8">
+      {#snippet episodeList(eps: Episode[])}
         {#if VARIANT === 'covers'}
-          <EpisodesCovers {episodes} />
+          <EpisodesCovers episodes={eps} />
         {:else}
-          <EpisodesEditorial {episodes} />
+          <EpisodesEditorial episodes={eps} />
+        {/if}
+      {/snippet}
+
+      <div class="mt-8">
+        {#if useSeasons}
+          <div class="space-y-4">
+            {#each seasons as s, i (s.number)}
+              <details
+                class="group rounded-xl border border-line bg-paper px-5 py-1 sm:px-6"
+                open={i === 0}
+              >
+                <summary
+                  class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 marker:hidden"
+                >
+                  <span class="t-h3 text-navy-900">Season {s.number}</span>
+                  <span class="t-eyebrow flex items-center gap-2">
+                    {s.episodes.length} episode{s.episodes.length === 1 ? '' : 's'}
+                    <svg
+                      class="h-4 w-4 transition-transform group-open:rotate-180"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </span>
+                </summary>
+                <div class="pb-3">
+                  {@render episodeList(s.episodes)}
+                </div>
+              </details>
+            {/each}
+          </div>
+        {:else}
+          {@render episodeList(episodes)}
         {/if}
       </div>
     {/if}

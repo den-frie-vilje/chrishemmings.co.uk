@@ -22,6 +22,15 @@ export interface NavItem {
   href: string;
 }
 
+/** Per-page social-share (OG) card copy. Name + tagline lockup and the
+ *  portrait come from elsewhere; these are the page-specific lines. */
+export interface Og {
+  eyebrow: string;
+  title: string;
+  subtitle: string;
+  cta: string;
+}
+
 export interface Site {
   name: string;
   tagline: string;
@@ -48,6 +57,7 @@ export interface Contact {
   phoneHref: string;
   location: string;
   booking: Booking;
+  og: Og;
 }
 
 export interface Org {
@@ -78,6 +88,7 @@ export interface Home {
   founder: { intro: string; orgs: Org[] };
   interests: { title: string; intro: string; items: Interest[] };
   speakingPromo: { eyebrow: string; title: string; body: string; cta: string };
+  og: Og;
 }
 
 export interface WorkingTogether {
@@ -94,6 +105,7 @@ export interface WorkingTogether {
     body: string;
   };
   furtherInfo: { title: string; body: string };
+  og: Og;
 }
 
 export interface Talk {
@@ -117,6 +129,7 @@ export interface PublicSpeaking {
   experienced: { title: string; body: string };
   story: { title: string; body: string };
   talks: { title: string; items: Talk[] };
+  og: Og;
 }
 
 export interface PodcastPlatform {
@@ -137,6 +150,7 @@ export interface Podcast {
   about: string;
   feedPath: string;
   platforms: PodcastPlatform[];
+  og: Og;
 }
 
 export interface Testimonial {
