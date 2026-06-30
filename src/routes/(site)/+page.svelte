@@ -21,29 +21,30 @@
 <SeoHead {seo} />
 
 <!-- Hero — Chris knocked out of his background, leaning in from the right
-     (off-centre, bleeding off the edge) over the warm paper ground. On md+
-     the cutout bleeds absolutely off the section's right; on small screens
-     it drops into flow below the copy (right-aligned, bleeding right) so it
-     never crowds the text. -->
+     (off-centre, bleeding off the edge) over the warm paper ground. The
+     cutout is absolutely anchored to the section's bottom-right across all
+     breakpoints. On mobile the hero fills the viewport (minus the 68px
+     header) using `dvh`, so Chris rests on the *visible* bottom of the
+     screen even as iOS Safari's toolbar expands/collapses; on md+ it's the
+     usual side-by-side hero. -->
 <section class="relative isolate overflow-hidden bg-paper">
-  <!-- Off-axis radial wash, a touch darker behind Chris (upper-right) so the
-       cutout lifts off the flat paper. Subtle; md+ only (on small screens he
-       sits bottom-right in flow). -->
+  <!-- Off-axis radial wash, a touch darker behind Chris so the cutout lifts
+       off the flat paper. Follows him bottom-right on mobile, mid-right on md+. -->
   <div class="hero-wash pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
 
-  <!-- md+ : absolute, bleeds off the section's right edge. -->
   <img
     src={home.hero.cutout}
     alt={home.hero.portraitAlt}
     width="1200"
     height="879"
     fetchpriority="high"
-    class="pointer-events-none absolute bottom-0 right-0 z-0 hidden select-none object-contain object-bottom
-           md:block md:w-[58%] md:max-w-[620px] md:translate-x-[16%]
+    class="pointer-events-none absolute bottom-0 right-0 z-0 select-none object-contain object-bottom
+           w-[104%] max-w-[460px] translate-x-[10%]
+           md:w-[58%] md:max-w-[620px] md:translate-x-[16%]
            lg:w-[52%] lg:max-w-[690px] lg:translate-x-[11%]"
   />
   <div
-    class="container-page relative z-10 flex flex-col py-12
+    class="container-page relative z-10 flex min-h-[calc(100dvh-68px)] flex-col pt-12
            md:min-h-[37rem] md:justify-center md:py-16"
   >
     <div class="max-w-xl">
@@ -57,15 +58,6 @@
         <a class="btn btn-outline" href="/working-together">{home.hero.ctaSecondary}</a>
       </div>
     </div>
-
-    <!-- small screens : in-flow below the copy, right-aligned, bleeding right. -->
-    <img
-      src={home.hero.cutout}
-      alt={home.hero.portraitAlt}
-      width="1200"
-      height="879"
-      class="-mb-12 mt-10 ml-auto block w-[78%] max-w-[340px] translate-x-[10%] select-none md:hidden"
-    />
   </div>
 </section>
 

@@ -39,6 +39,7 @@
         >
           <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
         </span>
+        <span class="sr-only">{active ? 'Restart episode:' : 'Play episode:'}</span>
         <span class="min-w-0 flex-1 text-[0.97rem] leading-snug {active ? 'text-orange-700' : ''}">
           <span class="font-semibold {active ? '' : 'text-navy-900'}">{t.head}</span><span
             class="font-normal {active ? '' : 'text-ink-soft'}">{t.tail}</span

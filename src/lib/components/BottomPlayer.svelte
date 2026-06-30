@@ -67,15 +67,18 @@
       oninput={seek}
       style="--pct:{pct}%"
       aria-label="Seek through episode"
+      aria-valuetext={duration > 0 ? `${fmt(currentTime)} of ${fmt(duration)}` : 'Loading'}
       disabled={duration === 0}
     />
 
     {#if player.expanded}
-      <div class="container-page border-b border-line py-5">
+      <div id="player-detail" class="container-page border-b border-line py-5">
         <button
           type="button"
-          onclick={() => (player.expanded = !player.expanded)}
+          onclick={() => (player.expanded = false)}
           aria-label="Collapse player"
+          aria-expanded="true"
+          aria-controls="player-detail"
           class="flex w-full gap-4 text-left"
         >
           <img
@@ -92,7 +95,13 @@
           </span>
         </button>
         <h3 class="t-h3 mt-3 text-balance">
-          <button type="button" onclick={() => (player.expanded = !player.expanded)} class="text-left">
+          <button
+            type="button"
+            onclick={() => (player.expanded = false)}
+            aria-expanded="true"
+            aria-controls="player-detail"
+            class="text-left"
+          >
             <span class="text-navy-900">{title.head}</span><span class="text-ink-soft">{title.tail}</span>
           </button>
         </h3>
@@ -129,6 +138,7 @@
         onclick={() => (player.expanded = !player.expanded)}
         aria-label={player.expanded ? 'Collapse player' : 'Expand player'}
         aria-expanded={player.expanded}
+        aria-controls="player-detail"
         class="flex min-w-0 flex-1 items-center gap-3 text-left"
       >
         <img src={ep.image} alt="" class="h-9 w-9 shrink-0 rounded object-cover" />
@@ -149,6 +159,7 @@
           onclick={() => (player.expanded = !player.expanded)}
           aria-label={player.expanded ? 'Collapse player' : 'Expand player'}
           aria-expanded={player.expanded}
+          aria-controls="player-detail"
           class="p-1 text-ink-soft transition-colors hover:text-navy-900"
         >
           <svg
@@ -191,14 +202,14 @@
   }
   .player-seek::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 13px;
-    height: 13px;
+    width: 15px;
+    height: 15px;
     border-radius: 9999px;
     background: var(--color-orange-700);
   }
   .player-seek::-moz-range-thumb {
-    width: 13px;
-    height: 13px;
+    width: 15px;
+    height: 15px;
     border: none;
     border-radius: 9999px;
     background: var(--color-orange-700);
