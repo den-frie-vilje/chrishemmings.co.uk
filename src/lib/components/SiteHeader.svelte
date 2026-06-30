@@ -1,10 +1,11 @@
 <!--
   Sticky site header: navy surface, wordmark left, nav + primary CTA
-  right. Gradual collapse, no wrapping:
-    • < navmini (<720px): just the hamburger + overlay menu;
-    • navmini–md (720–768px): three primary links inline + a partial burger
-      (Home + Podcast live in the menu);
-    • md–navfull (768–928px): all five links inline, CTA hidden, burger off;
+  right. Gradual collapse, no wrapping — links drop into the burger by
+  priority as width shrinks:
+    • < navtight (<608px): hamburger only;
+    • navtight–navmini (608–720px): Therapy & Public + partial burger;
+    • navmini–md (720–768px): + Get in touch;
+    • md–navfull (768–928px): all five links, burger off, CTA hidden;
     • navfull+ (≥928px): all five links + the "Free consultation" CTA.
 -->
 <script lang="ts">
@@ -21,11 +22,16 @@
     open = false;
   }
 
-  // Primary links stay inline down to `navmini`; the rest (Home — the logo
-  // already links home — and Podcast) only show from `md`, otherwise they
-  // live in the partial burger.
-  const PRIMARY = new Set(['/working-together', '/public-speaking', '/get-in-touch']);
-  const linkVisibility = (href: string) => (PRIMARY.has(href) ? '' : 'hidden md:inline');
+  // Per-link inline visibility, by priority. Therapy & Public stay inline
+  // longest (from navtight); Get in touch joins at navmini; Home (the logo
+  // already links home) and Podcast at md. Anything hidden lives in the
+  // burger, which is present below md.
+  const LINK_VIS: Record<string, string> = {
+    '/working-together': '',
+    '/public-speaking': '',
+    '/get-in-touch': 'hidden navmini:inline'
+  };
+  const linkVisibility = (href: string) => LINK_VIS[href] ?? 'hidden md:inline';
 </script>
 
 <header class="sticky top-0 z-50 bg-navy-900 text-paper">
@@ -39,7 +45,7 @@
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden flex-nowrap items-center gap-6 whitespace-nowrap navmini:flex" aria-label="Primary">
+    <nav class="hidden flex-nowrap items-center gap-6 whitespace-nowrap navtight:flex" aria-label="Primary">
       {#each site.nav as item (item.href)}
         <a
           href={item.href}

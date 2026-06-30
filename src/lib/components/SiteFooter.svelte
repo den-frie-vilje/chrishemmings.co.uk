@@ -40,7 +40,17 @@
   <div class="border-t border-white/10">
     <div class="container-page flex flex-col gap-1 py-5 text-xs text-cloud/70 sm:flex-row sm:justify-between">
       <p>{footerNote(year)}</p>
-      <p>BACP registered member · Online worldwide</p>
+      <p>
+        <a
+          class="underline decoration-white/25 underline-offset-2 hover:text-orange-300"
+          href={site.bacpRegisterUrl}
+          target="_blank"
+          rel="noopener"
+        >
+          BACP registered member
+        </a>
+        · Online worldwide
+      </p>
     </div>
   </div>
 </footer>

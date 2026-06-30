@@ -10,5 +10,6 @@
     { "label": "Podcast", "href": "/podcast" },
     { "label": "Get in touch", "href": "/get-in-touch" }
   ],
-  "footerNote": "© {year} Chris Hemmings"
+  "footerNote": "© {year} Chris Hemmings",
+  "bacpRegisterUrl": "https://www.bacp.co.uk/search/Register?q=402932"
 }

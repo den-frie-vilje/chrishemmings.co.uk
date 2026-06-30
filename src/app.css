@@ -48,11 +48,13 @@
   --spacing-section: 84px;
   --container-page: 1160px;
 
-  /* Header nav breakpoints (mobile → desktop):
-       navmini (45rem/720px) — the three primary links appear (Home +
-         Podcast stay in the partial burger);
-       md      (768px)       — Home + Podcast join the inline nav, burger off;
-       navfull (58rem/928px) — the "Free consultation" CTA fits too. */
+  /* Header nav breakpoints (mobile → desktop), each adding the next link:
+       navtight (38rem/608px) — Therapy & Coaching + Public Speaking (last
+         to leave the inline nav);
+       navmini  (45rem/720px) — + Get in touch;
+       md       (768px)       — + Home & Podcast, burger off;
+       navfull  (58rem/928px) — + the "Free consultation" CTA. */
+  --breakpoint-navtight: 38rem;
   --breakpoint-navmini: 45rem;
   --breakpoint-navfull: 58rem;
 }

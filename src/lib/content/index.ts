@@ -29,6 +29,8 @@ export interface Site {
   themeColor: string;
   nav: NavItem[];
   footerNote: string;
+  /** Official BACP register deep-link (searches by certificate number). */
+  bacpRegisterUrl: string;
 }
 
 export interface Booking {

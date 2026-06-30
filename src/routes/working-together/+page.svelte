@@ -62,14 +62,20 @@
       <p class="mt-5 text-sm text-ink-soft">{wt.qualifications.regulatorNote}</p>
     </div>
     <div class="flex flex-wrap items-center gap-4 md:justify-end">
-      <span class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6">
+      <a
+        class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6 transition-shadow hover:shadow-md"
+        href={site.bacpRegisterUrl}
+        target="_blank"
+        rel="noopener"
+        aria-label="Verify Chris Hemmings on the BACP register (membership 402932)"
+      >
         <img
           src="/img/bacp.png"
           alt="BACP — British Association for Counselling and Psychotherapy"
           class="max-h-11 w-auto"
           loading="lazy"
         />
-      </span>
+      </a>
       <span class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6">
         <img
           src="/img/professional-standards-authority.png"

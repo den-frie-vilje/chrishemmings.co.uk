@@ -38,6 +38,7 @@ collections:
               - { name: label, label: Label, widget: string }
               - { name: href, label: Link, widget: string }
           - { name: footerNote, label: Footer note, widget: string, hint: "Use {year} for the year." }
+          - { name: bacpRegisterUrl, label: BACP register link, widget: string, hint: "Official BACP register deep-link, e.g. https://www.bacp.co.uk/search/Register?q=<number>" }
 
       - name: contact
         label: Contact details
