@@ -29,11 +29,7 @@
   <!-- Off-axis radial wash, a touch darker behind Chris (upper-right) so the
        cutout lifts off the flat paper. Subtle; md+ only (on small screens he
        sits bottom-right in flow). -->
-  <div
-    class="pointer-events-none absolute inset-0 z-0 hidden md:block"
-    style="background: radial-gradient(120% 135% at 82% 56%, color-mix(in srgb, #4a3826 30%, transparent) 0%, color-mix(in srgb, #4a3826 12%, transparent) 45%, transparent 82%);"
-    aria-hidden="true"
-  ></div>
+  <div class="hero-wash pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
 
   <!-- md+ : absolute, bleeds off the section's right edge. -->
   <img
@@ -159,3 +155,27 @@
 </section>
 
 <ContactSection />
+
+<style>
+  /* Warm off-axis wash behind Chris. It follows the cutout across
+     breakpoints: bottom-right on small screens (where the cutout sits in
+     flow), mid-right on md+ (behind the larger absolute cutout). */
+  .hero-wash {
+    background: radial-gradient(
+      95% 55% at 78% 90%,
+      color-mix(in srgb, #4a3826 26%, transparent) 0%,
+      color-mix(in srgb, #4a3826 10%, transparent) 45%,
+      transparent 78%
+    );
+  }
+  @media (min-width: 768px) {
+    .hero-wash {
+      background: radial-gradient(
+        120% 135% at 82% 56%,
+        color-mix(in srgb, #4a3826 30%, transparent) 0%,
+        color-mix(in srgb, #4a3826 12%, transparent) 45%,
+        transparent 82%
+      );
+    }
+  }
+</style>
