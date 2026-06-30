@@ -1,6 +1,8 @@
 <!--
   Sticky site header: navy surface, wordmark left, nav + primary CTA
-  right. Collapses to a hamburger-toggled overlay menu below `md`.
+  right. Collapses to a hamburger-toggled overlay menu below `lg` — the
+  five links + CTA only fit on one line from ~1024px, so the inline nav
+  appears there and the burger covers everything narrower (no wrapping).
 -->
 <script lang="ts">
   import { page } from '$app/state';
@@ -28,7 +30,7 @@
     </a>
 
     <!-- Desktop nav -->
-    <nav class="hidden items-center gap-7 md:flex" aria-label="Primary">
+    <nav class="hidden flex-nowrap items-center gap-6 whitespace-nowrap lg:flex" aria-label="Primary">
       {#each site.nav as item (item.href)}
         <a
           href={item.href}
@@ -46,7 +48,7 @@
 
     <!-- Mobile toggle -->
     <button
-      class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded text-paper"
+      class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded text-paper"
       aria-expanded={open}
       aria-controls="mobile-nav"
       aria-label={open ? 'Close menu' : 'Open menu'}
@@ -66,7 +68,7 @@
   {#if open}
     <nav
       id="mobile-nav"
-      class="md:hidden border-t border-white/10 bg-navy-900"
+      class="lg:hidden border-t border-white/10 bg-navy-900"
       aria-label="Primary"
     >
       <ul class="container-page flex flex-col py-3">
