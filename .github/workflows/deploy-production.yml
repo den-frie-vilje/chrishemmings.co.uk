@@ -1,0 +1,264 @@
+# Trigger: push to `main`. Fires via Chris's /publish page
+# (which does a GitHub API merge of staging → main) or via a
+# normal PR merge on the developer side.
+#
+# Three-stage gating:
+#
+#   1. detect-changes — diffs HEAD against its parent. If every
+#      changed file is a content-only path (Sveltia editor
+#      output: src/content/** + static/img/**), bypass the
+#      signature check AND the reviewer gate. Anything outside
+#      those paths — code, CSS, deploy config, workflows, the
+#      admin loader — requires both signed commits AND explicit
+#      reviewer approval.
+#
+#   2. verify-signatures — only runs when content-only=false.
+#      Cryptographically verifies that every commit being
+#      introduced to main (between this push's `before` and
+#      `after` SHAs) is signed by a trusted key recognized by
+#      GitHub. Catches the case where someone with stolen
+#      credentials pushes code commits but lacks the signing
+#      key. Trusts GitHub's verification — passes for
+#      developer hand-signed commits AND for GitHub web-flow
+#      signed merge commits, blocks anything `verified: false`
+#      (unsigned, bad signature, unknown key, etc).
+#
+#   3. approve — only runs when content-only=false AND
+#      verify-signatures passed. References the `production-gate`
+#      GitHub environment, which has the required-reviewer rule
+#      (Ole) configured in repo Settings → Environments. Times
+#      out after 2 days; if not approved the workflow auto-fails
+#      and a re-deploy needs a fresh Actions UI rerun.
+#
+#   4. deploy — the actual build + push + Sigstore Cosign sign.
+#      Runs after approval for code changes; runs immediately for
+#      content-only pushes (which skipped both verify-signatures
+#      and approve). References the `production` environment for
+#      env-scoped policy; that env should NOT have a reviewer rule
+#      — the gate is the responsibility of `production-gate`
+#      upstream. CI does NOT call the NAS — the pull-only deploy
+#      agent verifies the signature and rolls out within ~5 min.
+#
+# One-time setup before the first run with this file on main:
+#   • Create `production-gate` env (Settings → Environments)
+#   • Add Ole as a required reviewer there
+#   • Confirm `production` env exists (no reviewers, no secrets)
+
+name: Deploy to production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      multiarch:
+        description: 'Also build linux/arm64 (slow — adds ~3min QEMU emulation). Default amd64-only matches the NAS.'
+        type: boolean
+        default: false
+
+jobs:
+  detect-changes:
+    # Decides whether this push is content-only (Chris's Sveltia
+    # commits) or contains code/config changes that warrant
+    # human review before deploy. workflow_dispatch always
+    # routes through the reviewer gate (no diff to check).
+    runs-on: ubuntu-latest
+    outputs:
+      # 'true' → bypass reviewer gate. 'false' (or empty,
+      # treated as false) → require approval.
+      content-only: ${{ steps.filter.outputs.content-only || 'false' }}
+    steps:
+      - name: Checkout
+        if: github.event_name == 'push'
+        uses: actions/checkout@v6
+        with:
+          # Need parent commit on main for the diff. fetch-depth: 2
+          # gets HEAD + parent — enough for paths-filter, much
+          # cheaper than fetching the full history.
+          fetch-depth: 2
+
+      - name: Detect content-only push
+        id: filter
+        if: github.event_name == 'push'
+        uses: dorny/paths-filter@v4
+        with:
+          # `every`: every changed file must match at least one
+          # of the listed patterns. A single file outside these
+          # paths flips content-only to false.
+          predicate-quantifier: 'every'
+          filters: |
+            content-only:
+              - 'src/content/**'
+              - 'static/img/**'
+
+      - name: Summarise routing
+        run: |
+          if [ "${{ steps.filter.outputs.content-only || 'false' }}" = "true" ]; then
+            echo "content-only push — skipping reviewer gate" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "code/config change detected — reviewer approval required" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  verify-signatures:
+    # Cryptographic gate. Skipped for content-only pushes
+    # (Sveltia saves are unsigned by design — OAuth API commits
+    # don't trigger GitHub's web-flow signing, and the path
+    # filter has already isolated those into the bypass branch).
+    #
+    # For any push that touches code/config: every introduced
+    # commit whose changes include a NON-content path must be
+    # `verified: true` per GitHub's verification check. Commits
+    # that only touch content paths (src/content/** + static/img/**)
+    # are exempt — that's how Chris's Sveltia content edits can
+    # land alongside our code changes in the same push without
+    # blocking the deploy. Catches credential-theft attacks
+    # where the attacker has token access but no signing key.
+    needs: detect-changes
+    if: needs.detect-changes.outputs.content-only != 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Verify code/config commits are GitHub-verified
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.event.after }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ github.event_name }}
+        run: |
+          set -euo pipefail
+
+          # Range to verify:
+          #   push event   → commits between event.before..event.after
+          #   workflow_dispatch / weird events → just HEAD (1 commit)
+          if [ "$EVENT" = "push" ] && [ -n "$BEFORE" ] && \
+             [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
+            BASE="$BEFORE"
+            HEAD="$AFTER"
+          else
+            BASE="${AFTER}~1"
+            HEAD="$AFTER"
+          fi
+
+          echo "Verifying commits in $BASE..$HEAD"
+
+          # Per-commit path filtering: a commit is signature-required
+          # iff it touches at least one file outside the content
+          # paths. Walk the commit list, fetch each commit's file
+          # list via the per-commit API, classify, and only enforce
+          # signature on the code/config commits.
+          #
+          # The content-path regex must match what's in
+          # detect-changes' filter above (src/content/** + static/img/**).
+          CONTENT_REGEX='^(src/content/|static/img/)'
+
+          # `compare` lists commits in order between BASE and HEAD,
+          # but its `files` array is the AGGREGATE diff — we need
+          # per-commit files for path classification, so we fetch
+          # each commit individually.
+          mapfile -t SHAS < <(gh api "repos/$REPO/compare/$BASE...$HEAD" --jq '.commits[].sha')
+          TOTAL=${#SHAS[@]}
+
+          UNSIGNED_CODE=()
+          CONTENT_ONLY_COUNT=0
+          SIGNED_CODE_COUNT=0
+
+          for sha in "${SHAS[@]}"; do
+            # Some commits (very large merges) may not have a `files`
+            # array readily available; fall back to "code-touching"
+            # in that case (safer, will require signature).
+            files=$(gh api "repos/$REPO/commits/$sha" --jq '.files[].filename' 2>/dev/null || echo "")
+            verified=$(gh api "repos/$REPO/commits/$sha" --jq '.commit.verification.verified')
+            reason=$(gh api "repos/$REPO/commits/$sha" --jq '.commit.verification.reason')
+            msg=$(gh api "repos/$REPO/commits/$sha" --jq '.commit.message | split("\n")[0]')
+
+            non_content=$(echo "$files" | grep -vE "$CONTENT_REGEX" || true)
+
+            if [ -z "$files" ] || [ -n "$non_content" ]; then
+              # Code/config commit (or unclassifiable, treat strictly).
+              if [ "$verified" = "true" ]; then
+                SIGNED_CODE_COUNT=$((SIGNED_CODE_COUNT + 1))
+                echo "✓ ${sha:0:7} signed   — $msg"
+              else
+                UNSIGNED_CODE+=("${sha:0:7} [$reason] $msg")
+                echo "✗ ${sha:0:7} UNSIGNED — $msg"
+              fi
+            else
+              CONTENT_ONLY_COUNT=$((CONTENT_ONLY_COUNT + 1))
+              echo "· ${sha:0:7} content — $msg (signature not required)"
+            fi
+          done
+
+          if [ ${#UNSIGNED_CODE[@]} -gt 0 ]; then
+            echo ""
+            echo "::error::${#UNSIGNED_CODE[@]} of $TOTAL introduced commit(s) touch code/config without a trusted signature:"
+            for line in "${UNSIGNED_CODE[@]}"; do
+              echo "::error::  $line"
+            done
+            echo ""
+            echo "Phase 3 policy: commits that touch anything outside src/content/ + static/img/"
+            echo "must be signed by a key registered with the committer's GitHub account."
+            echo "Hand commits: configure local git signing (see project README/AGENTS.md)."
+            echo "Merge commits: GitHub web-flow auto-signs PR merges; if a merge commit"
+            echo "shows up here, one of the underlying commits is the unsigned one."
+            exit 1
+          fi
+
+          echo ""
+          echo "✓ $SIGNED_CODE_COUNT signed code/config commit(s), $CONTENT_ONLY_COUNT content-only commit(s) (signature exempt)"
+          {
+            echo "## Signature verification"
+            echo ""
+            echo "- Signed code/config commits: $SIGNED_CODE_COUNT"
+            echo "- Content-only commits (signature exempt): $CONTENT_ONLY_COUNT"
+            echo "- Total introduced: $TOTAL"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  approve:
+    # Reviewer gate. Skipped entirely for content-only pushes;
+    # required-reviewer prompt fires for anything else. The
+    # `production-gate` environment must have Ole listed as a
+    # required reviewer in repo Settings → Environments.
+    needs: [detect-changes, verify-signatures]
+    if: needs.detect-changes.outputs.content-only != 'true'
+    runs-on: ubuntu-latest
+    environment: production-gate
+    timeout-minutes: 2880  # 2 days — workflow auto-fails if Ole hasn't approved
+    steps:
+      - name: Reviewed
+        run: echo "Code/config change reviewed and approved — proceeding to build + deploy."
+
+  deploy:
+    # Build + push + Sigstore Cosign sign. Runs after approval for code
+    # changes; runs immediately for content-only pushes. CI does NOT call
+    # the NAS — the NAS-side pull-only agent verifies the signature and
+    # deploys on its own schedule (within ~5 min of the push).
+    needs: [detect-changes, verify-signatures, approve]
+    # `always()` lets us evaluate this `if:` even when
+    # verify-signatures and approve were skipped (content-only).
+    # For non-content-only, both must have succeeded. The OR
+    # branch handles the content-only short-circuit.
+    if: |
+      always() &&
+      needs.detect-changes.result == 'success' &&
+      (needs.detect-changes.outputs.content-only == 'true' ||
+       (needs.verify-signatures.result == 'success' &&
+        needs.approve.result == 'success'))
+    uses: den-frie-vilje/nas-sites/.github/workflows/build-and-sign.yml@main
+    with:
+      environment: production
+      dockerfile: deploy/Dockerfile
+      image-name: ghcr.io/den-frie-vilje/chrishemmings
+      platforms: ${{ inputs.multiarch && 'linux/amd64,linux/arm64' || 'linux/amd64' }}
+      build-args: |
+        VITE_MODE=production
+        PUBLIC_GIT_SHA=${{ github.sha }}
+        PUBLIC_BUILD_TIME=${{ github.event.head_commit.timestamp }}
+        STRIP_EDITOR=true
+      # Verify against the .prod.* ORIGIN, not the client-facing
+      # apex chrishemmings.co.uk. The apex sits behind Cloudflare,
+      # which can return cached HTML even with the verify step's
+      # cache-bust query — the origin gives an unambiguous read of
+      # whether the agent's deploy actually landed.
+      verify-url: https://chrishemmings-co-uk.prod.denfrievilje.dk/

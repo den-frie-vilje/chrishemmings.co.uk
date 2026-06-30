@@ -1,0 +1,59 @@
+# Production stack — chrishemmings.co.uk.
+#
+# Brought up + reconciled by the nas-sites pull-only deploy agent
+# on its next fire after a `main` branch push (see nas-sites
+# /docs/PULL-DEPLOY-MODEL.md). Composition:
+#   caddy   (front-door — host canonicalisation, blocks /admin + /publish, /*)
+#   site    (static site, pulled from GHCR)
+#
+# No OAuth proxy: Sveltia admin lives on staging only.
+
+name: chrishemmings-production
+
+networks:
+  # External shared network. Reserved for cross-project routing
+  # (currently unused by this site). See compose.staging.yml for
+  # the per-project internal network rationale (avoids the
+  # `site` DNS-collision bug across sites).
+  nas-deploy:
+    external: true
+  internal:
+
+services:
+  caddy:
+    image: caddy:2-alpine@sha256:834468128c7696cec0ceea6172f7d692daf645ae51983ca76e39da54a97c570d
+    restart: unless-stopped
+    networks: [nas-deploy, internal]
+    ports:
+      # Bind to loopback only — DSM reverse-proxies the site's
+      # production hostnames (apex + www + legacy) to this port
+      # on 127.0.0.1. Port comes from the per-(site, env) .env
+      # file so new sites just bump `CADDY_PORT=` in their own
+      # production.env rather than editing this compose template.
+      - "127.0.0.1:${CADDY_PORT:-8081}:80"
+    volumes:
+      - ./Caddyfile.production:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - site
+
+  site:
+    image: ghcr.io/den-frie-vilje/chrishemmings:production-latest
+    restart: unless-stopped
+    networks: [internal]
+    pull_policy: always
+    # See compose.staging.yml for rationale — `up -d --wait`
+    # in the deploy script blocks on this healthcheck so the
+    # Cloudflare cache purge fires after the new container is
+    # actually live.
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+volumes:
+  caddy_data:
+  caddy_config:

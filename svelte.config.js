@@ -14,7 +14,10 @@ const config = {
       strict: false
     }),
     prerender: {
-      entries: ['*']
+      // `*` crawls all reachable + static page routes. sitemap.xml is an
+      // unlinked endpoint route, so list it explicitly. (robots.txt is a
+      // plain static file in static/ — no route needed.)
+      entries: ['*', '/sitemap.xml']
     }
   }
 };

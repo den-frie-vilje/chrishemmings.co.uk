@@ -1,0 +1,124 @@
+# Staging stack — chris.denfrievilje.dk.
+#
+# Brought up + reconciled by the nas-sites pull-only deploy agent
+# on its next fire after a `staging` branch push (see nas-sites
+# /docs/PULL-DEPLOY-MODEL.md). Composition:
+#   caddy         (front-door — routes /auth, /*)
+#   site          (static site, pulled from GHCR)
+#   sveltia-auth  (GitHub OAuth proxy for /admin)
+#
+# Env file (./staging.env) on the NAS holds the OAuth secrets.
+# NOT committed — see deploy/staging.env.example for the shape.
+#
+# Joins the `nas-deploy` external network. Currently nothing else
+# lives there for this site; the network is kept so future
+# cross-site routing (e.g. shared services) can attach without a
+# compose-file restructure.
+
+name: chrishemmings-staging
+
+networks:
+  # External shared network. Reserved for cross-project routing
+  # (currently unused by this site).
+  nas-deploy:
+    external: true
+  # Per-project internal network — Caddy talks to site and
+  # sveltia-auth here. Because each site's compose has its OWN
+  # internal network, service names like `site` are unique
+  # per-project and can't collide with other sites' containers
+  # on the shared network. (Earlier bug: both staging and
+  # production had `site` on nas-deploy, Docker DNS resolved
+  # to whichever randomly and Caddy ended up reverse-proxying
+  # to the wrong site's image.)
+  internal:
+
+services:
+  caddy:
+    image: caddy:2-alpine@sha256:834468128c7696cec0ceea6172f7d692daf645ae51983ca76e39da54a97c570d
+    restart: unless-stopped
+    networks: [nas-deploy, internal]
+    ports:
+      # Bind to loopback only — DSM reverse-proxies the site's
+      # staging hostname to this port on 127.0.0.1. Port comes
+      # from the per-(site, env) .env file so new sites just
+      # bump `CADDY_PORT=` in their own staging.env rather than
+      # editing this compose template.
+      - "127.0.0.1:${CADDY_PORT:-8080}:80"
+    volumes:
+      - ./Caddyfile.staging:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      site:
+        condition: service_started
+      # `required: false` keeps this dep optional — if the
+      # sveltia-auth service is profile-excluded (as in local
+      # dev via compose.local.yml) or simply crashes, caddy
+      # still starts. /auth/* routes 502 in that case, which
+      # is the observable failure mode for missing OAuth.
+      sveltia-auth:
+        condition: service_started
+        required: false
+
+  site:
+    image: ghcr.io/den-frie-vilje/chrishemmings:staging-latest
+    restart: unless-stopped
+    networks: [internal]
+    pull_policy: always
+    # No ports published on the host — only reachable via caddy.
+    # Healthcheck lets `docker compose up -d --wait` block the
+    # deploy script until the new container is actually serving.
+    # That in turn is the signal to purge Cloudflare cache —
+    # otherwise the edge can refill with old content during the
+    # rolling replace window.
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  sveltia-auth:
+    # GitHub OAuth proxy. vencax's image is battle-tested with
+    # Decap/Netlify CMS; Sveltia is protocol-compatible.
+    #
+    # Tag note: this image was only ever published under `:master`
+    # — no `:latest` tag exists. Using `:master` works and is the
+    # upstream-documented default. The image is ~14 months stale
+    # but the GitHub OAuth token-exchange API it implements hasn't
+    # changed; "unmaintained" here means "done."
+    #
+    # If we ever need something newer: igk1972/netlify-cms-oauth-
+    # provider-go is a Go binary (source-only, no published image);
+    # sveltia-cms-auth itself targets Cloudflare Workers only.
+    image: vencax/netlify-cms-github-oauth-provider:master@sha256:8608529ae357f0c6cade85f9ed02336a1c3ea45c07b0719852762edc3bbaec6c
+    restart: unless-stopped
+    networks: [internal]
+    environment:
+      # `:-` defaults silence var-not-set warnings during local
+      # dev (compose.local.yml profile-gates this service off
+      # but compose still parses env blocks at load time). In
+      # production these MUST be set via staging.env — empty
+      # values will cause the auth container to fail its own
+      # startup, which is the observable failure mode we want.
+      OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID:-}
+      OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET:-}
+      # CSRF guard — only accept auth initiations from
+      # hostname(s) in this list. vencax v1.1.0 expects the
+      # var name `ORIGINS` (plural, comma-separated), NOT
+      # `ORIGIN`: the container crashes on startup with
+      # `Cannot read property 'match' of undefined` if singular.
+      #
+      # `${STAGE_ORIGIN}` each site sets explicitly in
+      # staging.env (format: <domain-dashed>.stage.denfrievilje.dk,
+      # dashed because LE wildcards match one label only, and
+      # raw $DOMAIN contains dots that'd break the cert chain).
+      ORIGINS: ${STAGE_ORIGIN:-localhost}
+      # Where the auth success page redirects to. Empty → the
+      # provider renders a tiny self-closing postMessage page,
+      # which is what Sveltia expects.
+      REDIRECT_URL: ""
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,216 @@
+# Sveltia CMS configuration — single-locale (English).
+#
+# Editing happens on STAGING (chris.denfrievilje.dk/admin) against the
+# GitHub backend via the OAuth proxy (Caddy `/auth/*` → sveltia-auth).
+# Prose fields use the `markdown` widget so copy stays flowing prose, not
+# arrays of bullets. Structured lists (nav, interests, qualifications,
+# talks, platforms) are genuine lists.
+
+backend:
+  name: github
+  repo: den-frie-vilje/chrishemmings.co.uk
+  branch: staging
+  base_url: https://chris.denfrievilje.dk
+  auth_endpoint: auth
+
+# Staging writes go straight to the staging branch (no editorial PR flow).
+publish_mode: simple
+
+media_folder: static/img
+public_folder: /img
+
+collections:
+  - name: pages
+    label: Pages
+    files:
+      - name: site
+        label: Site & navigation
+        file: src/content/site.json
+        fields:
+          - { name: name, label: Site name, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: description, label: Meta description, widget: text }
+          - { name: themeColor, label: Theme colour, widget: string }
+          - name: nav
+            label: Navigation
+            widget: list
+            fields:
+              - { name: label, label: Label, widget: string }
+              - { name: href, label: Link, widget: string }
+          - { name: footerNote, label: Footer note, widget: string, hint: "Use {year} for the year." }
+
+      - name: contact
+        label: Contact details
+        file: src/content/contact.json
+        fields:
+          - { name: heading, label: Heading, widget: string }
+          - { name: intro, label: Intro, widget: string }
+          - { name: email, label: Email, widget: string }
+          - { name: emailHref, label: Email link, widget: string }
+          - { name: phone, label: Phone (display), widget: string }
+          - { name: phoneHref, label: Phone link, widget: string }
+          - { name: location, label: Location, widget: text }
+          - name: booking
+            label: Booking CTA
+            widget: object
+            fields:
+              - { name: label, label: Button label, widget: string }
+              - { name: sub, label: Subtext, widget: text }
+              - { name: href, label: Link, widget: string }
+
+      - name: home
+        label: Home page
+        file: src/content/home.json
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: lead, label: Lead, widget: text }
+              - { name: portraitAlt, label: Portrait alt text, widget: string }
+              - { name: ctaPrimary, label: Primary CTA, widget: string }
+              - { name: ctaSecondary, label: Secondary CTA, widget: string }
+          - name: testimonial
+            label: Testimonial
+            widget: object
+            fields:
+              - { name: lead, label: Lead-in, widget: string }
+              - { name: quote, label: Quote, widget: text }
+              - { name: attribution, label: Attribution, widget: string }
+          - name: about
+            label: About
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: founder
+            label: Founder of
+            widget: object
+            fields:
+              - { name: intro, label: Intro, widget: string }
+              - name: orgs
+                label: Organisations
+                widget: list
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: href, label: Link, widget: string, required: false }
+                  - { name: logo, label: Logo, widget: image }
+          - name: interests
+            label: Areas of interest
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: intro, label: Intro, widget: text }
+              - name: items
+                label: Items
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: body, label: Description, widget: text }
+
+      - name: working-together
+        label: Therapy & Coaching
+        file: src/content/working-together.json
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: portraitAlt, label: Portrait alt text, widget: string }
+          - { name: intro, label: Intro / how I work, widget: markdown }
+          - name: qualifications
+            label: Qualifications
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: items, label: Items, widget: list, field: { name: item, label: Item, widget: string } }
+              - { name: regulatorNote, label: Regulator note, widget: string }
+          - name: fees
+            label: Fees
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: range, label: Range, widget: string }
+              - { name: unit, label: Unit, widget: string }
+              - { name: headline, label: Headline, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: furtherInfo
+            label: Further information
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: markdown }
+
+      - name: public-speaking
+        label: Public Speaking
+        file: src/content/public-speaking.json
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: intro, label: Intro, widget: text }
+              - { name: portraitAlt, label: Portrait alt text, widget: string }
+              - { name: cta, label: CTA label, widget: string }
+          - name: orgsWorkedWith
+            label: Organisations worked with
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: logoStrip, label: Logo strip, widget: image }
+              - { name: logoStripAlt, label: Logo strip alt text, widget: string }
+          - name: experienced
+            label: Experienced speaker
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: story
+            label: My story
+            widget: object
+            fields:
+              - { name: title, label: Title, widget: string }
+              - { name: body, label: Body, widget: markdown }
+          - name: talks
+            label: Talks
+            widget: object
+            fields:
+              - { name: title, label: Section title, widget: string }
+              - name: items
+                label: Talks
+                widget: list
+                fields:
+                  - { name: title, label: Title, widget: string }
+                  - { name: body, label: Body, widget: markdown }
+                  - { name: popularWith, label: Popular with, widget: text }
+
+      - name: podcast
+        label: Podcast
+        file: src/content/podcast.json
+        fields:
+          - name: hero
+            label: Hero
+            widget: object
+            fields:
+              - { name: eyebrow, label: Eyebrow, widget: string }
+              - { name: title, label: Title, widget: string }
+              - { name: subtitle, label: Subtitle, widget: string }
+              - { name: intro, label: Intro, widget: text }
+              - { name: cover, label: Cover image, widget: image }
+              - { name: coverAlt, label: Cover alt text, widget: string }
+          - { name: about, label: About the show, widget: markdown }
+          - { name: feedPath, label: Feed path, widget: string, hint: "Same-origin proxy path (Caddy → Acast)." }
+          - name: platforms
+            label: Platforms
+            widget: list
+            fields:
+              - { name: name, label: Name, widget: string }
+              - { name: href, label: Link, widget: string }

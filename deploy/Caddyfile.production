@@ -1,0 +1,91 @@
+# Front-door reverse proxy for production (chrishemmings.co.uk).
+#
+# Web Station proxies every production hostname for this site
+# (apex, www, legacy domains…) to 127.0.0.1:8081.
+#
+# Two responsibilities Caddy handles:
+#   1. Path routing — /admin + /publish blocks, /*
+#   2. Host canonicalization — redirect non-canonical hostnames
+#      (www, legacy brands) to the apex so SEO doesn't see
+#      duplicate content.
+#
+# Adding a new legacy hostname: add its A-record on the client
+# side, add it as a SAN on the DSM vhost (so LE reissues the
+# multi-SAN cert), add it to the @non_canonical matcher below.
+
+{
+    admin off
+    auto_https off
+}
+
+:80 {
+    # Explicit ordering inside `route {}` — canonicalization
+    # first, editor-tooling block next, site last.
+    route {
+        # Host canonicalization. List every non-canonical
+        # production hostname here; Caddy 301s them to the
+        # canonical apex (chrishemmings.co.uk).
+        #
+        # The `.prod.denfrievilje.dk` internal origin is
+        # COMMENTED OUT by default — uncomment AFTER the
+        # client apex DNS is CNAME'd to .prod.denfrievilje.dk.
+        # Otherwise the redirect points users at a hostname
+        # that isn't yet resolving (during initial testing +
+        # cert provisioning you want to be able to hit the
+        # internal origin directly without chasing a 301 to
+        # a dead name).
+        #
+        # Edit this list when adding a new legacy domain too.
+        @non_canonical {
+            host www.chrishemmings.co.uk
+            # host chrishemmings-co-uk.prod.denfrievilje.dk   ← uncomment after DNS delegated
+            # host legacy-brand.dk
+            # host oldname.com
+        }
+        redir @non_canonical https://chrishemmings.co.uk{uri} 301
+
+        # Editor tooling — not for public eyes. /admin and
+        # /publish are staging-only; serve 404 on production.
+        @editor path /admin /admin/* /publish /publish/*
+        handle @editor {
+            respond "Not found" 404
+        }
+
+        # Podcast feed proxy. The /podcast page fetches this
+        # same-origin path in the browser; we reverse-proxy it to
+        # the public Acast RSS feed. Same-origin → no CORS needed
+        # (the Acast feed sends none and 403s preflight, so a
+        # direct browser fetch would fail). Keep the show id in
+        # sync with src/routes/api/podcast-feed/+server.ts (the
+        # dev/preview equivalent).
+        #
+        # Caching: Caddy can't cache without a plugin, so we set
+        # Cache-Control here and let Cloudflare (which fronts the
+        # site and is purged on deploy) edge-cache by `s-maxage`.
+        # Net: Acast is hit ~once/hour globally, not per visitor.
+        #   max-age      → browser/client TTL (5 min)
+        #   s-maxage     → Cloudflare edge TTL (1 hour)
+        #   stale-if-error → serve stale up to 20 min on upstream error
+        handle /api/podcast-feed {
+            rewrite * /public/shows/6900923adc92bdfeedb4e174
+            reverse_proxy https://feeds.acast.com {
+                header_up Host feeds.acast.com
+                header_down Cache-Control "public, max-age=300, s-maxage=3600, stale-if-error=1200"
+            }
+        }
+
+        # Fallthrough: the static site. Upstream port 8080
+        # because the site container runs rootless (nginx user,
+        # can't bind <1024).
+        handle {
+            reverse_proxy site:8080
+        }
+    }
+
+    encode gzip zstd
+
+    log {
+        output stdout
+        format json
+    }
+}

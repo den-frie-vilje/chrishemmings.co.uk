@@ -1,0 +1,77 @@
+# Front-door reverse proxy for the staging environment.
+#
+# Web Station (DSM nginx) proxies chris.denfrievilje.dk →
+# 127.0.0.1:8080. This Caddy listens on :80 inside the container
+# network and routes by path to the right upstream.
+#
+# Two upstreams:
+#   /auth/*    → GitHub OAuth proxy for Sveltia CMS
+#   /*         → the static site
+
+{
+    # Admin API off — we don't need it and exposing it on :2019
+    # even to localhost is more surface than this needs.
+    admin off
+
+    # Caddy auto-HTTPS off — TLS terminates at DSM/Let's Encrypt
+    # on the outer vhost, not here. Caddy just speaks HTTP on
+    # the docker network.
+    auto_https off
+}
+
+:80 {
+    # Sveltia CMS OAuth proxy. `handle_path` strips `/auth` so
+    # the upstream sees `/auth` and `/callback` at its root
+    # (which is what netlify-cms-github-oauth-provider expects).
+    # Sveltia constructs URLs as `${base_url}/auth` and
+    # `${base_url}/callback`, so with base_url =
+    # `https://chris.denfrievilje.dk/auth`, the paths become
+    # `/auth/auth` and `/auth/callback` externally — after
+    # strip, the upstream sees `/auth` and `/callback`.
+    handle_path /auth/* {
+        reverse_proxy sveltia-auth:3000
+    }
+
+    # Podcast feed proxy — same-origin path the /podcast page
+    # fetches in the browser, reverse-proxied to the public Acast
+    # RSS feed (no CORS needed since it's same-origin). Mirrors the
+    # production Caddyfile; staging adds no edge cache (the global
+    # no-store header below applies), which is fine for testing.
+    handle /api/podcast-feed {
+        rewrite * /public/shows/6900923adc92bdfeedb4e174
+        reverse_proxy https://feeds.acast.com {
+            header_up Host feeds.acast.com
+        }
+    }
+
+    # Everything else: the static site. Upstream port 8080
+    # because the site container runs rootless (nginx user,
+    # can't bind <1024).
+    handle {
+        reverse_proxy site:8080
+    }
+
+    # Gzip + zstd on responses that aren't already compressed.
+    encode gzip zstd
+
+    # Staging = never cache anything, anywhere. Overrides
+    # whatever Cache-Control the site container's nginx set
+    # (e.g. the 1-year immutable on /_app/immutable/*), so
+    # every deploy's changes are instantly visible on next
+    # navigation — no stale admin configs, no hard-refresh
+    # ritual, no "did the container actually update?"
+    # debugging. Production keeps the image's native cache
+    # policy (long cache on hashed immutables, no-cache on
+    # HTML) for real-user performance.
+    header Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    header Pragma "no-cache"
+    header Expires "0"
+
+    # Structured JSON access log to stdout — Docker / Container
+    # Manager picks it up. Easy to grep or pipe into a log
+    # collector later.
+    log {
+        output stdout
+        format json
+    }
+}
