@@ -169,11 +169,13 @@ for (const file of sources) {
   const maxH = Math.round((maxW * master.h) / master.w);
 
   for (const w of widths) {
-    const pipe = sharp(master.buf).resize({ width: w, kernel: 'lanczos3' });
-    await pipe.clone().avif({ quality: 52, effort: 4 }).toFile(resolve(GEN_DIR, `${name}-${w}.avif`));
-    await pipe.clone().webp({ quality: 80 }).toFile(resolve(GEN_DIR, `${name}-${w}.webp`));
+    // Mild output sharpen restores acuity lost when downscaling the master
+    // (and counters ESRGAN's smoothness) — gentle enough to avoid halos.
+    const pipe = sharp(master.buf).resize({ width: w, kernel: 'lanczos3' }).sharpen({ sigma: 0.6 });
+    await pipe.clone().avif({ quality: 60, effort: 4 }).toFile(resolve(GEN_DIR, `${name}-${w}.avif`));
+    await pipe.clone().webp({ quality: 82 }).toFile(resolve(GEN_DIR, `${name}-${w}.webp`));
     if (w === maxW) {
-      await pipe.clone().jpeg({ quality: 82, mozjpeg: true }).toFile(resolve(GEN_DIR, `${name}-${w}.jpg`));
+      await pipe.clone().jpeg({ quality: 84, mozjpeg: true }).toFile(resolve(GEN_DIR, `${name}-${w}.jpg`));
     }
   }
 
