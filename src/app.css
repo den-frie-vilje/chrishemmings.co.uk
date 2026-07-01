@@ -158,6 +158,41 @@ h4 {
   padding-block: clamp(48px, 8vw, var(--spacing-section));
 }
 
+/* ---- Navy hero wash ----
+   Darker-navy radial that pools behind a hero photo: it lifts the flat navy
+   hero off the (also-navy) sticky header and adds depth behind the image.
+   Put on an `absolute inset-0` layer inside a `relative isolate` navy hero,
+   with the content raised to `z-10`. `-l`/`-r` pick the side the photo sits
+   in on md+; both fall back to a bottom-centre pool on mobile, where the
+   photo stacks under the copy. */
+.navy-wash-l,
+.navy-wash-r {
+  background: radial-gradient(
+    90% 55% at 50% 86%,
+    rgba(3, 19, 28, 0.85) 0%,
+    rgba(3, 19, 28, 0.4) 42%,
+    transparent 74%
+  );
+}
+@media (min-width: 768px) {
+  .navy-wash-l {
+    background: radial-gradient(
+      62% 95% at 26% 52%,
+      rgba(3, 19, 28, 0.85) 0%,
+      rgba(3, 19, 28, 0.4) 42%,
+      transparent 74%
+    );
+  }
+  .navy-wash-r {
+    background: radial-gradient(
+      62% 95% at 74% 52%,
+      rgba(3, 19, 28, 0.85) 0%,
+      rgba(3, 19, 28, 0.4) 42%,
+      transparent 74%
+    );
+  }
+}
+
 /* ---- Buttons ---- */
 .btn {
   display: inline-flex;

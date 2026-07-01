@@ -23,8 +23,9 @@
 <SeoHead {seo} />
 
 <!-- Hero -->
-<section class="bg-navy-900 text-paper section-y">
-  <div class="container-page grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
+<section class="relative isolate overflow-hidden bg-navy-900 text-paper section-y">
+  <div class="navy-wash-r pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
+  <div class="container-page relative z-10 grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-14">
     <div>
       <p class="t-eyebrow !text-orange-300">{ps.hero.eyebrow}</p>
       <h1 class="t-display mt-4 text-paper">{ps.hero.title}</h1>
