@@ -45,7 +45,8 @@
 <!-- Intro / how I work -->
 <section class="bg-paper section-y">
   <div class="container-page max-w-3xl">
-    <Prose md={wt.intro} />
+    <h2 class="t-h2 text-ink">How I Work</h2>
+    <Prose md={wt.intro} class="mt-5" />
   </div>
 </section>
 

@@ -92,10 +92,8 @@
   </div>
 </section>
 
-<!-- Talks — no bottom padding: the following testimonials section (also paper)
-     brings its own top padding, so section-y on both would double the gap
-     between the enquiry CTA and the "What organisations say" heading. -->
-<section class="bg-paper section-y !pb-0">
+<!-- Talks -->
+<section class="bg-paper section-y">
   <div class="container-page">
     {#each ps.talks.groups as group, gi (group.name)}
       <h2 class="t-h2 text-ink {gi === 0 ? '' : 'mt-16'}">{group.name}</h2>
@@ -118,6 +116,6 @@
   </div>
 </section>
 
-<Testimonials surface="paper" heading="What organisations say" items={testimonials.speaking} />
+<Testimonials surface="sand" heading="What organisations say" items={testimonials.speaking} />
 
 <ContactSection details={false} />
