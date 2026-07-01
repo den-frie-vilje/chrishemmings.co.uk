@@ -60,14 +60,16 @@
       </div>
     </div>
 
-    <!-- mobile : in flow, pushed to the section bottom (mt-auto) and bled a
-         touch off the right; never overlaps the copy above it. -->
+    <!-- mobile : grows to fill the room under the copy (flex-1) and rests on
+         the section bottom; object-cover scales him up and crops his
+         shoulders as the space grows, biased right so his right shoulder
+         crops first. Never overlaps the copy (min-h floor keeps it in flow). -->
     <img
       src={home.hero.cutout}
       alt={home.hero.portraitAlt}
       width="1200"
       height="879"
-      class="mt-auto ml-auto w-[92%] max-w-[420px] translate-x-[8%] select-none md:hidden"
+      class="mt-6 min-h-[15rem] w-full flex-1 select-none object-cover object-[42%_bottom] md:hidden"
     />
   </div>
 </section>
