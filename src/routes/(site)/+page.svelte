@@ -18,6 +18,33 @@
   });
 
   const num = (i: number) => String(i + 1).padStart(2, '0');
+
+  // Mobile hero cutout fade: when he loads badly cropped by the fold (only his
+  // hair poking up, which looks comical) he starts transparent and fades up as
+  // the page scrolls. The initial hide + scroll-linked fade are pure CSS
+  // (scroll-driven `view()` timeline, mobile-only) so there's NO hydration
+  // blink; this observer just *latches* it — once he's ≥ half in view we lock
+  // him opaque so scrolling back to the top can't re-hide him. On viewports
+  // where he already loads mostly in view, it fires immediately → no fade.
+  let heroCutout = $state<HTMLImageElement>();
+  let heroRevealed = $state(false);
+  $effect(() => {
+    const img = heroCutout;
+    if (!img) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.intersectionRatio >= 0.5) {
+            heroRevealed = true;
+            io.disconnect();
+          }
+        }
+      },
+      { threshold: [0.5] }
+    );
+    io.observe(img);
+    return () => io.disconnect();
+  });
 </script>
 
 <SeoHead {seo} />
@@ -28,7 +55,7 @@
      via `dvh`, and the cutout sits IN FLOW below the copy with `mt-auto` —
      so it rests on the visible bottom when there's room but drops below the
      copy on a short screen, guaranteeing the CTAs never overlap the photo. -->
-<section class="relative isolate overflow-hidden bg-paper">
+<section class="relative isolate bg-paper md:overflow-hidden">
   <!-- Off-axis radial wash, a touch darker behind Chris so the cutout lifts
        off the flat paper. Follows him bottom-right on mobile, mid-right on md+. -->
   <div class="hero-wash pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
@@ -60,16 +87,19 @@
       </div>
     </div>
 
-    <!-- mobile : grows to fill the room under the copy (flex-1) and rests on
-         the section bottom; object-cover scales him up and crops his
-         shoulders as the space grows, biased right so his right shoulder
-         crops first. Never overlaps the copy (min-h floor keeps it in flow). -->
+    <!-- mobile : full-bleed to the viewport (breaks out of the container
+         padding) so he crops at the screen edges, not the margins. Grows to
+         fill the room under the copy (flex-1) and rests on the bottom; the
+         min-h floor keeps the box portrait-ish so there's always a side crop
+         — object-position then holds him a touch right of centre. -->
     <img
+      bind:this={heroCutout}
       src={home.hero.cutout}
       alt={home.hero.portraitAlt}
       width="1200"
       height="879"
-      class="mt-6 min-h-[15rem] w-full flex-1 select-none object-cover object-[42%_bottom] md:hidden"
+      class:is-revealed={heroRevealed}
+      class="hero-cutout mt-3 ml-[calc(50%-50vw)] min-h-[100vw] w-screen max-w-none flex-1 select-none object-cover object-[8%_bottom] md:hidden"
     />
   </div>
 </section>
@@ -187,6 +217,37 @@
         color-mix(in srgb, #4a3826 12%, transparent) 45%,
         transparent 82%
       );
+    }
+  }
+
+  /* Mobile hero cutout: scroll-driven fade so he isn't a comical hair-tuft
+     when he loads far below the fold. Pure CSS (`view()` timeline) → applied
+     from the first paint, so there's NO hydration blink; he's opacity 1 once
+     ≳ half in view, fading toward 0 the more he's cropped by the fold. Mobile
+     only (the md+ cutout is a separate element). Progressive enhancement:
+     browsers without scroll-driven animations just show him. The
+     IntersectionObserver adds `.is-revealed` to latch him opaque once he's
+     been seen, so scrolling back to the top can't re-hide him. */
+  @keyframes hero-cutout-reveal {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @supports (animation-timeline: view()) {
+    @media (max-width: 767px) {
+      .hero-cutout {
+        opacity: 0;
+        animation: hero-cutout-reveal linear both;
+        animation-timeline: view();
+        animation-range: entry 35% entry 50%;
+      }
+      .hero-cutout.is-revealed {
+        opacity: 1;
+        animation: none;
+      }
     }
   }
 </style>
