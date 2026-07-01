@@ -33,7 +33,10 @@
           <p class="t-eyebrow">{path.eyebrow}</p>
           <h2 class="t-h3 mt-3 text-navy-900">{path.title}</h2>
           <p class="mt-3 text-[1.02rem] leading-relaxed text-ink-soft">{path.body}</p>
-          <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <!-- mt-auto bottom-aligns the CTA + link row across both cards (so
+               they line up when side-by-side, regardless of body length);
+               pt-6 keeps a minimum gap above it in the taller card. -->
+          <div class="mt-auto flex flex-wrap items-center gap-x-5 gap-y-3 pt-6">
             <a class="btn btn-primary" href={path.ctaHref}>{path.ctaLabel}</a>
             <a class="font-medium text-blue-600 underline-offset-2 hover:underline" href={path.linkHref}>
               {path.linkLabel} →
