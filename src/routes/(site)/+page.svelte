@@ -46,7 +46,7 @@
   />
   <div
     class="container-page relative z-10 flex min-h-[calc(100dvh-68px)] flex-col pt-12
-           md:min-h-[37rem] md:justify-center md:py-16"
+           md:min-h-[37rem] md:py-[clamp(48px,8vw,var(--spacing-section))]"
   >
     <div class="mb-8 max-w-xl md:mb-0">
       <p class="t-eyebrow">{home.hero.eyebrow}</p>
