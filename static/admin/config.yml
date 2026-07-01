@@ -217,7 +217,7 @@ collections:
                   - { name: title, label: Title, widget: string, hint: "e.g. Therapy & Counselling, Coaching" }
                   - { name: range, label: Price / range, widget: string, hint: "e.g. £95–£145, or 'On request'" }
                   - { name: unit, label: Unit, widget: string, hint: "e.g. per 50-minute session" }
-                  - { name: body, label: Details, widget: markdown, buttons: [bold, italic], editor_components: [], modes: [rich], minimal: true }
+                  - { name: body, label: Details, widget: markdown, buttons: [bold, italic], editor_components: [], modes: [rich_text], minimal: true }
           - name: furtherInfo
             label: Further information
             widget: object
