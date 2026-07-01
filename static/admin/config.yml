@@ -298,6 +298,13 @@ collections:
               - { name: intro, label: Intro, widget: text }
               - { name: cover, label: Cover image, widget: image }
               - { name: coverAlt, label: Cover alt text, widget: string }
+          - name: homeTeaser
+            label: Home-page podcast teaser
+            hint: "The heading + blurb shown above the latest episodes in the podcast section on the HOME page."
+            widget: object
+            fields:
+              - { name: title, label: Heading, widget: string }
+              - { name: blurb, label: Blurb, widget: text }
           - { name: about, label: About the show, widget: markdown }
           - { name: feedPath, label: Feed path, widget: string, hint: "Same-origin proxy path (Caddy → Acast)." }
           - name: platforms

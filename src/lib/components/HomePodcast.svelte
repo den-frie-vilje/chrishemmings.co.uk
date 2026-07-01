@@ -1,10 +1,11 @@
 <!--
-  Home-page podcast teaser: the five most recent "No Man's an Island"
-  episodes in the same click-to-play row layout as the /podcast page (via
-  the shared EpisodeRow), capped at five with a "[N] more episodes" link to
-  /podcast instead of a load-more. Fetched client-side from the same
-  same-origin Acast proxy; renders nothing until episodes are available (so
-  the home page never shows a broken/empty block if the feed is slow/down).
+  Home-page podcast teaser: a host framing + blurb (`podcast.homeTeaser`)
+  that sells the show, then the five most recent "No Man's an Island"
+  episodes in the same click-to-play row layout as the /podcast page (shared
+  EpisodeRow), and a "See all episodes" link to /podcast. Fetched client-side
+  from the same same-origin Acast proxy; renders nothing until episodes are
+  available (so the home page never shows a broken/empty block if the feed is
+  slow/down).
 -->
 <script lang="ts">
   import { onMount } from 'svelte';
@@ -32,10 +33,11 @@
 {#if ready}
   <section class="bg-paper-2 section-y">
     <div class="container-page">
-      <p class="t-eyebrow">Latest Podcast Episodes</p>
-      <h2 class="t-h2 mt-2 text-ink">{podcast.hero.title}</h2>
+      <h2 class="t-h2 text-ink">{podcast.homeTeaser.title}</h2>
+      <p class="t-lead mt-4 max-w-2xl text-ink-soft">{podcast.homeTeaser.blurb}</p>
 
-      <ul class="mt-8">
+      <p class="t-eyebrow mt-10">Latest episodes</p>
+      <ul class="mt-4">
         {#each recent as ep (ep.guid)}<EpisodeRow {ep} />{/each}
       </ul>
 
@@ -44,7 +46,7 @@
           href="/podcast"
           class="flex items-center gap-2 border-t border-line py-4 font-semibold text-orange-700 transition-colors hover:text-orange-600"
         >
-          {moreCount} more episode{moreCount === 1 ? '' : 's'} →
+          See all episodes →
         </a>
       {/if}
     </div>

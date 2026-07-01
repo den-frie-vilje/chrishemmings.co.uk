@@ -202,6 +202,11 @@ export interface Podcast {
     cover: string;
     coverAlt: string;
   };
+  /** Copy for the podcast section on the home page (above the latest episodes). */
+  homeTeaser: {
+    title: string;
+    blurb: string;
+  };
   /** Markdown. */
   about: string;
   feedPath: string;
