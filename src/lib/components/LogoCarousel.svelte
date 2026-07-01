@@ -31,6 +31,11 @@
   // Duplicate the list so the track can loop seamlessly (translateX -50%).
   const loop = $derived([...logos, ...logos]);
 
+  // Gate the animation start until the logos have loaded and the duration is
+  // sized (set true by `constantSpeed`). Applied via `class:is-ready` — a
+  // runtime-added class would be pruned from the scoped CSS.
+  let ready = $state(false);
+
   // Weighted (equal-area) sizing for the bare press strip. Logos vary wildly
   // in aspect — a square network bug vs a very wide masthead — so a uniform
   // height leaves the square one tiny and the wide one enormous. Instead set
@@ -74,11 +79,42 @@
         node.style.setProperty('--marquee-duration', `${(travel / PX_PER_SECOND).toFixed(2)}s`);
       }
     };
-    // Setting a custom prop doesn't change layout, so no observer feedback loop.
+    // The animation stays paused (static at translateX 0) until the logos have
+    // loaded and the width — hence the duration — is final. Starting only then
+    // means the duration is never re-timed on a *running* animation, so the
+    // load phase can't cause a horizontal jump. Setting a custom prop doesn't
+    // change layout, so `update()` on each resize can't feed back into the RO.
+    let started = false;
+    const start = () => {
+      if (started) return;
+      started = true;
+      update();
+      ready = true;
+    };
     const ro = new ResizeObserver(update);
     ro.observe(node);
-    update();
-    return { destroy: () => ro.disconnect() };
+
+    const pending = Array.from(node.querySelectorAll('img')).filter((img) => !img.complete);
+    // Belt-and-braces: start even if an image never fires load/error.
+    const fallback = setTimeout(start, 2000);
+    if (pending.length === 0) {
+      start();
+    } else {
+      let remaining = pending.length;
+      const settle = () => {
+        if (--remaining === 0) start();
+      };
+      for (const img of pending) {
+        img.addEventListener('load', settle, { once: true });
+        img.addEventListener('error', settle, { once: true });
+      }
+    }
+    return {
+      destroy: () => {
+        ro.disconnect();
+        clearTimeout(fallback);
+      }
+    };
   }
 </script>
 
@@ -109,7 +145,13 @@
     </svg>
   {/if}
   <div class="marquee" role="group" aria-label={label}>
-    <ul class="track" class:paused class:strip={variant === 'strip'} use:constantSpeed>
+    <ul
+      class="track"
+      class:paused
+      class:strip={variant === 'strip'}
+      class:is-ready={ready}
+      use:constantSpeed
+    >
       {#each loop as org, i (org.name + '-' + i)}
         <li aria-hidden={i >= logos.length ? 'true' : undefined}>
           {#if variant === 'strip'}
@@ -143,12 +185,17 @@
     gap: 1rem;
     width: max-content;
     /* Duration is derived from the track width by `constantSpeed` so the
-       on-screen px/second is constant across devices; 45s is a pre-hydration
-       fallback only. */
+       on-screen px/second is constant across devices; 45s is a fallback only. */
     animation: marquee var(--marquee-duration, 45s) linear infinite;
+    /* Paused (static at translateX 0) until `constantSpeed` has sized the
+       duration and adds .is-ready — so no jump while the logos load. */
+    animation-play-state: paused;
   }
-  .marquee:hover .track,
-  .track.paused {
+  .track.is-ready {
+    animation-play-state: running;
+  }
+  .track.is-ready.paused,
+  .marquee:hover .track.is-ready {
     animation-play-state: paused;
   }
   .card {
@@ -193,6 +240,9 @@
      the `weightedScale` action. Vertically centred by the track. */
   .track.strip {
     gap: 2.25rem;
+    /* Reserve the tallest logo's height (weightedScale MAX 50px × 0.86 mobile)
+       so the strip doesn't grow — and shift the page — as logos load in. */
+    min-height: 43px;
   }
   .strip-logo {
     height: calc(var(--logo-h, 30px) * 0.86);
@@ -210,6 +260,7 @@
   @media (min-width: 640px) {
     .track.strip {
       gap: 3rem;
+      min-height: 50px;
     }
     .strip-logo {
       height: var(--logo-h, 34px);
