@@ -55,6 +55,31 @@
     node.addEventListener('load', apply);
     return { destroy: () => node.removeEventListener('load', apply) };
   }
+
+  // Constant on-screen speed. The CSS keyframe translates the track by -50%
+  // (half its own width) over a fixed duration, so a bare `45s` makes the
+  // px/second speed scale with the track width — a narrower track (mobile
+  // sizing, or before the weighted sizing has run) visibly crawls. Instead
+  // derive the DURATION from the measured travel distance and a target
+  // pixels-per-second, and recompute whenever the track resizes (breakpoint
+  // change, or logos finishing loading). Speed is then distance ÷ rate — the
+  // same on every device — never a fixed value. (Kept as a compositor-driven
+  // CSS animation rather than a rAF loop; if this were ever rAF, advance by
+  // elapsed time, never a per-frame constant.)
+  const PX_PER_SECOND = 42;
+  function constantSpeed(node: HTMLElement) {
+    const update = () => {
+      const travel = node.scrollWidth / 2; // one full set = half the loop
+      if (travel > 0) {
+        node.style.setProperty('--marquee-duration', `${(travel / PX_PER_SECOND).toFixed(2)}s`);
+      }
+    };
+    // Setting a custom prop doesn't change layout, so no observer feedback loop.
+    const ro = new ResizeObserver(update);
+    ro.observe(node);
+    update();
+    return { destroy: () => ro.disconnect() };
+  }
 </script>
 
 {#if logos.length}
@@ -84,7 +109,7 @@
     </svg>
   {/if}
   <div class="marquee" role="group" aria-label={label}>
-    <ul class="track" class:paused class:strip={variant === 'strip'}>
+    <ul class="track" class:paused class:strip={variant === 'strip'} use:constantSpeed>
       {#each loop as org, i (org.name + '-' + i)}
         <li aria-hidden={i >= logos.length ? 'true' : undefined}>
           {#if variant === 'strip'}
@@ -117,7 +142,10 @@
     align-items: center;
     gap: 1rem;
     width: max-content;
-    animation: marquee 45s linear infinite;
+    /* Duration is derived from the track width by `constantSpeed` so the
+       on-screen px/second is constant across devices; 45s is a pre-hydration
+       fallback only. */
+    animation: marquee var(--marquee-duration, 45s) linear infinite;
   }
   .marquee:hover .track,
   .track.paused {
