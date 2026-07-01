@@ -128,7 +128,7 @@
 <!-- Testimonial (featured therapy client) -->
 <Testimonials
   variant="featured"
-  surface="paper-2"
+  surface="sand"
   eyebrow="Here's what one client had to say:"
   items={testimonials.therapy}
 />
