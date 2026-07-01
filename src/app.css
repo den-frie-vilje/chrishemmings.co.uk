@@ -251,6 +251,11 @@ h4 {
 .prose-warm :where(p, ul, ol) {
   margin-block: 0.9em;
 }
+/* A leading heading/paragraph shouldn't add its own top margin on top of the
+   section's padding. */
+.prose-warm > :first-child {
+  margin-top: 0;
+}
 .prose-warm :where(h2) {
   font-size: clamp(24px, 2.6vw, 30px);
   margin-block: 1.6em 0.5em;

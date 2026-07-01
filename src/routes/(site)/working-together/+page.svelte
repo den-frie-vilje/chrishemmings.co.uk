@@ -42,11 +42,10 @@
   </div>
 </section>
 
-<!-- Intro / how I work -->
+<!-- Intro / how I work — headings (h2/h3) live in the markdown itself. -->
 <section class="bg-paper section-y">
   <div class="container-page max-w-3xl">
-    <h2 class="t-h2 text-ink">How I Work</h2>
-    <Prose md={wt.intro} class="mt-5" />
+    <Prose md={wt.intro} />
   </div>
 </section>
 
