@@ -6,6 +6,7 @@
   import Testimonials from '$lib/components/Testimonials.svelte';
   import LogoCarousel from '$lib/components/LogoCarousel.svelte';
   import Accolades from '$lib/components/Accolades.svelte';
+  import Photo from '$lib/components/Photo.svelte';
   import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
@@ -38,12 +39,13 @@
       <Accolades items={accolades} tone="dark" class="mt-10 max-w-md" />
     </div>
     <div class="md:justify-self-end">
-      <img
+      <Photo
         src={ps.hero.portrait}
         alt={ps.hero.portraitAlt}
-        width="420"
-        height="420"
-        class="aspect-square w-full max-w-xs rounded-lg object-cover shadow-lg"
+        class="aspect-square w-full rounded-lg object-cover shadow-lg md:max-w-sm"
+        sizes="(min-width: 768px) 384px, 100vw"
+        loading="eager"
+        fetchpriority="high"
       />
     </div>
   </div>

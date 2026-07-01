@@ -4,6 +4,7 @@
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Testimonials from '$lib/components/Testimonials.svelte';
+  import Photo from '$lib/components/Photo.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -29,12 +30,13 @@
       </div>
     </div>
     <div class="md:justify-self-end">
-      <img
+      <Photo
         src={wt.hero.portrait}
         alt={wt.hero.portraitAlt}
-        width="460"
-        height="560"
         class="aspect-[4/5] w-full max-w-sm rounded-lg object-cover shadow-lg"
+        sizes="(min-width: 768px) 384px, 100vw"
+        loading="eager"
+        fetchpriority="high"
       />
     </div>
   </div>

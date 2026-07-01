@@ -6,6 +6,7 @@
   import Testimonials from '$lib/components/Testimonials.svelte';
   import HomePodcast from '$lib/components/HomePodcast.svelte';
   import Accolades from '$lib/components/Accolades.svelte';
+  import Photo from '$lib/components/Photo.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -87,12 +88,11 @@
       <Prose md={home.about.body} class="mt-5" />
     </div>
     <div class="md:order-1">
-      <img
-        src="/img/chris-working.jpg"
+      <Photo
+        src="/img/photos/chris-working.jpg"
         alt="Chris Hemmings, psychotherapist & coach"
-        width="460"
-        height="560"
         class="aspect-[4/5] w-full rounded-lg object-cover shadow-md"
+        sizes="(min-width: 768px) 40vw, 100vw"
         loading="lazy"
       />
       <div class="mt-6">

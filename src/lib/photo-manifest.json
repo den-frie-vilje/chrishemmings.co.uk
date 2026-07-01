@@ -1,0 +1,20 @@
+{
+  "/img/photos/chris-nike.png": {
+    "hash": "f0ec67b746d9",
+    "quality": "ai",
+    "width": 768,
+    "height": 766,
+    "avif": "/img/photos/_gen/chris-nike-320.avif 320w, /img/photos/_gen/chris-nike-480.avif 480w, /img/photos/_gen/chris-nike-640.avif 640w, /img/photos/_gen/chris-nike-768.avif 768w",
+    "webp": "/img/photos/_gen/chris-nike-320.webp 320w, /img/photos/_gen/chris-nike-480.webp 480w, /img/photos/_gen/chris-nike-640.webp 640w, /img/photos/_gen/chris-nike-768.webp 768w",
+    "fallback": "/img/photos/_gen/chris-nike-768.jpg"
+  },
+  "/img/photos/chris-working.jpg": {
+    "hash": "071d8a61ae42",
+    "quality": "ai",
+    "width": 800,
+    "height": 800,
+    "avif": "/img/photos/_gen/chris-working-320.avif 320w, /img/photos/_gen/chris-working-480.avif 480w, /img/photos/_gen/chris-working-640.avif 640w, /img/photos/_gen/chris-working-768.avif 768w, /img/photos/_gen/chris-working-800.avif 800w",
+    "webp": "/img/photos/_gen/chris-working-320.webp 320w, /img/photos/_gen/chris-working-480.webp 480w, /img/photos/_gen/chris-working-640.webp 640w, /img/photos/_gen/chris-working-768.webp 768w, /img/photos/_gen/chris-working-800.webp 800w",
+    "fallback": "/img/photos/_gen/chris-working-800.jpg"
+  }
+}

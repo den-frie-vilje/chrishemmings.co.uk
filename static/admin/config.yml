@@ -182,7 +182,7 @@ collections:
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: title, label: Title, widget: string }
               - { name: subtitle, label: Subtitle, widget: string }
-              - { name: portrait, label: Portrait image, widget: image, hint: "Also used for this page's social-share (OG) image." }
+              - { name: portrait, label: Portrait image, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "A photograph — it's automatically upscaled + turned into responsive AVIF/WebP on build. Also used for this page's social-share (OG) image." }
               - { name: portraitAlt, label: Portrait alt text, widget: string }
           - { name: intro, label: Intro / how I work, widget: markdown }
           - name: qualifications
@@ -230,7 +230,7 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: subtitle, label: Subtitle, widget: string }
               - { name: intro, label: Intro, widget: text }
-              - { name: portrait, label: Portrait image, widget: image, hint: "Also used for this page's social-share (OG) image." }
+              - { name: portrait, label: Portrait image, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "A photograph — it's automatically upscaled + turned into responsive AVIF/WebP on build. Also used for this page's social-share (OG) image." }
               - { name: portraitAlt, label: Portrait alt text, widget: string }
               - { name: cta, label: CTA label, widget: string }
           - name: orgsWorkedWith
