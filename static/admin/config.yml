@@ -27,6 +27,9 @@ public_folder: /img
 collections:
   - name: general
     label: General
+    # No side preview pane — it renders a generic field dump, not the real
+    # site. Editors review changes on the staging site instead.
+    editor: { preview: false }
     files:
       - name: site
         label: Site
@@ -98,6 +101,8 @@ collections:
 
   - name: pages
     label: Pages
+    # No side preview pane (see General) — review on staging.
+    editor: { preview: false }
     files:
       - name: home
         label: Home
