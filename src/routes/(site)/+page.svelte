@@ -20,34 +20,33 @@
 
 <SeoHead {seo} />
 
-<!-- Hero — Chris knocked out of his background, leaning in from the right
-     (off-centre, bleeding off the edge) over the warm paper ground. The
-     cutout is absolutely anchored to the section's bottom-right across all
-     breakpoints. On mobile the hero fills the viewport (minus the 68px
-     header) using `dvh`, so Chris rests on the *visible* bottom of the
-     screen even as iOS Safari's toolbar expands/collapses; on md+ it's the
-     usual side-by-side hero. -->
+<!-- Hero — Chris knocked out of his background over the warm paper ground.
+     md+ : cutout absolutely anchored to the section's bottom-right, beside
+     the copy. Mobile : the hero fills the viewport (minus the 68px header)
+     via `dvh`, and the cutout sits IN FLOW below the copy with `mt-auto` —
+     so it rests on the visible bottom when there's room but drops below the
+     copy on a short screen, guaranteeing the CTAs never overlap the photo. -->
 <section class="relative isolate overflow-hidden bg-paper">
   <!-- Off-axis radial wash, a touch darker behind Chris so the cutout lifts
        off the flat paper. Follows him bottom-right on mobile, mid-right on md+. -->
   <div class="hero-wash pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
 
+  <!-- md+ : absolute, bleeds off the section's right edge. -->
   <img
     src={home.hero.cutout}
     alt={home.hero.portraitAlt}
     width="1200"
     height="879"
     fetchpriority="high"
-    class="pointer-events-none absolute bottom-0 right-0 z-0 select-none object-contain object-bottom
-           w-[104%] max-w-[460px] translate-x-[10%]
-           md:w-[58%] md:max-w-[620px] md:translate-x-[16%]
+    class="pointer-events-none absolute bottom-0 right-0 z-0 hidden select-none object-contain object-bottom
+           md:block md:w-[58%] md:max-w-[620px] md:translate-x-[16%]
            lg:w-[52%] lg:max-w-[690px] lg:translate-x-[11%]"
   />
   <div
     class="container-page relative z-10 flex min-h-[calc(100dvh-68px)] flex-col pt-12
            md:min-h-[37rem] md:justify-center md:py-16"
   >
-    <div class="max-w-xl">
+    <div class="mb-8 max-w-xl md:mb-0">
       <p class="t-eyebrow">{home.hero.eyebrow}</p>
       <h1 class="t-display mt-4 text-ink">
         {home.hero.title}<span class="block text-ink-soft">{home.hero.titleAccent}</span>
@@ -58,6 +57,16 @@
         <a class="btn btn-outline" href="/working-together">{home.hero.ctaSecondary}</a>
       </div>
     </div>
+
+    <!-- mobile : in flow, pushed to the section bottom (mt-auto) and bled a
+         touch off the right; never overlaps the copy above it. -->
+    <img
+      src={home.hero.cutout}
+      alt={home.hero.portraitAlt}
+      width="1200"
+      height="879"
+      class="mt-auto ml-auto w-[92%] max-w-[420px] translate-x-[8%] select-none md:hidden"
+    />
   </div>
 </section>
 
@@ -105,12 +114,6 @@
             {/if}
           {/each}
         </div>
-        {#if site.recognition?.label}
-          <p class="mt-5 text-sm leading-relaxed text-ink-soft">
-            Named a <span class="font-semibold text-navy-900">{site.recognition.label}</span> by the
-            {site.recognition.org}.
-          </p>
-        {/if}
       </div>
     </div>
   </div>
