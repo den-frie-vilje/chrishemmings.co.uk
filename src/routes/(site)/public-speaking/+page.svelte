@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { site, publicSpeaking as ps, testimonials } from '$lib/content';
+  import { site, publicSpeaking as ps, testimonials, accolades } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Testimonials from '$lib/components/Testimonials.svelte';
   import LogoCarousel from '$lib/components/LogoCarousel.svelte';
+  import Accolades from '$lib/components/Accolades.svelte';
   import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
@@ -34,19 +35,7 @@
       <div class="mt-8">
         <a class="btn btn-primary" href={speakingHref}>{ps.hero.cta}</a>
       </div>
-      {#if site.recognition?.label}
-        <a
-          href={site.recognition.href}
-          target="_blank"
-          rel="noopener"
-          class="mt-6 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-cloud transition-colors hover:border-orange-300/50 hover:text-paper"
-        >
-          <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 shrink-0 text-orange-300" aria-hidden="true">
-            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-          </svg>
-          <span><span class="font-semibold text-paper">{site.recognition.label}</span> · {site.recognition.org}</span>
-        </a>
-      {/if}
+      <Accolades items={accolades} tone="dark" class="mt-10 max-w-md" />
     </div>
     <div class="md:justify-self-end">
       <img

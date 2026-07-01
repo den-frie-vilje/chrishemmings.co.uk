@@ -4,10 +4,5 @@
   "description": "Psychotherapist and coach specialising in working with men. Online therapy across the UK, Europe and beyond.",
   "themeColor": "#093449",
   "footerNote": "© {year} Chris Hemmings",
-  "bacpRegisterUrl": "https://www.bacp.co.uk/therapists/402932",
-  "recognition": {
-    "label": "Men & Boys Champion 2026",
-    "org": "Centre for Policy Research on Men and Boys",
-    "href": "https://static1.squarespace.com/static/65082bafe713d71d6a2a67cb/t/699ca1a468ba37240370c981/1771872676490/CPRMB+Champions+2026+Final.pdf"
-  }
+  "bacpRegisterUrl": "https://www.bacp.co.uk/therapists/402932"
 }

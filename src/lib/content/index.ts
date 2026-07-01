@@ -18,6 +18,7 @@ import workingTogetherData from '../../content/working-together.json';
 import publicSpeakingData from '../../content/public-speaking.json';
 import podcastData from '../../content/podcast.json';
 import testimonialsData from '../../content/testimonials.json';
+import accoladesData from '../../content/accolades.json';
 
 export interface NavItem {
   label: string;
@@ -42,16 +43,6 @@ export interface Og {
   cta: string;
 }
 
-/** A third-party accolade / named-list recognition. */
-export interface Recognition {
-  /** Short label, e.g. "Men & Boys Champion 2026". */
-  label: string;
-  /** Awarding body. */
-  org: string;
-  /** Public source that names the recognition (opens in a new tab). */
-  href: string;
-}
-
 export interface Site {
   name: string;
   tagline: string;
@@ -60,8 +51,20 @@ export interface Site {
   footerNote: string;
   /** Official BACP register profile link — the single source of truth. */
   bacpRegisterUrl: string;
-  /** Optional accolade shown on the speaking page + home founder strip. */
-  recognition: Recognition;
+}
+
+/** A third-party accolade / named-list recognition. Sitewide list (sister
+ *  to testimonials): shown under the home founder block and on the speaking
+ *  page. */
+export interface Accolade {
+  /** The accolade name, e.g. "Men & Boys Champion". */
+  title: string;
+  /** Year awarded (optional), e.g. "2026". */
+  year?: string;
+  /** Awarding body. */
+  org: string;
+  /** Public page or PDF that names it (optional; opens in a new tab). */
+  href?: string;
 }
 
 export interface Booking {
@@ -231,6 +234,10 @@ export interface Testimonials {
   speaking: Testimonial[];
 }
 
+interface AccoladesFile {
+  items: Accolade[];
+}
+
 export const site: Site = siteData;
 export const contact: Contact = contactData;
 export const booking: Booking = bookingData;
@@ -240,6 +247,7 @@ export const workingTogether: WorkingTogether = workingTogetherData;
 export const publicSpeaking: PublicSpeaking = publicSpeakingData;
 export const podcast: Podcast = podcastData;
 export const testimonials: Testimonials = testimonialsData;
+export const accolades: Accolade[] = (accoladesData as AccoladesFile).items;
 
 /**
  * Primary navigation — GENERATED, not hand-entered. Each item pairs a

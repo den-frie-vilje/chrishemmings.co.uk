@@ -1,10 +1,11 @@
 <script lang="ts">
-  import { site, home, booking, testimonials } from '$lib/content';
+  import { site, home, booking, testimonials, accolades } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Testimonials from '$lib/components/Testimonials.svelte';
   import HomePodcast from '$lib/components/HomePodcast.svelte';
+  import Accolades from '$lib/components/Accolades.svelte';
   import Prose from '$lib/components/Prose.svelte';
 
   const seo = buildPageSeo({
@@ -115,6 +116,7 @@
           {/each}
         </div>
       </div>
+      <Accolades items={accolades} class="mt-8" />
     </div>
   </div>
 </section>
