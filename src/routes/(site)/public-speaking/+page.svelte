@@ -33,6 +33,19 @@
       <div class="mt-8">
         <a class="btn btn-primary" href={speakingHref}>{ps.hero.cta}</a>
       </div>
+      {#if site.recognition?.label}
+        <a
+          href={site.recognition.href}
+          target="_blank"
+          rel="noopener"
+          class="mt-6 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-cloud transition-colors hover:border-orange-300/50 hover:text-paper"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4 shrink-0 text-orange-300" aria-hidden="true">
+            <path d="M12 2l2.35 4.76 5.25.76-3.8 3.7.9 5.23L12 18.9l-4.7 2.47.9-5.23-3.8-3.7 5.25-.76z" />
+          </svg>
+          <span><span class="font-semibold text-paper">{site.recognition.label}</span> · {site.recognition.org}</span>
+        </a>
+      {/if}
     </div>
     <div class="md:justify-self-end">
       <img

@@ -105,6 +105,12 @@
             {/if}
           {/each}
         </div>
+        {#if site.recognition?.label}
+          <p class="mt-5 text-sm leading-relaxed text-ink-soft">
+            Named a <span class="font-semibold text-navy-900">{site.recognition.label}</span> by the
+            {site.recognition.org}.
+          </p>
+        {/if}
       </div>
     </div>
   </div>

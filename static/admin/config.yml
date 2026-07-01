@@ -38,6 +38,14 @@ collections:
           - { name: themeColor, label: Theme colour, widget: string }
           - { name: footerNote, label: Footer note, widget: string, hint: "Use {year} for the year." }
           - { name: bacpRegisterUrl, label: BACP register link, widget: string, hint: "Official BACP profile, e.g. https://www.bacp.co.uk/therapists/<membership-number>" }
+          - name: recognition
+            label: Recognition / accolade
+            hint: "An award or named-list recognition. Shown on the Public Speaking page (as a linked badge) and lightly on the home page. Point the link at a public page or PDF that names it."
+            widget: object
+            fields:
+              - { name: label, label: Label, widget: string, hint: "e.g. \"Men & Boys Champion 2026\"." }
+              - { name: org, label: Awarding body, widget: string }
+              - { name: href, label: Source link, widget: string, hint: "Public page or PDF that names the recognition; opens in a new tab." }
 
       - name: contact
         label: Contact details

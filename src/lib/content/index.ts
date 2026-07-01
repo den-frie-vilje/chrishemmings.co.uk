@@ -42,6 +42,16 @@ export interface Og {
   cta: string;
 }
 
+/** A third-party accolade / named-list recognition. */
+export interface Recognition {
+  /** Short label, e.g. "Men & Boys Champion 2026". */
+  label: string;
+  /** Awarding body. */
+  org: string;
+  /** Public source that names the recognition (opens in a new tab). */
+  href: string;
+}
+
 export interface Site {
   name: string;
   tagline: string;
@@ -50,6 +60,8 @@ export interface Site {
   footerNote: string;
   /** Official BACP register profile link — the single source of truth. */
   bacpRegisterUrl: string;
+  /** Optional accolade shown on the speaking page + home founder strip. */
+  recognition: Recognition;
 }
 
 export interface Booking {
