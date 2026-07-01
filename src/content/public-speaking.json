@@ -66,21 +66,6 @@
     "title": "Keynote talks, workshops and training",
     "groups": [
       {
-        "name": "Workshops & training",
-        "items": [
-          {
-            "title": "Understanding Men's Mental Health and Emotional Wellbeing",
-            "body": "An engaging and thought-provoking workshop exploring the challenges facing men and boys today, including mental health, loneliness, emotional suppression and help-seeking. This session examines how traditional cultural expectations placed on men can impact mental health and wellbeing, and offers practical ways to create healthier conversations, stronger relationships and more supportive communities.",
-            "popularWith": "Workplaces, conferences, universities, charities and community organisations."
-          },
-          {
-            "title": "Developing Empathy and Emotional Intelligence",
-            "body": "Empathy is one of the most important skills for building healthier relationships, stronger teams and more inclusive cultures. This talk explores how empathy can be developed, why emotional intelligence matters and how greater understanding can improve leadership, communication and workplace wellbeing.\n\nParticipants leave with practical tools for listening more effectively, understanding different perspectives and creating environments where people feel seen, heard and valued.",
-            "popularWith": "Leadership teams, workplaces, schools and professional conferences."
-          }
-        ]
-      },
-      {
         "name": "Talks & keynotes",
         "items": [
           {
@@ -92,6 +77,21 @@
             "title": "The Case for Male Inclusion in Diversity, Equity and Inclusion (DEI)",
             "body": "Many organisations are committed to creating more inclusive workplaces, yet conversations about gender often overlook the experiences and challenges facing men and boys. This evidence-informed talk explores why male inclusion matters within Diversity, Equity and Inclusion strategies, and how organisations can support men without diminishing support for other groups.\n\nThe session examines issues such as mental health, educational outcomes, fatherhood, workplace culture and belonging, offering a balanced and constructive approach to building truly inclusive environments.",
             "popularWith": "HR teams, DEI professionals, public sector organisations and leadership conferences."
+          }
+        ]
+      },
+      {
+        "name": "Workshops & training",
+        "items": [
+          {
+            "title": "Understanding Men's Mental Health and Emotional Wellbeing",
+            "body": "An engaging and thought-provoking workshop exploring the challenges facing men and boys today, including mental health, loneliness, emotional suppression and help-seeking. This session examines how traditional cultural expectations placed on men can impact mental health and wellbeing, and offers practical ways to create healthier conversations, stronger relationships and more supportive communities.",
+            "popularWith": "Workplaces, conferences, universities, charities and community organisations."
+          },
+          {
+            "title": "Developing Empathy and Emotional Intelligence",
+            "body": "Empathy is one of the most important skills for building healthier relationships, stronger teams and more inclusive cultures. This talk explores how empathy can be developed, why emotional intelligence matters and how greater understanding can improve leadership, communication and workplace wellbeing.\n\nParticipants leave with practical tools for listening more effectively, understanding different perspectives and creating environments where people feel seen, heard and valued.",
+            "popularWith": "Leadership teams, workplaces, schools and professional conferences."
           }
         ]
       }
