@@ -39,6 +39,7 @@
     "@sveltia/cms": "0.157.1",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.3.0",
+    "@upscalerjs/esrgan-thick": "^1.0.0",
     "satori": "^0.26.0",
     "satori-html": "^0.3.2",
     "sharp": "^0.35.2",

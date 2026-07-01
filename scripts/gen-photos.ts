@@ -82,8 +82,17 @@ let ai: { tf: any; upscaler: any } | null = null;
 try {
   const tf = require('@tensorflow/tfjs-node');
   const Upscaler = require('upscaler/node');
-  ai = { tf, upscaler: new Upscaler() };
-  console.log('photos: AI upscaler ready (UpscalerJS + tfjs-node)');
+  // esrgan-thick 4× — sharper on retina for our small portraits; falls back
+  // to UpscalerJS's bundled 2× default model if the package isn't present.
+  let model: unknown;
+  try {
+    const m = require('@upscalerjs/esrgan-thick/4x');
+    model = (m as { default?: unknown }).default ?? m;
+  } catch {
+    model = undefined;
+  }
+  ai = { tf, upscaler: model ? new Upscaler({ model }) : new Upscaler() };
+  console.log(`photos: AI upscaler ready (${model ? 'esrgan-thick 4×' : 'default 2×'})`);
 } catch {
   console.log('photos: tfjs-node unavailable — sharp Lanczos will handle any upscales');
 }
