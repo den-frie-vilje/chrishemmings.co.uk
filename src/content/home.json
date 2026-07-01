@@ -30,6 +30,20 @@
       }
     ]
   },
+  "featuredIn": {
+    "title": "My work has been featured in",
+    "logos": [
+      { "name": "BBC News", "logo": "/img/logos/press/bbc-news.svg" },
+      { "name": "BBC Radio 4", "logo": "/img/logos/press/bbc-radio-4.svg" },
+      { "name": "Times Radio", "logo": "/img/logos/press/times-radio.svg" },
+      { "name": "The Times", "logo": "/img/logos/press/the-times.svg" },
+      { "name": "ITV", "logo": "/img/logos/press/itv.svg" },
+      { "name": "CNN", "logo": "/img/logos/press/cnn.svg" },
+      { "name": "The Guardian", "logo": "/img/logos/press/the-guardian.svg" },
+      { "name": "The Independent", "logo": "/img/logos/press/the-independent.svg" },
+      { "name": "The Telegraph", "logo": "/img/logos/press/the-telegraph.svg" }
+    ]
+  },
   "interests": {
     "title": "Areas of specific interest",
     "intro": "I have experience working with clients with a wide range of challenges, including:",

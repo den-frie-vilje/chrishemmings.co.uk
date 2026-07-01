@@ -139,6 +139,9 @@ export interface Home {
   };
   about: { title: string; body: string };
   founder: { intro: string; orgs: Org[] };
+  /** Press / media outlets that have featured Chris's work — shown as a
+   *  scrolling logo marquee on the home page. */
+  featuredIn: { title: string; logos: OrgLogo[] };
   interests: { title: string; intro: string; items: Interest[] };
   speakingPromo: { eyebrow: string; title: string; body: string; cta: string };
   og: Og;

@@ -140,6 +140,18 @@ collections:
                   - { name: name, label: Name, widget: string }
                   - { name: href, label: Link, widget: string, required: false }
                   - { name: logo, label: Logo, widget: image }
+          - name: featuredIn
+            label: Featured in (press / media)
+            widget: object
+            hint: "A scrolling strip of media outlets that have featured Chris's work, shown below the home-page testimonial."
+            fields:
+              - { name: title, label: Heading, widget: string }
+              - name: logos
+                label: Outlets
+                widget: list
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: logo, label: Logo, widget: image, media_folder: "/static/img/logos/press", public_folder: "/img/logos/press" }
           - name: interests
             label: Areas of interest
             widget: object

@@ -6,8 +6,13 @@
   import Testimonials from '$lib/components/Testimonials.svelte';
   import HomePodcast from '$lib/components/HomePodcast.svelte';
   import Accolades from '$lib/components/Accolades.svelte';
+  import LogoCarousel from '$lib/components/LogoCarousel.svelte';
+  import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
   import Photo from '$lib/components/Photo.svelte';
   import Prose from '$lib/components/Prose.svelte';
+
+  // Pause/play state for the "featured in" press-logo marquee (WCAG 2.2.2).
+  let featuredPaused = $state(false);
 
   const seo = buildPageSeo({
     path: '/',
@@ -18,6 +23,22 @@
   });
 
   const num = (i: number) => String(i + 1).padStart(2, '0');
+
+  // Areas-of-interest grid: pick a column count that divides the item count
+  // evenly at each breakpoint, so the last row is always full — never an
+  // orphaned card. (auto-fit/minmax can't guarantee this: 8 items in 3
+  // columns leaves a 2-card orphan row.) `evenCols` returns the largest
+  // divisor of n that is ≤ the breakpoint's cap.
+  const evenCols = (n: number, cap: number): number => {
+    for (let c = Math.min(cap, n); c >= 1; c--) if (n % c === 0) return c;
+    return 1;
+  };
+  const interestCount = home.interests.items.length;
+  const interestCols = {
+    sm: evenCols(interestCount, 2),
+    md: evenCols(interestCount, 3),
+    lg: evenCols(interestCount, 4)
+  };
 
   // Mobile hero cutout fade: when he loads badly cropped by the fold (only his
   // hair poking up, which looks comical) he starts transparent and fades up as
@@ -107,7 +128,7 @@
 <!-- Testimonial (featured therapy client) -->
 <Testimonials
   variant="featured"
-  surface="sand"
+  surface="paper-2"
   eyebrow="Here's what one client had to say:"
   items={testimonials.therapy}
 />
@@ -140,10 +161,20 @@
                 aria-label={org.name}
                 class="transition-opacity hover:opacity-65"
               >
-                <img src={org.logo} alt={`${org.name} logo`} class="h-10 w-auto" loading="lazy" />
+                <img
+                  src={org.logo}
+                  alt={`${org.name} logo`}
+                  class="h-[clamp(2.5rem,11vw,3rem)] w-auto lg:h-14"
+                  loading="lazy"
+                />
               </a>
             {:else}
-              <img src={org.logo} alt={`${org.name} logo`} class="h-10 w-auto" loading="lazy" />
+              <img
+                src={org.logo}
+                alt={`${org.name} logo`}
+                class="h-[clamp(2.5rem,11vw,3rem)] w-auto lg:h-14"
+                loading="lazy"
+              />
             {/if}
           {/each}
         </div>
@@ -160,11 +191,12 @@
     <p class="t-lead mt-3 max-w-2xl text-ink-soft">{home.interests.intro}</p>
 
     {#if home.interests.items.length}
-      <!-- auto-fit/minmax so the grid flows to the item count (1–2 cards
-           fill the width instead of stranding far-left, and any count wraps
-           without a hardcoded column number that orphans the last row). At
-           the container's max width this still settles to four columns. -->
-      <ul class="mt-10 grid gap-5 grid-cols-[repeat(auto-fit,minmax(15rem,1fr))]">
+      <!-- Column count divides the item count evenly at every breakpoint (see
+           `evenCols`), so the last row is always full — no orphaned cards. -->
+      <ul
+        class="interests-grid mt-10 grid gap-5"
+        style="--sm-cols:{interestCols.sm}; --md-cols:{interestCols.md}; --lg-cols:{interestCols.lg}"
+      >
         {#each home.interests.items as item, i (item.title)}
           <li class="rounded-lg border border-line bg-paper p-6">
             <span class="font-serif text-2xl text-orange-700" aria-hidden="true">{num(i)}</span>
@@ -176,6 +208,35 @@
     {/if}
   </div>
 </section>
+
+<!-- Press / media Chris's work has featured in — reuses the scrolling logo
+     marquee (with the keyboard-focusable pause/play control per WCAG 2.2.2). -->
+{#if home.featuredIn.logos.length}
+  <section class="bg-sand py-9">
+    <div class="container-page">
+      <div class="flex items-center justify-center gap-2">
+        <p class="t-eyebrow">{home.featuredIn.title}</p>
+        <button
+          type="button"
+          class="text-orange-700 transition-colors hover:text-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 motion-reduce:hidden"
+          aria-pressed={featuredPaused}
+          aria-label={featuredPaused ? 'Play logo animation' : 'Pause logo animation'}
+          onclick={() => (featuredPaused = !featuredPaused)}
+        >
+          <PlayPauseIcon playing={!featuredPaused} size={14} />
+        </button>
+      </div>
+      <div class="mt-6">
+        <LogoCarousel
+          logos={home.featuredIn.logos}
+          label={home.featuredIn.title}
+          variant="strip"
+          bind:paused={featuredPaused}
+        />
+      </div>
+    </div>
+  </section>
+{/if}
 
 <!-- Latest podcast episode -->
 <HomePodcast />
@@ -198,6 +259,28 @@
 <ContactSection />
 
 <style>
+  /* Areas-of-interest grid: fixed, breakpoint-specific column counts (set
+     via CSS vars from `evenCols`) rather than auto-fit, so the number of
+     columns always divides the item count — the last row never orphans. */
+  .interests-grid {
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .interests-grid {
+      grid-template-columns: repeat(var(--sm-cols, 2), minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 768px) {
+    .interests-grid {
+      grid-template-columns: repeat(var(--md-cols, 2), minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1024px) {
+    .interests-grid {
+      grid-template-columns: repeat(var(--lg-cols, 4), minmax(0, 1fr));
+    }
+  }
+
   /* Warm off-axis wash behind Chris. It follows the cutout across
      breakpoints: bottom-right on small screens (where the cutout sits in
      flow), mid-right on md+ (behind the larger absolute cutout). */

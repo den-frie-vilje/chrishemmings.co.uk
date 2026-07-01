@@ -43,7 +43,7 @@
         <figure class="mx-auto max-w-3xl text-center">
           {#if eyebrow}<p class="t-eyebrow">{eyebrow}</p>{/if}
           <blockquote
-            class="mt-5 font-serif text-[clamp(22px,3vw,32px)] italic leading-snug text-navy-900"
+            class="mt-5 font-serif text-[clamp(19px,2.4vw,26px)] italic leading-snug text-navy-900"
           >
             “{items[0].quote}”
           </blockquote>

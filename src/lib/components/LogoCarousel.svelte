@@ -1,10 +1,17 @@
 <!--
-  Auto-scrolling logo marquee. Logos sit on uniform white cards (equal
-  height, object-contain — so Chris's non-proportional strip scaling is
-  gone) and render monochrome until hovered. Pauses on hover and via the
-  bindable `paused` prop (the caller renders the keyboard-focusable
-  pause/play control — WCAG 2.2.2); falls back to a static centred wrap
-  when the user prefers reduced motion.
+  Auto-scrolling logo marquee. Two looks via `variant`:
+    'card'  — logos on uniform white cards (equal height, object-contain),
+              monochrome until hovered. Good for mixed square-ish brand
+              logos on a light section (e.g. commercial clients).
+    'strip' — bare wordmarks in a brand-navy DUOTONE (an SVG filter maps
+              shadows→navy and highlights→white, so white contents stay white
+              and transparency is kept), sized by equal optical area; the real
+              brand colours return on hover. The classic "as featured in"
+              press wall — even weight across mastheads of very different
+              colours and aspects.
+  Pauses on hover and via the bindable `paused` prop (the caller renders the
+  keyboard-focusable pause/play control — WCAG 2.2.2); falls back to a static
+  centred wrap when the user prefers reduced motion.
 -->
 <script lang="ts">
   import type { OrgLogo } from '$lib/content';
@@ -12,21 +19,87 @@
   let {
     logos,
     label = 'Organisations',
+    variant = 'card',
     paused = $bindable(false)
-  }: { logos: OrgLogo[]; label?: string; paused?: boolean } = $props();
+  }: {
+    logos: OrgLogo[];
+    label?: string;
+    variant?: 'card' | 'strip';
+    paused?: boolean;
+  } = $props();
 
   // Duplicate the list so the track can loop seamlessly (translateX -50%).
   const loop = $derived([...logos, ...logos]);
+
+  // Weighted (equal-area) sizing for the bare press strip. Logos vary wildly
+  // in aspect — a square network bug vs a very wide masthead — so a uniform
+  // height leaves the square one tiny and the wide one enormous. Instead set
+  // each logo's height so all occupy roughly the same optical AREA:
+  //   height = clamp(MIN, K / sqrt(aspect), MAX)   (equal area ⇒ h ∝ 1/√aspect)
+  // Width follows via object-contain, capped in CSS so the widest masthead
+  // can't dominate. A generous MAX lets the near-square marks (BBC bugs) run a
+  // little taller than pure equal-area, which reads better optically. The
+  // track centres every logo vertically.
+  function weightedScale(node: HTMLImageElement) {
+    const K = 56;
+    const MIN = 20;
+    const MAX = 50;
+    const apply = () => {
+      const w = node.naturalWidth;
+      const h = node.naturalHeight;
+      if (!w || !h) return;
+      const height = Math.min(MAX, Math.max(MIN, K / Math.sqrt(w / h)));
+      node.style.setProperty('--logo-h', `${height.toFixed(1)}px`);
+    };
+    if (node.complete) apply();
+    node.addEventListener('load', apply);
+    return { destroy: () => node.removeEventListener('load', apply) };
+  }
 </script>
 
 {#if logos.length}
+  {#if variant === 'strip'}
+    <!-- Duotone filter: desaturate, then map shadows→brand navy (#093449) and
+         highlights→white. Alpha is untouched, so transparent backgrounds stay
+         transparent and white logo contents stay white. Applied to each press
+         logo at rest; removed on hover to reveal the real brand colours. -->
+    <svg class="duotone-def" aria-hidden="true" focusable="false">
+      <filter id="press-duotone" color-interpolation-filters="sRGB">
+        <feColorMatrix type="saturate" values="0" />
+        <!-- Darken the shadow/mid tones first (gamma) so colours land deep in
+             the navy instead of a washed mid-blue; white highlights (input 1)
+             are unaffected, so white contents stay white. -->
+        <feComponentTransfer>
+          <feFuncR type="gamma" exponent="2.2" />
+          <feFuncG type="gamma" exponent="2.2" />
+          <feFuncB type="gamma" exponent="2.2" />
+        </feComponentTransfer>
+        <!-- Duotone map: shadows→navy (#093449), highlights→white. -->
+        <feComponentTransfer>
+          <feFuncR type="table" tableValues="0.035 1" />
+          <feFuncG type="table" tableValues="0.204 1" />
+          <feFuncB type="table" tableValues="0.286 1" />
+        </feComponentTransfer>
+      </filter>
+    </svg>
+  {/if}
   <div class="marquee" role="group" aria-label={label}>
-    <ul class="track" class:paused>
+    <ul class="track" class:paused class:strip={variant === 'strip'}>
       {#each loop as org, i (org.name + '-' + i)}
         <li aria-hidden={i >= logos.length ? 'true' : undefined}>
-          <span class="card">
-            <img src={org.logo} alt={i < logos.length ? org.name : ''} loading="eager" />
-          </span>
+          {#if variant === 'strip'}
+            <img
+              class="strip-logo"
+              src={org.logo}
+              alt={i < logos.length ? org.name : ''}
+              loading="eager"
+              use:weightedScale
+            />
+          {:else}
+            <span class="card">
+              <img src={org.logo} alt={i < logos.length ? org.name : ''} loading="eager" />
+            </span>
+          {/if}
         </li>
       {/each}
     </ul>
@@ -77,6 +150,43 @@
   .card:hover img {
     filter: grayscale(0);
     opacity: 1;
+  }
+
+  /* Hidden SVG filter definition — takes no layout space. */
+  .duotone-def {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
+  /* Bare press-wall variant: navy DUOTONE (via #press-duotone) so every logo
+     reads in one brand tone while white contents stay white; the real colours
+     return on hover. Size (equal-area height, capped width) is set per-logo by
+     the `weightedScale` action. Vertically centred by the track. */
+  .track.strip {
+    gap: 2.25rem;
+  }
+  .strip-logo {
+    height: calc(var(--logo-h, 30px) * 0.86);
+    width: auto;
+    max-width: 190px;
+    object-fit: contain;
+    filter: url(#press-duotone);
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+  }
+  .strip-logo:hover {
+    filter: none;
+    opacity: 1;
+  }
+  @media (min-width: 640px) {
+    .track.strip {
+      gap: 3rem;
+    }
+    .strip-logo {
+      height: var(--logo-h, 34px);
+      max-width: 240px;
+    }
   }
 
   @keyframes marquee {
