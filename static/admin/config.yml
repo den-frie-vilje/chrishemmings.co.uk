@@ -196,7 +196,7 @@ collections:
               - { name: subtitle, label: Subtitle, widget: string }
               - { name: portrait, label: Portrait image, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "A photograph — it's automatically upscaled + turned into responsive AVIF/WebP on build. Also used for this page's social-share (OG) image." }
               - { name: portraitAlt, label: Portrait alt text, widget: string }
-          - { name: intro, label: Intro / how I work, widget: markdown }
+          - { name: intro, label: Intro / how I work, widget: markdown, buttons: [bold, italic, link, heading-two, heading-three, bulleted-list], editor_components: [], modes: [rich_text] }
           - name: qualifications
             label: Qualifications
             widget: object
@@ -223,7 +223,7 @@ collections:
             widget: object
             fields:
               - { name: title, label: Title, widget: string }
-              - { name: body, label: Body, widget: markdown }
+              - { name: body, label: Body, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
           - name: og
             label: Social-share image (OG)
             widget: object
@@ -266,13 +266,13 @@ collections:
             widget: object
             fields:
               - { name: title, label: Title, widget: string }
-              - { name: body, label: Body, widget: markdown }
+              - { name: body, label: Body, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
           - name: story
             label: My story
             widget: object
             fields:
               - { name: title, label: Title, widget: string }
-              - { name: body, label: Body, widget: markdown }
+              - { name: body, label: Body, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
           - name: talks
             label: Talks
             widget: object
@@ -288,7 +288,7 @@ collections:
                     widget: list
                     fields:
                       - { name: title, label: Title, widget: string }
-                      - { name: body, label: Body, widget: markdown }
+                      - { name: body, label: Body, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
                       - { name: popularWith, label: Popular with, widget: text }
           - name: og
             label: Social-share image (OG)
@@ -322,7 +322,7 @@ collections:
             fields:
               - { name: title, label: Heading, widget: string }
               - { name: blurb, label: Blurb, widget: text }
-          - { name: about, label: About the show, widget: markdown }
+          - { name: about, label: About the show, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
           - { name: feedPath, label: Feed path, widget: string, hint: "Same-origin proxy path (Caddy → Acast)." }
           - name: platforms
             label: Platforms
