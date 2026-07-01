@@ -62,7 +62,7 @@
        (navy-toned) artwork doesn't blend into the flat hero. Follows the
        cover: bottom on small screens, left column on md+. -->
   <div class="navy-wash-l pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
-  <div class="container-page relative z-10 grid items-center gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
+  <div class="container-page relative z-10 grid items-start gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-14">
     <div class="md:order-2">
       <p class="t-eyebrow !text-orange-300">{podcast.hero.eyebrow}</p>
       <h1 class="t-display mt-4 text-paper">{podcast.hero.title}</h1>
