@@ -8,6 +8,8 @@
 <script lang="ts">
   import { player } from '$lib/player.svelte';
   import { splitTitle } from '$lib/podcast';
+  import { slide } from 'svelte/transition';
+  import { cubicOut } from 'svelte/easing';
   import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
   import ChevronIcon from '$lib/components/ChevronIcon.svelte';
 
@@ -48,6 +50,18 @@
   }
 
   const title = $derived(player.current ? splitTitle(player.current.title) : { head: '', tail: '' });
+
+  // Slide the detail open/closed, but collapse the motion to an instant
+  // toggle for visitors who prefer reduced motion.
+  let reduceMotion = $state(false);
+  $effect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reduceMotion = mq.matches;
+    const onChange = () => (reduceMotion = mq.matches);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  });
+  const slideOpts = $derived({ duration: reduceMotion ? 0 : 280, easing: cubicOut });
 </script>
 
 {#if player.current}
@@ -74,7 +88,7 @@
     />
 
     {#if player.expanded}
-      <div id="player-detail" class="container-page border-b border-line py-5">
+      <div id="player-detail" class="container-page border-b border-line py-5" transition:slide={slideOpts}>
         <button
           type="button"
           onclick={() => (player.expanded = false)}
