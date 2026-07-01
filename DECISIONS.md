@@ -34,7 +34,8 @@ to Acast — live, no secret, the build stays fully static. Cloudflare edge-cach
 ## 6. Palette + typography from the MTH reference
 Navy `#093449` / warm paper `#F4F1EA` / orange `#FF9902` + Hanken Grotesk (with Newsreader
 serif for pull-quotes). Bright `orange-500` only passes WCAG AA on navy; on light grounds the
-darker `orange-700 #B25A06` is used (tile numbers) — verified by computing contrast ratios.
+darker `orange-700 #9a4e05` is used (tile numbers, quiet links) — verified by computing
+contrast ratios.
 
 ## 7. Verbatim content migration with light typo fixes
 Copy was migrated verbatim from the Wix site, fixing only obvious errors ("I combines" →
@@ -44,3 +45,21 @@ Copy was migrated verbatim from the Wix site, fixing only obvious errors ("I com
 SvelteKit's prerender crawler skips a `.txt` route entry (treats it as a static asset), so
 `robots.txt` is a plain file in `static/`. `sitemap.xml` remains a prerendered endpoint route
 (listed in `prerender.entries`).
+
+## 9. Responsive images: AI-upscale in CI → sharp srcset, hash-gated
+Photographs (only — folder-scoped to `static/img/photos/`; logos/graphics elsewhere untouched)
+become AVIF/WebP `srcset`s at build (`scripts/gen-photos.ts` → `<Photo>`). A too-small source is
+first AI-upscaled with UpscalerJS (`upscaler/node` + `@tensorflow/tfjs-node`, `esrgan-thick` 4×)
+*in CI*, then sharp downscales to widths. Verified against the real linux/amd64 deploy image;
+macOS has no tfjs-node prebuild so local builds fall back to sharp Lanczos and never break.
+Committed variants + `photo-manifest.json` are content-hash-gated (unchanged photos aren't
+reprocessed). Rejected *client-side* UpscalerJS — the blurry→sharp swap can't avoid a blink
+without a transition, and TF.js weight hurts LCP; `srcset` delivers, the upscaler *feeds* it
+offline. Refresh AI masters from a Mac with `pnpm photos:ci` (linux/amd64 container).
+
+## 10. Accolades as a sitewide list, not a page field
+Third-party recognitions (e.g. the CPRMB "Men & Boys Champion") are a CMS **General**-collection
+list (`src/content/accolades.json` + `Accolades.svelte`), sister to testimonials — shown under
+the home founder block and on the speaking page (editorial Newsreader-serif treatment, no
+name-dropping of the list). Replaced the single `site.recognition` field so Chris can add more
+himself.

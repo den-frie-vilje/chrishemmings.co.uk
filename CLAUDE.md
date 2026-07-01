@@ -32,7 +32,7 @@ keep it inclusive, not luxury.
 ```sh
 pkgx pnpm install
 pkgx pnpm dev       # vite on :5173
-pkgx pnpm build     # static → build/  (prebuild copies the Sveltia bundle)
+pkgx pnpm build     # static → build/  (prebuild: Sveltia bundle + OG cards + responsive photos)
 pkgx pnpm check     # svelte-check + tsc — RUN BEFORE PUSHING (CI runs it before build)
 ```
 
@@ -43,6 +43,8 @@ are markdown strings** (rendered with `$lib/markdown` → `<Prose>`), not arrays
 reserve arrays for genuine lists (nav, interests, qualifications, talks, platforms). Sveltia
 edits these via `static/admin/config.yml` (markdown widget on prose fields). Add a page: new
 `src/content/<page>.json` + type in `src/lib/content/index.ts` + a route + a `config.yml` entry.
+Sitewide lists (`testimonials`, `accolades`) live in the CMS **General** collection, not
+per-page — reused across pages (e.g. accolades on home + speaking via `Accolades.svelte`).
 
 ## Podcast page (`/podcast`)
 
@@ -52,6 +54,21 @@ to `feeds.acast.com` (Acast sends no CORS headers); under `vite dev`/`preview` t
 `src/routes/api/podcast-feed/+server.ts` endpoint does the same. Cloudflare edge-caches the
 proxied feed (`s-maxage=3600`). The show id lives in **both** the Caddyfiles and the dev
 endpoint — keep them in sync. Feed parsing + DOMPurify sanitising: `src/lib/podcast.ts`.
+
+## Responsive images (`Photo.svelte`)
+
+Photographs live in `static/img/photos/` — **the folder is the opt-in**; logos, badges and
+graphics elsewhere stay plain `<img>`/SVG. At build (`prebuild` → `scripts/gen-photos.ts`) each
+becomes AVIF/WebP `srcset` widths rendered by `<Photo>` (a `<picture>` with `display:contents`,
+so `w-full`/aspect classes behave like a bare `<img>`). A too-small source is first **AI-upscaled**
+(UpscalerJS `upscaler/node` + `@tensorflow/tfjs-node`, `esrgan-thick` 4×) — this runs on CI
+(linux/amd64); macOS has no tfjs-node prebuild so local builds fall back to a sharp Lanczos
+upscale and never break. Content-hash **gated**: unchanged photos aren't reprocessed. Committed
+variants + `src/lib/photo-manifest.json` ship, so the deploy build does no image work unless a
+photo changed. Refresh AI masters from a Mac: `pnpm photos:ci` (runs the generator in a
+linux/amd64 container). CMS photo fields upload to `/img/photos`. Use `<Photo>` **only** for
+photographs. (`@tensorflow/tfjs-node` is an `optionalDependency` with a `pnpm.onlyBuiltDependencies`
+approval; tfjs-node 4.x needs the `util.is*` shim in gen-photos on Node ≥24.)
 
 ## Deploy
 

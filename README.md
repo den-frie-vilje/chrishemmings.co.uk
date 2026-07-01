@@ -22,6 +22,9 @@ pkgx pnpm check     # svelte-check + tsc (run before pushing)
 - `src/lib/` — content loader, markdown + podcast helpers, SEO, components.
 - `src/routes/` — home, working-together, public-speaking, podcast, get-in-touch, admin.
 - `static/` — images, robots.txt, Sveltia admin config.
+- `static/img/photos/` — source photographs → build-time responsive AVIF/WebP (`Photo.svelte`
+  + `scripts/gen-photos.ts`; AI-upscaled in CI). Logos/graphics elsewhere stay plain `<img>`.
+- `scripts/` — build-time generators run in `prebuild` (Sveltia bundle, OG cards, responsive photos).
 - `deploy/` + `.github/workflows/` — Docker image, Caddy/nginx, signed CI deploy.
 
 ## Content editing
