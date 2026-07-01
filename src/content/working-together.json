@@ -19,10 +19,20 @@
   },
   "fees": {
     "eyebrow": "Fees",
-    "range": "£95–£145",
-    "unit": "per 50-minute session",
-    "headline": "I have a sliding scale of £95–£145 per 50-minute session.",
-    "body": "I understand that therapy can be expensive for some, so I hope to make it as affordable as possible by offering a sliding scale, based on income. I also offer concessionary rates, on a case-by-case basis. Please get in touch if you'd like to enquire about that.\n\nWe'll work in blocks of four, paid upfront before each block commences."
+    "items": [
+      {
+        "title": "Therapy & Counselling",
+        "range": "£95–£145",
+        "unit": "per 50-minute session",
+        "body": "I understand that therapy can be expensive for some, so I hope to make it as affordable as possible by offering a sliding scale, based on income. I also offer concessionary rates, on a case-by-case basis. Please get in touch if you'd like to enquire about that.\n\nWe'll work in blocks of four, paid upfront before each block commences."
+      },
+      {
+        "title": "Coaching",
+        "range": "On request",
+        "unit": "per session",
+        "body": "Coaching is offered on a flexible basis to suit your goals. Please get in touch to discuss what you're looking for and current pricing."
+      }
+    ]
   },
   "furtherInfo": {
     "title": "Further information",

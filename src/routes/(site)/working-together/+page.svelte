@@ -91,16 +91,23 @@
   </div>
 </section>
 
-<!-- Fees -->
+<!-- Fees — an editable list of fee cards (e.g. therapy, coaching). -->
 <section class="bg-paper section-y">
   <div class="container-page max-w-3xl">
     <p class="t-eyebrow">{wt.fees.eyebrow}</p>
-    <div class="mt-4 rounded-xl border border-line bg-paper-2 p-7 md:p-9">
-      <p class="font-extrabold leading-none text-navy-900 text-[clamp(30px,5vw,46px)] tracking-[-0.03em]">
-        {wt.fees.range}
-        <span class="block text-base font-medium tracking-normal text-ink-soft mt-2">{wt.fees.unit}</span>
-      </p>
-      <Prose md={wt.fees.body} class="mt-6" />
+    <div class="mt-4 space-y-5">
+      {#each wt.fees.items as fee (fee.title)}
+        <div class="rounded-xl border border-line bg-paper-2 p-7 md:p-9">
+          <h3 class="t-h3 text-navy-900">{fee.title}</h3>
+          <p
+            class="mt-3 font-extrabold leading-none text-navy-900 text-[clamp(30px,5vw,46px)] tracking-[-0.03em]"
+          >
+            {fee.range}
+            <span class="mt-2 block text-base font-medium tracking-normal text-ink-soft">{fee.unit}</span>
+          </p>
+          <Prose md={fee.body} class="mt-6" />
+        </div>
+      {/each}
     </div>
   </div>
 </section>

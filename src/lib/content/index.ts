@@ -155,11 +155,17 @@ export interface WorkingTogether {
   qualifications: { title: string; items: string[]; regulatorNote: string };
   fees: {
     eyebrow: string;
-    range: string;
-    unit: string;
-    headline: string;
-    /** Markdown. */
-    body: string;
+    /** One card per fee (e.g. therapy, coaching) — editable list. */
+    items: {
+      /** Fee name, e.g. "Therapy & Counselling". */
+      title: string;
+      /** Price or range, e.g. "£95–£145". */
+      range: string;
+      /** Unit line under the price, e.g. "per 50-minute session". */
+      unit: string;
+      /** Markdown. */
+      body: string;
+    }[];
   };
   furtherInfo: { title: string; body: string };
   og: Og;
