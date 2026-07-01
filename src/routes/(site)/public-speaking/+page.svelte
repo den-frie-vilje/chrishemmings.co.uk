@@ -92,8 +92,10 @@
   </div>
 </section>
 
-<!-- Talks -->
-<section class="bg-paper section-y">
+<!-- Talks — no bottom padding: the following testimonials section (also paper)
+     brings its own top padding, so section-y on both would double the gap
+     between the enquiry CTA and the "What organisations say" heading. -->
+<section class="bg-paper section-y !pb-0">
   <div class="container-page">
     {#each ps.talks.groups as group, gi (group.name)}
       <h2 class="t-h2 text-ink {gi === 0 ? '' : 'mt-16'}">{group.name}</h2>
