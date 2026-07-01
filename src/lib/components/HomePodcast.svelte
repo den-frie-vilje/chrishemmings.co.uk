@@ -1,22 +1,23 @@
 <!--
-  Home-page podcast teaser: the latest "No Man's an Island" episode with
-  the player, plus a "[N] more episodes" link to /podcast. Fetched
-  client-side from the same same-origin Acast proxy the podcast page uses;
-  renders nothing until an episode is available (so the home page never
-  shows a broken/empty block if the feed is slow or down).
+  Home-page podcast teaser: the five most recent "No Man's an Island"
+  episodes in the same click-to-play row layout as the /podcast page (via
+  the shared EpisodeRow), capped at five with a "[N] more episodes" link to
+  /podcast instead of a load-more. Fetched client-side from the same
+  same-origin Acast proxy; renders nothing until episodes are available (so
+  the home page never shows a broken/empty block if the feed is slow/down).
 -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { podcast } from '$lib/content';
   import { loadEpisodes, type Episode } from '$lib/podcast';
-  import { player, playEpisode } from '$lib/player.svelte';
-  import PlayPauseIcon from '$lib/components/PlayPauseIcon.svelte';
+  import EpisodeRow from '$lib/components/EpisodeRow.svelte';
 
+  const LIMIT = 5;
   let episodes = $state<Episode[]>([]);
   let ready = $state(false);
 
-  const latest = $derived(episodes[0]);
-  const moreCount = $derived(Math.max(0, episodes.length - 1));
+  const recent = $derived(episodes.slice(0, LIMIT));
+  const moreCount = $derived(Math.max(0, episodes.length - LIMIT));
 
   onMount(async () => {
     try {
@@ -28,61 +29,24 @@
   });
 </script>
 
-{#if ready && latest}
+{#if ready}
   <section class="bg-paper-2 section-y">
     <div class="container-page">
-      <div class="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="t-eyebrow">{podcast.hero.eyebrow} · {podcast.hero.title}</p>
-          <h2 class="t-h2 mt-2 text-ink">Latest podcast episode</h2>
-        </div>
-        {#if moreCount > 0}
-          <a
-            class="font-semibold text-orange-700 hover:text-orange-600"
-            href="/podcast"
-          >
-            {moreCount} more episode{moreCount === 1 ? '' : 's'} →
-          </a>
-        {/if}
-      </div>
+      <p class="t-eyebrow">Latest Podcast Episodes</p>
+      <h2 class="t-h2 mt-2 text-ink">{podcast.hero.title}</h2>
 
-      <article class="mt-6 rounded-xl border border-line bg-paper p-5 sm:p-6">
-        <div class="flex gap-5">
-          <img
-            src={latest.image}
-            alt=""
-            width="96"
-            height="96"
-            loading="lazy"
-            class="hidden h-24 w-24 shrink-0 rounded-lg object-cover sm:block"
-          />
-          <div class="min-w-0 flex-1">
-            <p class="t-eyebrow">
-              {#if latest.dateLabel}{latest.dateLabel}{/if}{#if latest.durationLabel}&nbsp;·&nbsp;{latest.durationLabel}{/if}
-            </p>
-            <h3 class="t-h3 mt-1.5">
-              <a class="text-navy-900 hover:text-orange-700" href={latest.link} target="_blank" rel="noopener">
-                {latest.title}
-              </a>
-            </h3>
-            {#if latest.excerpt}
-              <p class="mt-2 line-clamp-2 text-[0.97rem] leading-relaxed text-ink-soft">{latest.excerpt}</p>
-            {/if}
-            {#if latest.audioUrl}
-              <button
-                type="button"
-                onclick={() => playEpisode(latest)}
-                class="mt-4 inline-flex items-center gap-2 font-semibold text-orange-700 transition-colors hover:text-orange-600"
-              >
-                <span class="flex shrink-0 items-center justify-center" aria-hidden="true">
-                  <PlayPauseIcon playing={player.current?.guid === latest.guid} />
-                </span>
-                {player.current?.guid === latest.guid ? 'Now playing' : 'Play episode'}
-              </button>
-            {/if}
-          </div>
-        </div>
-      </article>
+      <ul class="mt-8">
+        {#each recent as ep (ep.guid)}<EpisodeRow {ep} />{/each}
+      </ul>
+
+      {#if moreCount > 0}
+        <a
+          href="/podcast"
+          class="flex items-center gap-2 border-t border-line py-4 font-semibold text-orange-700 transition-colors hover:text-orange-600"
+        >
+          {moreCount} more episode{moreCount === 1 ? '' : 's'} →
+        </a>
+      {/if}
     </div>
   </section>
 {/if}
