@@ -180,8 +180,9 @@ collections:
           - name: og
             label: Social-share image (OG)
             widget: object
-            hint: "These lines appear on the social-share image shown when the HOME page URL is shared (social media / chat previews). The 'Chris Hemmings · Therapist & Coach for Men' lockup and the photo are added automatically."
+            hint: "The social-share card shown when the HOME page URL is shared (social media / chat previews). The 'Chris Hemmings · Therapist & Coach for Men' lockup is added automatically."
             fields:
+              - { name: image, label: Photo, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "The photo on this page's share card — it doesn't have to match the page hero." }
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: title, label: Title, widget: string }
               - { name: subtitle, label: Subtitle, widget: string }
@@ -232,8 +233,9 @@ collections:
           - name: og
             label: Social-share image (OG)
             widget: object
-            hint: "These lines appear on the social-share image shown when the THERAPY & COACHING page URL is shared. The name/tagline lockup and photo are added automatically."
+            hint: "The social-share card shown when the THERAPY & COACHING page URL is shared. The name/tagline lockup is added automatically."
             fields:
+              - { name: image, label: Photo, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "The photo on this page's share card — it doesn't have to match the page hero." }
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: title, label: Title, widget: string }
               - { name: subtitle, label: Subtitle, widget: string }
@@ -298,8 +300,9 @@ collections:
           - name: og
             label: Social-share image (OG)
             widget: object
-            hint: "These lines appear on the social-share image shown when the PUBLIC SPEAKING page URL is shared. The name/tagline lockup and photo are added automatically."
+            hint: "The social-share card shown when the PUBLIC SPEAKING page URL is shared. The name/tagline lockup is added automatically."
             fields:
+              - { name: image, label: Photo, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "The photo on this page's share card — it doesn't have to match the page hero." }
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: title, label: Title, widget: string }
               - { name: subtitle, label: Subtitle, widget: string }
@@ -338,8 +341,9 @@ collections:
           - name: og
             label: Social-share image (OG)
             widget: object
-            hint: "These lines appear on the social-share image shown when the PODCAST page URL is shared. The name/tagline lockup and photo of Chris are added automatically."
+            hint: "The social-share card shown when the PODCAST page URL is shared. The name/tagline lockup is added automatically."
             fields:
+              - { name: image, label: Photo, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "The photo on this page's share card — it doesn't have to match the page hero." }
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: title, label: Title, widget: string }
               - { name: subtitle, label: Subtitle, widget: string }
@@ -381,8 +385,9 @@ collections:
           - name: og
             label: Social-share image (OG)
             widget: object
-            hint: "These lines appear on the social-share image shown when the GET IN TOUCH page URL is shared. The name/tagline lockup and photo are added automatically."
+            hint: "The social-share card shown when the GET IN TOUCH page URL is shared. The name/tagline lockup is added automatically."
             fields:
+              - { name: image, label: Photo, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "The photo on this page's share card — it doesn't have to match the page hero." }
               - { name: eyebrow, label: Eyebrow, widget: string }
               - { name: title, label: Title, widget: string }
               - { name: subtitle, label: Subtitle, widget: string }
