@@ -1,14 +1,13 @@
 <script lang="ts">
-  import { site, getInTouch } from '$lib/content';
+  import { getInTouch } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
 
   const seo = buildPageSeo({
     path: '/get-in-touch',
-    title: `Get in touch · ${site.name}`,
-    description:
-      'Get in touch about therapy and coaching for men, or to book Chris Hemmings to speak or run a workshop. Free 15-minute consultation for new clients.'
+    title: getInTouch.seo.title,
+    description: getInTouch.seo.description
   });
 </script>
 

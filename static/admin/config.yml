@@ -41,6 +41,16 @@ collections:
           - { name: themeColor, label: Theme colour, widget: string }
           - { name: footerNote, label: Footer note, widget: string, hint: "Use {year} for the year." }
           - { name: bacpRegisterUrl, label: BACP register link, widget: string, hint: "Official BACP profile, e.g. https://www.bacp.co.uk/therapists/<membership-number>" }
+          - name: schema
+            label: Search & structured data
+            widget: object
+            hint: "Feeds the site-wide Schema.org data search engines read. Tuned UK-first — no physical business address, so it isn't geo-narrowed to Denmark. Put the UK first under Areas served."
+            fields:
+              - { name: jobTitle, label: Job title, widget: string }
+              - { name: bio, label: Bio, widget: text }
+              - { name: serviceType, label: Service type, widget: string }
+              - { name: knowsAbout, label: Topics / expertise, widget: list, field: { name: topic, label: Topic, widget: string } }
+              - { name: areaServed, label: Areas served, widget: list, field: { name: area, label: Area, widget: string } }
 
       - name: contact
         label: Contact details
@@ -53,6 +63,14 @@ collections:
           - { name: phone, label: Phone (display), widget: string }
           - { name: phoneHref, label: Phone link, widget: string }
           - { name: location, label: Location, widget: text }
+          - name: social
+            label: Social media
+            widget: list
+            hint: "Shown as icons in the footer. Add/remove/reorder freely."
+            summary: "{{fields.platform}}"
+            fields:
+              - { name: platform, label: Platform, widget: select, options: [instagram, linkedin, youtube, facebook, x, tiktok, threads, bluesky, spotify, applepodcasts, whatsapp, substack, patreon, pinterest, mastodon] }
+              - { name: url, label: Profile URL, widget: string }
 
       - name: booking
         label: Booking CTA
@@ -177,6 +195,13 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: body, label: Body, widget: text }
               - { name: cta, label: CTA label, widget: string }
+          - name: seo
+            label: Search / SEO
+            widget: object
+            hint: "The title + description search engines and social previews show for this page."
+            fields:
+              - { name: title, label: Page title, widget: string, hint: "Browser tab + search-result title." }
+              - { name: description, label: Meta description, widget: text, hint: "~150–160 characters; also used for link previews." }
           - name: og
             label: Social-share image (OG)
             widget: object
@@ -230,6 +255,13 @@ collections:
             fields:
               - { name: title, label: Title, widget: string }
               - { name: body, label: Body, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
+          - name: seo
+            label: Search / SEO
+            widget: object
+            hint: "The title + description search engines and social previews show for this page."
+            fields:
+              - { name: title, label: Page title, widget: string, hint: "Browser tab + search-result title." }
+              - { name: description, label: Meta description, widget: text, hint: "~150–160 characters; also used for link previews." }
           - name: og
             label: Social-share image (OG)
             widget: object
@@ -297,6 +329,13 @@ collections:
                       - { name: title, label: Title, widget: string }
                       - { name: body, label: Body, widget: markdown, buttons: [bold, italic, link], editor_components: [], modes: [rich_text] }
                       - { name: popularWith, label: Popular with, widget: text }
+          - name: seo
+            label: Search / SEO
+            widget: object
+            hint: "The title + description search engines and social previews show for this page."
+            fields:
+              - { name: title, label: Page title, widget: string, hint: "Browser tab + search-result title." }
+              - { name: description, label: Meta description, widget: text, hint: "~150–160 characters; also used for link previews." }
           - name: og
             label: Social-share image (OG)
             widget: object
@@ -338,6 +377,14 @@ collections:
             fields:
               - { name: name, label: Name, widget: string }
               - { name: href, label: Link, widget: string }
+          - name: seo
+            label: Search / SEO
+            widget: object
+            hint: "The title + description search engines and social previews show for this page."
+            fields:
+              - { name: title, label: Page title, widget: string, hint: "Browser tab + search-result title." }
+              - { name: description, label: Meta description, widget: text, hint: "~150–160 characters; also used for link previews." }
+              - { name: schemaDescription, label: Podcast description (structured data), widget: text, hint: "Describes the show in the Schema.org PodcastSeries markup." }
           - name: og
             label: Social-share image (OG)
             widget: object
@@ -382,6 +429,13 @@ collections:
                   - { name: title, label: Step title, widget: string }
                   - { name: body, label: Step text, widget: text }
           - { name: reassurances, label: Reassurance chips, widget: list, field: { name: item, label: Chip, widget: string }, hint: "Short reassurances shown as chips, e.g. \"No obligation\"." }
+          - name: seo
+            label: Search / SEO
+            widget: object
+            hint: "The title + description search engines and social previews show for this page."
+            fields:
+              - { name: title, label: Page title, widget: string, hint: "Browser tab + search-result title." }
+              - { name: description, label: Meta description, widget: text, hint: "~150–160 characters; also used for link previews." }
           - name: og
             label: Social-share image (OG)
             widget: object

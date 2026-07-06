@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { site, home, booking, testimonials, accolades } from '$lib/content';
+  import { home, booking, testimonials, accolades } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
@@ -16,10 +16,8 @@
 
   const seo = buildPageSeo({
     path: '/',
-    title: `${site.name} — ${site.tagline} | Online Therapy`,
-    ogTitle: `${site.name} — ${site.tagline}`,
-    description:
-      'Chris Hemmings is a psychotherapist and coach for men, offering online therapy across the UK, Europe and beyond. Book a free 15-minute consultation.'
+    title: home.seo.title,
+    description: home.seo.description
   });
 
   const num = (i: number) => String(i + 1).padStart(2, '0');

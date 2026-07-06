@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { site, podcast } from '$lib/content';
+  import { podcast } from '$lib/content';
   import { loadEpisodes, type Episode } from '$lib/podcast';
   import { buildPageSeo, absUrl } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
@@ -11,16 +11,14 @@
 
   const seo = buildPageSeo({
     path: '/podcast',
-    title: `No Man's an Island — Podcast · ${site.name}`,
-    description:
-      "No Man's an Island — honest conversations about men's mental health, co-hosted by Chris Hemmings. New episode every Tuesday.",
+    title: podcast.seo.title,
+    description: podcast.seo.description,
     graph: [
       {
         '@type': 'PodcastSeries',
         name: podcast.hero.title,
         url: absUrl('/podcast'),
-        description:
-          "Honest, grounded conversations about men's mental health and masculinity, powered by Men's Therapy Hub.",
+        description: podcast.seo.schemaDescription,
         image: absUrl(podcast.hero.cover),
         webFeed: absUrl(podcast.feedPath),
         sameAs: podcast.platforms.map((p) => p.href)

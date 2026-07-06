@@ -28,6 +28,11 @@
       "href": "https://www.youtube.com/@MensTherapyHub"
     }
   ],
+  "seo": {
+    "title": "No Man's an Island — Podcast · Chris Hemmings",
+    "description": "No Man's an Island — honest conversations about men's mental health, co-hosted by Chris Hemmings. New episode every Tuesday.",
+    "schemaDescription": "Honest, grounded conversations about men's mental health and masculinity, powered by Men's Therapy Hub."
+  },
   "og": {
     "image": "/img/chris-hero.jpg",
     "eyebrow": "Podcast",

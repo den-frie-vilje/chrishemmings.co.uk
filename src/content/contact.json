@@ -4,5 +4,11 @@
   "emailHref": "mailto:chrishemmings@live.co.uk?subject=Contact from website",
   "phone": "+44 7745 553680",
   "phoneHref": "tel:+447745553680",
-  "location": "Based in Copenhagen, working with clients in the UK, across Europe and worldwide — online."
+  "location": "Based in Copenhagen, working with clients in the UK, across Europe and worldwide — online.",
+  "social": [
+    { "platform": "instagram", "url": "https://www.instagram.com/menstherapyhub" },
+    { "platform": "linkedin", "url": "https://www.linkedin.com/in/chris-hemmings-03964054" },
+    { "platform": "youtube", "url": "https://www.youtube.com/@menstherapyhub" },
+    { "platform": "facebook", "url": "https://www.facebook.com/profile.php?id=61573308495852" }
+  ]
 }

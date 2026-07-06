@@ -45,6 +45,10 @@
     "I reply personally",
     "Completely confidential"
   ],
+  "seo": {
+    "title": "Get in touch · Chris Hemmings",
+    "description": "Get in touch about therapy and coaching for men, or to book Chris Hemmings to speak or run a workshop. Free 15-minute consultation for new clients."
+  },
   "og": {
     "image": "/img/chris-hero.jpg",
     "eyebrow": "Get in touch",

@@ -4,10 +4,19 @@
 -->
 <script lang="ts">
   import { site, contact, footerNote, nav } from '$lib/content';
+  import SocialIcon from '$lib/components/SocialIcon.svelte';
 
   // Build-time constant: the static build is rebuilt per deploy, so a
   // fixed year baked at prerender is fine and avoids a runtime `Date`.
   const year = 2026;
+
+  // Nicely-cased platform names for accessible labels.
+  const SOCIAL_LABELS: Record<string, string> = {
+    instagram: 'Instagram',
+    linkedin: 'LinkedIn',
+    youtube: 'YouTube',
+    facebook: 'Facebook'
+  };
 </script>
 
 <footer class="bg-navy-950 text-cloud">
@@ -15,6 +24,24 @@
     <div>
       <p class="font-extrabold tracking-[-0.02em] text-[1.15rem] text-paper">{site.name}</p>
       <p class="mt-2 max-w-xs text-sm text-cloud/80">{site.tagline}</p>
+
+      {#if contact.social.length}
+        <ul class="mt-5 flex flex-wrap items-center gap-4">
+          {#each contact.social as s (s.platform + s.url)}
+            <li>
+              <a
+                class="inline-flex text-cloud/70 transition-colors hover:text-orange-300"
+                href={s.url}
+                target="_blank"
+                rel="noopener"
+                aria-label={`${site.name} on ${SOCIAL_LABELS[s.platform] ?? s.platform}`}
+              >
+                <SocialIcon platform={s.platform} class="h-5 w-5" />
+              </a>
+            </li>
+          {/each}
+        </ul>
+      {/if}
     </div>
 
     <nav aria-label="Footer">

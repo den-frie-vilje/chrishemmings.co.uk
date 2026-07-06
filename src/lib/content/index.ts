@@ -46,6 +46,14 @@ export interface Og {
   cta: string;
 }
 
+/** Per-page SEO/meta text — CMS-editable so nothing is baked into the route.
+ *  `title` drives `<title>` + og/twitter title; `description` drives the meta
+ *  description + og/twitter description. */
+export interface PageMeta {
+  title: string;
+  description: string;
+}
+
 export interface Site {
   name: string;
   tagline: string;
@@ -54,6 +62,19 @@ export interface Site {
   footerNote: string;
   /** Official BACP register profile link — the single source of truth. */
   bacpRegisterUrl: string;
+  /** Site-wide structured-data (JSON-LD) entity text — CMS-editable so none
+   *  of it is baked into the build. Tuned UK-first + English worldwide: the
+   *  practice is modelled as an online service (no local Copenhagen address,
+   *  which would geo-narrow to Denmark), `areaServed` leads with the UK. */
+  schema: {
+    jobTitle: string;
+    /** Person bio (Schema.org Person.description). */
+    bio: string;
+    serviceType: string;
+    knowsAbout: string[];
+    /** Where the service is offered — UK first, then wider. */
+    areaServed: string[];
+  };
 }
 
 /** A third-party accolade / named-list recognition. Sitewide list (sister
@@ -78,6 +99,15 @@ export interface Booking {
 
 /** Overarching contact details (general collection) — reused site-wide by
  *  the contact section, footer and SEO. NOT the Get-in-touch page copy. */
+/** A social-media profile link — editable list; the `platform` drives which
+ *  icon shows (see SocialIcon.svelte). */
+export interface SocialLink {
+  /** Platform id (lowercase): instagram | linkedin | youtube | facebook. */
+  platform: string;
+  /** Full profile URL. */
+  url: string;
+}
+
 export interface Contact {
   /** Eyebrow shown above the contact CTA block. */
   heading: string;
@@ -86,6 +116,8 @@ export interface Contact {
   phone: string;
   phoneHref: string;
   location: string;
+  /** Social-media profiles (shown as icons in the footer). */
+  social: SocialLink[];
 }
 
 /** Get-in-touch PAGE copy (pages collection): editorial only — the
@@ -109,6 +141,7 @@ export interface GetInTouch {
   paths: GetInTouchPath[];
   whatToExpect: { eyebrow: string; title: string; steps: { title: string; body: string }[] };
   reassurances: string[];
+  seo: PageMeta;
   og: Og;
 }
 
@@ -147,6 +180,7 @@ export interface Home {
   featuredIn: { title: string; logos: OrgLogo[] };
   interests: { title: string; intro: string; items: Interest[] };
   speakingPromo: { eyebrow: string; title: string; body: string; cta: string };
+  seo: PageMeta;
   og: Og;
 }
 
@@ -171,6 +205,7 @@ export interface WorkingTogether {
     }[];
   };
   furtherInfo: { title: string; body: string };
+  seo: PageMeta;
   og: Og;
 }
 
@@ -196,6 +231,7 @@ export interface PublicSpeaking {
   experienced: { title: string; body: string };
   story: { title: string; body: string };
   talks: { title: string; groups: { name: string; items: Talk[] }[] };
+  seo: PageMeta;
   og: Og;
 }
 
@@ -223,6 +259,8 @@ export interface Podcast {
   about: string;
   feedPath: string;
   platforms: PodcastPlatform[];
+  /** `schemaDescription` also feeds the PodcastSeries JSON-LD node. */
+  seo: PageMeta & { schemaDescription: string };
   og: Og;
 }
 

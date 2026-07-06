@@ -9,9 +9,8 @@
 
   const seo = buildPageSeo({
     path: '/working-together',
-    title: `Therapy & Coaching · ${site.name}`,
-    description:
-      'How I work: person-centred, collaborative therapy and coaching for men. Training, qualifications and a sliding-scale fee of £95–£145 per session.'
+    title: wt.seo.title,
+    description: wt.seo.description
   });
 </script>
 

@@ -26,6 +26,7 @@
   <meta property="og:title" content={seo.og.title} />
   <meta property="og:description" content={seo.og.description} />
   <meta property="og:type" content={seo.og.type} />
+  <meta property="og:locale" content="en_GB" />
   <meta property="og:url" content={seo.og.url} />
   <meta property="og:image" content={seo.og.image.url} />
   <meta property="og:image:alt" content={seo.og.image.alt} />

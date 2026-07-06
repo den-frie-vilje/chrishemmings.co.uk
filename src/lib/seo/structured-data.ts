@@ -41,7 +41,8 @@ const bacpMembership = site.bacpRegisterUrl.split('/').filter(Boolean).pop() ?? 
 const personSameAs = [
   site.bacpRegisterUrl,
   ...home.founder.orgs.map((o) => o.href).filter((h): h is string => Boolean(h)),
-  ...podcast.platforms.map((p) => p.href)
+  ...podcast.platforms.map((p) => p.href),
+  ...contact.social.map((s) => s.url)
 ];
 
 /**
@@ -51,8 +52,13 @@ const personSameAs = [
  * and `hasCredential` strengthen entity disambiguation and E-E-A-T.
  */
 function siteGraph(): object[] {
+  // Modelled as an online ProfessionalService with NO postal address: a
+  // Copenhagen / DK PostalAddress would geo-narrow the entity to Denmark and
+  // work against the UK focus. `areaServed` (UK first), the .co.uk ccTLD and
+  // `availableLanguage` carry the targeting instead. All editorial text is
+  // CMS-sourced from `site.schema` — nothing baked into the build.
   const practice = {
-    '@type': ['ProfessionalService', 'LocalBusiness'],
+    '@type': 'ProfessionalService',
     '@id': BUSINESS_ID,
     name: site.name,
     url: `${SITE_URL}/`,
@@ -60,17 +66,10 @@ function siteGraph(): object[] {
     telephone: toE164(contact.phone),
     email: contact.email,
     description: site.description,
-    serviceType: 'Psychotherapy and coaching for men',
+    serviceType: site.schema.serviceType,
     priceRange: '££',
-    areaServed: [
-      { '@type': 'Country', name: 'United Kingdom' },
-      { '@type': 'Place', name: 'Europe (online)' }
-    ],
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Copenhagen',
-      addressCountry: 'DK'
-    },
+    areaServed: site.schema.areaServed,
+    availableLanguage: 'English',
     founder: { '@id': PERSON_ID },
     provider: { '@id': PERSON_ID }
   };
@@ -81,20 +80,10 @@ function siteGraph(): object[] {
     name: site.name,
     url: `${SITE_URL}/`,
     image: absUrl(home.hero.portrait),
-    jobTitle: 'Psychotherapist & Coach',
-    description:
-      'Psychotherapist and coach specialising in working with men; founder of Men’s Therapy Hub and M-Path; former BBC journalist and author of ‘Be a Man’ (2017).',
+    jobTitle: site.schema.jobTitle,
+    description: site.schema.bio,
     worksFor: { '@id': BUSINESS_ID },
-    knowsAbout: [
-      'Men’s mental health',
-      'Masculinity',
-      'Anxiety',
-      'Depression',
-      'Addiction',
-      'Relationships',
-      'Psychotherapy',
-      'Coaching'
-    ],
+    knowsAbout: site.schema.knowsAbout,
     memberOf: {
       '@type': 'Organization',
       name: 'British Association for Counselling and Psychotherapy (BACP)',
@@ -111,7 +100,7 @@ function siteGraph(): object[] {
       }
     },
     sameAs: personSameAs,
-    knowsLanguage: ['en']
+    knowsLanguage: ['en-GB', 'en']
   };
 
   return [practice, person];
