@@ -37,6 +37,9 @@ export interface NavItem {
 /** Per-page social-share (OG) card copy. Name + tagline lockup and the
  *  portrait come from elsewhere; these are the page-specific lines. */
 export interface Og {
+  /** Photo composited into this page's generated share card. Individually
+   *  selectable per page — not tied to the page hero. */
+  image: string;
   eyebrow: string;
   title: string;
   subtitle: string;

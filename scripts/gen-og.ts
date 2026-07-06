@@ -56,16 +56,17 @@ interface Card {
   cta: string;
 }
 
-// Share-card copy comes from each page's `og` block in the content JSON
-// (CMS-editable). The name + tagline lockup is added by the layout below
-// (from site.json); the portrait is the page's hero photo (podcast +
-// get-in-touch reuse the home portrait — a photo of Chris, not artwork).
+// Share-card copy AND photo come from each page's `og` block in the content
+// JSON (CMS-editable). The name + tagline lockup is added by the layout below
+// (from site.json); the photo is `og.image` — individually selectable per page
+// and NOT tied to the page hero (defaults to the page's portrait as a
+// placeholder).
 const CARDS: Card[] = [
-  { slug: 'home', ...home.og, portrait: home.hero.portrait },
-  { slug: 'working-together', ...wt.og, portrait: wt.hero.portrait },
-  { slug: 'public-speaking', ...ps.og, portrait: ps.hero.portrait },
-  { slug: 'podcast', ...podcast.og, portrait: home.hero.portrait },
-  { slug: 'get-in-touch', ...getInTouch.og, portrait: home.hero.portrait }
+  { slug: 'home', ...home.og, portrait: home.og.image },
+  { slug: 'working-together', ...wt.og, portrait: wt.og.image },
+  { slug: 'public-speaking', ...ps.og, portrait: ps.og.image },
+  { slug: 'podcast', ...podcast.og, portrait: podcast.og.image },
+  { slug: 'get-in-touch', ...getInTouch.og, portrait: getInTouch.og.image }
 ];
 
 const NAVY = '#093449';

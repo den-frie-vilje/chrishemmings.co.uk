@@ -40,8 +40,13 @@
       }
     ]
   },
-  "reassurances": ["No obligation", "I reply personally", "Completely confidential"],
+  "reassurances": [
+    "No obligation",
+    "I reply personally",
+    "Completely confidential"
+  ],
   "og": {
+    "image": "/img/chris-hero.jpg",
     "eyebrow": "Get in touch",
     "title": "Therapy, coaching & speaking",
     "subtitle": "For individuals and organisations",
