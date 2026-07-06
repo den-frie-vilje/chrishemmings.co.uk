@@ -69,12 +69,7 @@
         "name": "Talks & keynotes",
         "items": [
           {
-            "title": "Men, masculinity and mental health",
-            "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-            "popularWith": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-          },
-          {
-            "title": "The Case for Male Inclusion in Diversity, Equity and Inclusion (DEI)",
+            "title": "Men, Masculinity & Inclusion",
             "body": "Many organisations are committed to creating more inclusive workplaces, yet conversations about gender often overlook the experiences and challenges facing men and boys. This evidence-informed talk explores why male inclusion matters within Diversity, Equity and Inclusion strategies, and how organisations can support men without diminishing support for other groups.\n\nThe session examines issues such as mental health, educational outcomes, fatherhood, workplace culture and belonging, offering a balanced and constructive approach to building truly inclusive environments.",
             "popularWith": "HR teams, DEI professionals, public sector organisations and leadership conferences."
           }
@@ -98,7 +93,6 @@
     ]
   },
   "og": {
-    "image": "/img/photos/chris-nike.png",
     "eyebrow": "For workplaces & events",
     "title": "Talks & workshops",
     "subtitle": "Men's mental health, masculinity & wellbeing",
