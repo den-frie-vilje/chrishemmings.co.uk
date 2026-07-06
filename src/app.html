@@ -3,6 +3,10 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!-- Build identity — invisible to users; lets the nas-sites deploy agent's
+		     verify step confirm this exact commit is live. Substituted at build
+		     from the PUBLIC_GIT_SHA build-arg (empty in local dev builds). -->
+		<meta name="git-sha" content="%sveltekit.env.PUBLIC_GIT_SHA%" />
 		<meta name="text-scale" content="scale" />
 		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
