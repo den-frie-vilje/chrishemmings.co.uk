@@ -79,16 +79,19 @@
        off the flat paper. Follows him bottom-right on mobile, mid-right on md+. -->
   <div class="hero-wash pointer-events-none absolute inset-0 z-0" aria-hidden="true"></div>
 
-  <!-- md+ : absolute, bleeds off the section's right edge. -->
+  <!-- md+ : absolute, anchored right. While the container fills the viewport he
+       hugs (and slightly bleeds past) the right edge; once the viewport is wider
+       than the container he settles onto the container's right margin instead of
+       following the viewport — see .hero-cutout-desktop in <style>. -->
   <img
     src={home.hero.cutout}
     alt={home.hero.portraitAlt}
     width="1200"
     height="879"
     fetchpriority="high"
-    class="pointer-events-none absolute bottom-0 right-0 z-0 hidden select-none object-contain object-bottom
-           md:block md:w-[58%] md:max-w-[620px] md:translate-x-[16%]
-           lg:w-[52%] lg:max-w-[690px] lg:translate-x-[11%]"
+    class="hero-cutout-desktop pointer-events-none absolute bottom-0 z-0 hidden select-none object-contain object-bottom
+           md:block md:w-[58%] md:max-w-[620px]
+           lg:w-[52%] lg:max-w-[690px]"
   />
   <div
     class="container-page relative z-10 flex min-h-[calc(100dvh-68px)] flex-col pt-12
@@ -276,6 +279,23 @@
   @media (min-width: 1024px) {
     .interests-grid {
       grid-template-columns: repeat(var(--lg-cols, 4), minmax(0, 1fr));
+    }
+  }
+
+  /* Desktop hero cutout horizontal anchor. While the container fills the
+     viewport (≤ its 1160px max-width) the side margin is 0, so `right`
+     resolves to a small negative — he hugs and slightly bleeds past the
+     viewport's right edge (the look we want, cropped by md:overflow-hidden).
+     Once the viewport is wider than the container, margins open up and `right`
+     grows to the margin width, pinning his right edge to the container's right
+     margin — he stops following the viewport and the shoulder is fully shown.
+     The bleed tapers off as the margin opens so there's no jump at 1160px. */
+  @media (min-width: 768px) {
+    .hero-cutout-desktop {
+      --container-w: 1160px;
+      --bleed: 66px;
+      --side-margin: max(0px, (100vw - var(--container-w)) / 2);
+      right: calc(var(--side-margin) - max(0px, var(--bleed) - var(--side-margin)));
     }
   }
 
