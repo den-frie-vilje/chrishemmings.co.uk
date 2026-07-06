@@ -7,20 +7,21 @@
     "lead": "I specialise in working with men who want to make sense of their lives, their relationships and their emotional experiences.",
     "portrait": "/img/chris-hero.jpg",
     "cutout": "/img/chris-hero-cutout.webp",
-    "portraitAlt": "Chris Hemmings — Men's Therapist",
+    "portraitAlt": "Chris Hemmings — Men's Therapist & Coach",
     "ctaPrimary": "Book a free 15-minute consultation",
     "ctaSecondary": "How I work"
   },
+  "testimonialsNote": "",
   "about": {
     "title": "A little about me",
-    "body": "I offer one-to-one therapy in person and online, working with people from all walks of life to explore relationships, identity, anxiety, addiction and more.\n\nI am the founder of both [**Men's Therapy Hub**](https://menstherapyhub.com) and [**M-Path**](https://m-path.co.uk) — two organisations focused on actively engaging more men and boys in improving their emotional wellbeing.\n\nBefore retraining as a therapist, I spent over a decade as a BBC journalist and documentary maker, telling human stories and challenging unhelpful ideas around masculinity and mental health.\n\nToday, I combine that storytelling expertise with therapeutic insight — offering not only therapy, but also public speaking, workshops and advocacy work across the UK and internationally.\n\nI'm the author of the 2017 book *Be a Man*, focusing on the lasting implications of macho culture on men and boys.\n\nI'm incredibly passionate about supporting men to connect more deeply to themselves and those around them."
+    "body": "I offer one-to-one therapy in person and online, working with people from all walks of life to explore relationships, identity, anxiety, addiction and more.\n\nI am the founder of both [**Men's Therapy Hub**](https://menstherapyhub.com) and [**M-Path**](https://m-path.co.uk) — two organisations focused on actively engaging more men and boys in improving their emotional wellbeing.\n\nBefore retraining as a therapist, I spent over a decade as a BBC journalist and documentary maker, telling human stories and challenging unhelpful ideas around masculinity and mental health.\n\nToday, I combine that storytelling expertise with therapeutic insight — offering not only therapy, but also public speaking, workshops and advocacy work across the UK and internationally.\n\nI'm the author of the 2017 book _Be a Man_, focusing on the lasting implications of macho culture on men and boys.\n\nI'm incredibly passionate about supporting men to connect more deeply to themselves and those around them."
   },
   "founder": {
     "intro": "I am the founder of:",
     "orgs": [
       {
         "name": "Men's Therapy Hub",
-        "href": "https://menstherapyhub.com",
+        "href": "https://menstherapyhub.co.uk",
         "logo": "/img/logos/mth-mono.png"
       },
       {
@@ -33,15 +34,42 @@
   "featuredIn": {
     "title": "My work has been featured in",
     "logos": [
-      { "name": "BBC News", "logo": "/img/logos/press/bbc-news.svg" },
-      { "name": "BBC Radio 4", "logo": "/img/logos/press/bbc-radio-4.svg" },
-      { "name": "Times Radio", "logo": "/img/logos/press/times-radio.svg" },
-      { "name": "The Times", "logo": "/img/logos/press/the-times.svg" },
-      { "name": "ITV", "logo": "/img/logos/press/itv.svg" },
-      { "name": "CNN", "logo": "/img/logos/press/cnn.svg" },
-      { "name": "The Guardian", "logo": "/img/logos/press/the-guardian.svg" },
-      { "name": "The Independent", "logo": "/img/logos/press/the-independent.svg" },
-      { "name": "The Telegraph", "logo": "/img/logos/press/the-telegraph.svg" }
+      {
+        "name": "BBC News",
+        "logo": "/img/logos/press/bbc-news.svg"
+      },
+      {
+        "name": "BBC Radio 4",
+        "logo": "/img/logos/press/bbc-radio-4.svg"
+      },
+      {
+        "name": "Times Radio",
+        "logo": "/img/logos/press/times-radio.svg"
+      },
+      {
+        "name": "The Times",
+        "logo": "/img/logos/press/the-times.svg"
+      },
+      {
+        "name": "ITV",
+        "logo": "/img/logos/press/itv.svg"
+      },
+      {
+        "name": "CNN",
+        "logo": "/img/logos/press/cnn.svg"
+      },
+      {
+        "name": "The Guardian",
+        "logo": "/img/logos/press/the-guardian.svg"
+      },
+      {
+        "name": "The Independent",
+        "logo": "/img/logos/press/the-independent.svg"
+      },
+      {
+        "name": "The Telegraph",
+        "logo": "/img/logos/press/the-telegraph.svg"
+      }
     ]
   },
   "interests": {
