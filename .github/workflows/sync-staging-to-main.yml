@@ -1,0 +1,73 @@
+# Keep `staging` pointed at `main` after a publish, so the /publish page's
+# "commits to merge" count doesn't accumulate orphaned commits.
+#
+# Squash-merging a staging→main PR (via the GitHub UI or the /publish page)
+# collapses staging's commits into ONE new commit on main. Git no longer sees
+# staging's originals as merged — `compare/main...staging` (what /publish lists)
+# keeps showing them even though their content is on main. The /publish page
+# resets staging itself; a PR-UI merge does not. This closes that gap.
+#
+# SAFE BY DESIGN: it only resets staging when staging's tree is IDENTICAL to
+# main's (i.e. everything is already published). If staging has any unpublished
+# edit (different tree — Chris mid-editing), it leaves staging untouched.
+#
+# No redeploy loop: the push to staging uses GITHUB_TOKEN, which by GitHub's
+# design does NOT trigger further workflow runs.
+
+name: Sync staging to main
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-staging-to-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Reset staging to main when trees match
+        run: |
+          set -euo pipefail
+          git fetch origin main staging --quiet
+
+          main_sha=$(git rev-parse origin/main)
+          staging_sha=$(git rev-parse origin/staging)
+
+          if [ "$main_sha" = "$staging_sha" ]; then
+            echo "staging already equals main — nothing to do." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          main_tree=$(git rev-parse "origin/main^{tree}")
+          staging_tree=$(git rev-parse "origin/staging^{tree}")
+
+          if [ "$main_tree" != "$staging_tree" ]; then
+            {
+              echo "staging has unpublished edits (tree differs) — leaving it alone."
+              echo ""
+              echo "- main tree:    \`$main_tree\`"
+              echo "- staging tree: \`$staging_tree\`"
+            } >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
+          echo "Trees identical — fast-forwarding staging → main (\`$main_sha\`)." >> "$GITHUB_STEP_SUMMARY"
+          # --force-with-lease: abort if staging moved since we read it (a
+          # concurrent Sveltia edit) — never clobber a fresh commit.
+          if git push --force-with-lease=staging:"$staging_sha" origin "$main_sha:refs/heads/staging"; then
+            echo "staging reset to main." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "staging moved during sync (concurrent edit) — skipped; the next main push retries." >> "$GITHUB_STEP_SUMMARY"
+          fi
