@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { podcast } from '$lib/content';
+  import { site, podcast } from '$lib/content';
   import { loadEpisodes, type Episode } from '$lib/podcast';
   import { buildPageSeo, absUrl } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
@@ -11,14 +11,14 @@
 
   const seo = buildPageSeo({
     path: '/podcast',
-    title: podcast.seo.title,
-    description: podcast.seo.description,
+    title: podcast.seo?.title ?? `${site.name} — ${site.tagline}`,
+    description: podcast.seo?.description ?? site.description,
     graph: [
       {
         '@type': 'PodcastSeries',
         name: podcast.hero.title,
         url: absUrl('/podcast'),
-        description: podcast.seo.schemaDescription,
+        description: podcast.seo?.schemaDescription ?? podcast.seo?.description ?? site.description,
         image: absUrl(podcast.hero.cover),
         webFeed: absUrl(podcast.feedPath),
         sameAs: podcast.platforms.map((p) => p.href)

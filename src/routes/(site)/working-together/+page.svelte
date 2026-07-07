@@ -9,8 +9,8 @@
 
   const seo = buildPageSeo({
     path: '/working-together',
-    title: wt.seo.title,
-    description: wt.seo.description
+    title: wt.seo?.title ?? `${site.name} — ${site.tagline}`,
+    description: wt.seo?.description ?? site.description
   });
 </script>
 

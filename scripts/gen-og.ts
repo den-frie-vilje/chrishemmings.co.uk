@@ -61,12 +61,15 @@ interface Card {
 // (from site.json); the photo is `og.image` — individually selectable per page
 // and NOT tied to the page hero (defaults to the page's portrait as a
 // placeholder).
+// `og.image ?? hero.portrait`: a stale-CMS save can strip og.image; fall back
+// to the page's hero photo so the card still renders (podcast + get-in-touch
+// reuse the home portrait) rather than crashing the prebuild.
 const CARDS: Card[] = [
-  { slug: 'home', ...home.og, portrait: home.og.image },
-  { slug: 'working-together', ...wt.og, portrait: wt.og.image },
-  { slug: 'public-speaking', ...ps.og, portrait: ps.og.image },
-  { slug: 'podcast', ...podcast.og, portrait: podcast.og.image },
-  { slug: 'get-in-touch', ...getInTouch.og, portrait: getInTouch.og.image }
+  { slug: 'home', ...home.og, portrait: home.og.image ?? home.hero.portrait },
+  { slug: 'working-together', ...wt.og, portrait: wt.og.image ?? wt.hero.portrait },
+  { slug: 'public-speaking', ...ps.og, portrait: ps.og.image ?? ps.hero.portrait },
+  { slug: 'podcast', ...podcast.og, portrait: podcast.og.image ?? home.hero.portrait },
+  { slug: 'get-in-touch', ...getInTouch.og, portrait: getInTouch.og.image ?? home.hero.portrait }
 ];
 
 const NAVY = '#093449';

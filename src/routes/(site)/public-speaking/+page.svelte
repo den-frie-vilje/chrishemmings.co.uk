@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { publicSpeaking as ps, testimonials, accolades } from '$lib/content';
+  import { site, publicSpeaking as ps, testimonials, accolades } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
@@ -12,8 +12,8 @@
 
   const seo = buildPageSeo({
     path: '/public-speaking',
-    title: ps.seo.title,
-    description: ps.seo.description
+    title: ps.seo?.title ?? `${site.name} — ${site.tagline}`,
+    description: ps.seo?.description ?? site.description
   });
 
   const speakingHref = 'mailto:chrishemmings@live.co.uk?subject=Speaking enquiry';
