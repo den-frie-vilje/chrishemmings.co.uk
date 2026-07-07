@@ -4,13 +4,14 @@
 #
 # Three-stage gating:
 #
-#   1. detect-changes — diffs HEAD against its parent. If every
-#      changed file is a content-only path (Sveltia editor
+#   1. detect-changes — diffs the push's before..after range. If
+#      every changed file is a content-only path (Sveltia editor
 #      output: src/content/** + static/img/**), bypass the
 #      signature check AND the reviewer gate. Anything outside
 #      those paths — code, CSS, deploy config, workflows, the
 #      admin loader — requires both signed commits AND explicit
-#      reviewer approval.
+#      reviewer approval. Fail-closed: an unreadable range or an
+#      empty diff routes to the gate.
 #
 #   2. verify-signatures — only runs when content-only=false.
 #      Cryptographically verifies that every commit being
@@ -72,24 +73,38 @@ jobs:
         if: github.event_name == 'push'
         uses: actions/checkout@v6
         with:
-          # Need parent commit on main for the diff. fetch-depth: 2
-          # gets HEAD + parent — enough for paths-filter, much
-          # cheaper than fetching the full history.
-          fetch-depth: 2
+          # Full history: `before` can be any number of commits
+          # behind `after`, so a shallow fetch can't see it.
+          fetch-depth: 0
 
       - name: Detect content-only push
         id: filter
         if: github.event_name == 'push'
-        uses: dorny/paths-filter@v4
-        with:
-          # `every`: every changed file must match at least one
-          # of the listed patterns. A single file outside these
-          # paths flips content-only to false.
-          predicate-quantifier: 'every'
-          filters: |
-            content-only:
-              - 'src/content/**'
-              - 'static/img/**'
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.event.after }}
+        run: |
+          set -euo pipefail
+
+          # Must stay in sync with CONTENT_REGEX in verify-signatures.
+          CONTENT_REGEX='^(src/content/|static/img/)'
+
+          # content-only=true iff the range is readable, the diff is
+          # non-empty, and NO changed file falls outside the content
+          # paths. Everything else falls through to false → gate.
+          content_only=false
+          if [ -n "$BEFORE" ] && \
+             [ "$BEFORE" != "0000000000000000000000000000000000000000" ] && \
+             git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            files=$(git diff --name-only "$BEFORE" "$AFTER")
+            if [ -n "$files" ] && ! echo "$files" | grep -qvE "$CONTENT_REGEX"; then
+              content_only=true
+            fi
+          fi
+
+          echo "Changed files in $BEFORE..$AFTER:"
+          echo "${files:-<none / unreadable range>}"
+          echo "content-only=$content_only" >> "$GITHUB_OUTPUT"
 
       - name: Summarise routing
         run: |
@@ -149,8 +164,7 @@ jobs:
           # list via the per-commit API, classify, and only enforce
           # signature on the code/config commits.
           #
-          # The content-path regex must match what's in
-          # detect-changes' filter above (src/content/** + static/img/**).
+          # Must stay in sync with CONTENT_REGEX in detect-changes.
           CONTENT_REGEX='^(src/content/|static/img/)'
 
           # `compare` lists commits in order between BASE and HEAD,
