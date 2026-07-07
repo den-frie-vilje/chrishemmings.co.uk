@@ -14,7 +14,7 @@
   "testimonialsNote": "",
   "about": {
     "title": "A little about me",
-    "body": "I work as a therapist, coach and public speaker, helping men better understand their mental health, improve communication and build stronger relationships. Whether I'm working one-to-one in the therapy room or speaking to audiences, my aim is always the same: to create honest conversations that lead to meaningful change.\n\nAlongside my private practice, I founded [**Men's Therapy Hub**](https://menstherapyhub.co.uk) and [**M-Path**](https://m-path.co.uk), two organisations dedicated to improving men's mental health and emotional wellbeing. Through this work, I support more men and boys to access help, challenge stigma and engage more openly with their emotional wellbeing.\n\nBefore retraining as a therapist, I spent over a decade as a BBC journalist and documentary maker, telling human stories and exploring the issues that shape our lives. Today, I bring that experience together with therapeutic insight through therapy, public speaking, workshops and advocacy across the UK and internationally.\n\nI'm also the author of _Be a Man_, exploring the lasting impact of traditional ideas of masculinity on men and boys. Everything I do is driven by a belief that better conversations help people better understand themselves and those around them."
+    "body": "I work as a therapist, coach and public speaker, helping men better understand their mental health, improve communication and build stronger relationships. Whether I'm working one-to-one in the therapy room or speaking to audiences, my aim is always the same: to create honest conversations that lead to meaningful change.\n\nAlongside my private practice, I founded [**Men's Therapy Hub**](https://menstherapyhub.co.uk) and [**M-Path**](https://m-path.co.uk), two organisations dedicated to improving men's mental health and emotional wellbeing. Through this work, I support more men and boys to access help, challenge unhelpful ideas about themselves and engage more openly with their emotional wellbeing.\n\nBefore retraining as a therapist, I spent over a decade as a BBC journalist and documentary maker, telling human stories and exploring the issues that shape our lives. Today, I bring that experience together with therapeutic insight through therapy, public speaking, workshops and advocacy across the UK and internationally.\n\nI'm also the author of _Be a Man_, exploring the lasting impact of traditional ideas of masculinity on men and boys. Everything I do is driven by a belief that better conversations help people better understand themselves and those around them."
   },
   "founder": {
     "intro": "I am the founder of:",
@@ -77,32 +77,32 @@
     "intro": "I have experience working with clients with a wide range of challenges, including:",
     "items": [
       {
-        "title": "Anxiety",
-        "body": "Exploring the roots of worry, overthinking and tension — and finding ways to feel calmer, more grounded and in control."
-      },
-      {
-        "title": "Depression",
-        "body": "When life feels heavy or flat, we can create a space for you to reconnect with yourself, your emotions and what brings meaning."
+        "title": "Relationships",
+        "body": "From conflict to communication issues, we'll explore how you relate to others — and to yourself — to create connection in your life."
       },
       {
         "title": "Anger",
         "body": "Anger often hides pain, shame or fear. Together we'll unpack where it comes from and how to express it in healthier ways."
       },
       {
-        "title": "Relationships",
-        "body": "From conflict to communication issues, we'll explore how you relate to others — and to yourself — to create connection in your life."
-      },
-      {
-        "title": "Addiction",
-        "body": "Whether it's substances, behaviours or patterns, we'll work to understand what's driving the cycle and how to break it with compassion."
-      },
-      {
-        "title": "Masculinity",
+        "title": "Identity",
         "body": "If you are questioning what kind of man you want to be, or feeling stuck between expectations and your true self."
+      },
+      {
+        "title": "Substance abuse",
+        "body": "Whatever the substance you're misusing, we'll work to understand what's driving the cycle and how to break it with compassion."
       },
       {
         "title": "Low self-esteem",
         "body": "If your inner critic is loud or constant, therapy can help you challenge unhelpful beliefs and build a stronger sense of self."
+      },
+      {
+        "title": "Depression",
+        "body": "When life feels heavy or flat, we can create a space for you to reconnect with yourself, your emotions and what brings meaning."
+      },
+      {
+        "title": "Anxiety",
+        "body": "Exploring the roots of worry, overthinking and tension — and finding ways to feel calmer, more grounded and in control."
       },
       {
         "title": "Emotional expression",
@@ -115,6 +115,10 @@
     "title": "Bring this conversation to your workplace",
     "body": "I'm also a keynote speaker and workshop facilitator on men's mental health, masculinity and emotional wellbeing — delivering workplace workshops and talks for employers, schools, universities and conferences.",
     "cta": "Public speaking & workshops"
+  },
+  "seo": {
+    "title": "Chris Hemmings | Therapist, Counsellor & Coach for Men",
+    "description": "Chris Hemmings is a BACP-registered therapist, coach and founder of Men's Therapy Hub. Online therapy and coaching for men in the UK and worldwide. Free 15-minute consultation."
   },
   "og": {
     "eyebrow": "Therapy & Coaching for Men",
