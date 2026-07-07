@@ -15,18 +15,31 @@
   ],
   "speaking": [
     {
+      "quote": "It was a pleasure working with Chris. His POV as a male leader in this space is refreshing. As a speaker, Chris was very authentic and managed to capture the audience with his honesty. As a stakeholder, he was very supportive in helping create the best concept for this audience to open up and receive the message. Looking forward to working with you again and moving the needle!",
+      "name": "Nike",
+      "detail": "",
+      "org": "",
+      "logo": "/img/logos/nike.svg"
+    },
+    {
       "quote": "We found Chris to be insightful and completely different to what we usually see during our speaker events. His honesty opens up the room to an engaging and open discussion around how we can solve these issues going forward.",
       "name": "Barclays",
+      "detail": "",
+      "org": "",
       "logo": "/img/logos/barclays.svg"
     },
     {
       "quote": "Honest, thought-provoking and very engaging. Chris helped us realise how men have a huge responsibility in the journey towards gender equality, and we all have so much to gain from broadening the definition of masculinity in the future.",
       "name": "L'Oréal",
+      "detail": "",
+      "org": "",
       "logo": "/img/logos/loreal.svg"
     },
     {
       "quote": "Chris is a regular speaker at our business conferences and we couldn't recommend him highly enough. His ability to be both engaging and challenging often creates lively debates and further discussion amongst our delegates both during and after his session.",
       "name": "HFM Events",
+      "detail": "",
+      "org": "",
       "logo": "/img/logos/hfm-events.jpg"
     }
   ]
