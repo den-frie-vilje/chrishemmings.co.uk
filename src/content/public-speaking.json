@@ -98,9 +98,10 @@
     ]
   },
   "og": {
-    "eyebrow": "For workplaces & events",
-    "title": "Talks & workshops",
-    "subtitle": "Men's mental health, masculinity & wellbeing",
+    "image": "/img/photos/chris-nike.png",
+    "eyebrow": "Keynotes, Workshops & Training",
+    "title": "Talks & Workshops About Men",
+    "subtitle": "Helping organisations build healthier cultures through conversations on men's mental health, masculinity, empathy and emotional wellbeing.",
     "cta": "Enquire about speaking"
   }
 }
