@@ -38,8 +38,10 @@ export interface NavItem {
  *  portrait come from elsewhere; these are the page-specific lines. */
 export interface Og {
   /** Photo composited into this page's generated share card. Individually
-   *  selectable per page — not tied to the page hero. */
-  image: string;
+   *  selectable per page — not tied to the page hero. Optional so a stale-CMS
+   *  save that strips it falls back to the hero photo rather than failing the
+   *  build. */
+  image?: string;
   eyebrow: string;
   title: string;
   subtitle: string;
@@ -66,14 +68,14 @@ export interface Site {
    *  of it is baked into the build. Tuned UK-first + English worldwide: the
    *  practice is modelled as an online service (no local Copenhagen address,
    *  which would geo-narrow to Denmark), `areaServed` leads with the UK. */
-  schema: {
-    jobTitle: string;
+  schema?: {
+    jobTitle?: string;
     /** Person bio (Schema.org Person.description). */
-    bio: string;
-    serviceType: string;
-    knowsAbout: string[];
+    bio?: string;
+    serviceType?: string;
+    knowsAbout?: string[];
     /** Where the service is offered — UK first, then wider. */
-    areaServed: string[];
+    areaServed?: string[];
   };
 }
 
@@ -116,8 +118,9 @@ export interface Contact {
   phone: string;
   phoneHref: string;
   location: string;
-  /** Social-media profiles (shown as icons in the footer). */
-  social: SocialLink[];
+  /** Social-media profiles (shown as icons in the footer). Optional so a
+   *  stale-CMS save can't break the build; treated as [] when absent. */
+  social?: SocialLink[];
 }
 
 /** Get-in-touch PAGE copy (pages collection): editorial only — the
@@ -141,7 +144,7 @@ export interface GetInTouch {
   paths: GetInTouchPath[];
   whatToExpect: { eyebrow: string; title: string; steps: { title: string; body: string }[] };
   reassurances: string[];
-  seo: PageMeta;
+  seo?: PageMeta;
   og: Og;
 }
 
@@ -180,7 +183,7 @@ export interface Home {
   featuredIn: { title: string; logos: OrgLogo[] };
   interests: { title: string; intro: string; items: Interest[] };
   speakingPromo: { eyebrow: string; title: string; body: string; cta: string };
-  seo: PageMeta;
+  seo?: PageMeta;
   og: Og;
 }
 
@@ -205,7 +208,7 @@ export interface WorkingTogether {
     }[];
   };
   furtherInfo: { title: string; body: string };
-  seo: PageMeta;
+  seo?: PageMeta;
   og: Og;
 }
 
@@ -231,7 +234,7 @@ export interface PublicSpeaking {
   experienced: { title: string; body: string };
   story: { title: string; body: string };
   talks: { title: string; groups: { name: string; items: Talk[] }[] };
-  seo: PageMeta;
+  seo?: PageMeta;
   og: Og;
 }
 
@@ -260,7 +263,7 @@ export interface Podcast {
   feedPath: string;
   platforms: PodcastPlatform[];
   /** `schemaDescription` also feeds the PodcastSeries JSON-LD node. */
-  seo: PageMeta & { schemaDescription: string };
+  seo?: PageMeta & { schemaDescription?: string };
   og: Og;
 }
 

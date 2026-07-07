@@ -25,7 +25,7 @@
       <p class="font-extrabold tracking-[-0.02em] text-[1.15rem] text-paper">{site.name}</p>
       <p class="mt-2 max-w-xs text-sm text-cloud/80">{site.tagline}</p>
 
-      {#if contact.social.length}
+      {#if contact.social?.length}
         <ul class="mt-5 flex flex-wrap items-center gap-4">
           {#each contact.social as s (s.platform + s.url)}
             <li>

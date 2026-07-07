@@ -42,7 +42,7 @@ const personSameAs = [
   site.bacpRegisterUrl,
   ...home.founder.orgs.map((o) => o.href).filter((h): h is string => Boolean(h)),
   ...podcast.platforms.map((p) => p.href),
-  ...contact.social.map((s) => s.url)
+  ...(contact.social ?? []).map((s) => s.url)
 ];
 
 /**
@@ -66,9 +66,9 @@ function siteGraph(): object[] {
     telephone: toE164(contact.phone),
     email: contact.email,
     description: site.description,
-    serviceType: site.schema.serviceType,
+    serviceType: site.schema?.serviceType ?? 'Online psychotherapy and coaching for men',
     priceRange: '££',
-    areaServed: site.schema.areaServed,
+    areaServed: site.schema?.areaServed ?? ['United Kingdom', 'Worldwide (online)'],
     availableLanguage: 'English',
     founder: { '@id': PERSON_ID },
     provider: { '@id': PERSON_ID }
@@ -80,10 +80,10 @@ function siteGraph(): object[] {
     name: site.name,
     url: `${SITE_URL}/`,
     image: absUrl(home.hero.portrait),
-    jobTitle: site.schema.jobTitle,
-    description: site.schema.bio,
+    jobTitle: site.schema?.jobTitle ?? 'Psychotherapist & Coach for Men',
+    description: site.schema?.bio ?? site.description,
     worksFor: { '@id': BUSINESS_ID },
-    knowsAbout: site.schema.knowsAbout,
+    knowsAbout: site.schema?.knowsAbout ?? [],
     memberOf: {
       '@type': 'Organization',
       name: 'British Association for Counselling and Psychotherapy (BACP)',

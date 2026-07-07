@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { getInTouch } from '$lib/content';
+  import { site, getInTouch } from '$lib/content';
   import { buildPageSeo } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
 
   const seo = buildPageSeo({
     path: '/get-in-touch',
-    title: getInTouch.seo.title,
-    description: getInTouch.seo.description
+    title: getInTouch.seo?.title ?? `${site.name} — ${site.tagline}`,
+    description: getInTouch.seo?.description ?? site.description
   });
 </script>
 
