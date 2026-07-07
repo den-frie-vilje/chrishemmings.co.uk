@@ -3,7 +3,7 @@
   "hero": {
     "eyebrow": "Specialist Therapy & Coaching For Men",
     "title": "Therapy, Counselling & Coaching for Men",
-    "subtitle": "BACP-registered therapist specialising in working with men. Online across the UK and worldwide.",
+    "subtitle": "BACP-registered therapist specialising in working with men. Online across the UK and worldwide",
     "portrait": "/img/photos/my-project-page-1.jpg",
     "portraitAlt": "Chris Hemmings, therapist & coach"
   },
@@ -24,7 +24,7 @@
         "title": "Therapy & Counselling",
         "range": "£95–£145",
         "unit": "per 50-minute session",
-        "body": "I understand that therapy can be expensive for some, so I hope to make it as affordable as possible by offering a sliding scale, based on income. I also offer concessionary rates, on a case-by-case basis. \n\nWe'll do weekly sessions in blocks of four, paid upfront before each block commences."
+        "body": "I understand that therapy can be expensive for some, so I hope to make it as affordable as possible by offering a sliding scale. I also offer concessionary rates, for students, unemployed people and apprentices.\n\nWe'll do weekly sessions in blocks of four, paid upfront before each block commences."
       },
       {
         "title": "Coaching",
@@ -40,10 +40,10 @@
   },
   "seo": {
     "title": "Therapist & Coach for Men | Chris Hemmings | Online in the UK & Worldwide",
-    "description": "Online therapy and coaching for men with Chris Hemmings, BACP-registered therapist and founder of Men's Therapy Hub. Practical support for anxiety, relationships, addiction, anger, identity and life transitions."
+    "description": "Online therapy and coaching for men with Chris Hemmings, BACP-registered therapist and founder of Men's Therapy Hub. Practical support for relationships, substance abuse, anger, identity, life transitions and more."
   },
   "og": {
-    "image": "/img/photos/chris-working.jpg",
+    "image": "/img/photos/my-project-page-1.jpg",
     "eyebrow": "Therapy & Coaching for Men",
     "title": "Honest conversations. Meaningful change.",
     "subtitle": "BACP registered therapist and coach helping men better understand themselves, strengthen relationships and move forwards with confidence.",
