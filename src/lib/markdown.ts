@@ -33,8 +33,22 @@ marked.use({
   }
 });
 
+/**
+ * Collapse a redundant leading bullet inside a list item. Sveltia's rich-text
+ * editor (and the habit of starting each line with "- ") emits items like
+ * `- - Six…` or `- **- Men's mental health**` — a list marker whose text ALSO
+ * begins with a bullet. CommonMark reads that as a NESTED list, rendering an
+ * empty outer bullet with an indented child. Strip the inner marker (keeping
+ * any leading `**`/`*`/`_` emphasis) so the list renders flat. Only touches a
+ * marker immediately following the outer one on the same line — genuine nested
+ * lists (indented on their own line) are untouched.
+ */
+function normalizeSveltiaLists(md: string): string {
+  return md.replace(/^([ \t]*[-*+][ \t]+)([*_~]{0,3})[-*+][ \t]+/gm, '$1$2');
+}
+
 /** Render a block-level markdown string to an HTML fragment (headings,
  *  paragraphs, lists, blockquotes, links, emphasis). */
 export function renderMarkdown(md: string): string {
-  return marked.parse((md ?? '').trim(), { async: false });
+  return marked.parse(normalizeSveltiaLists((md ?? '').trim()), { async: false });
 }
