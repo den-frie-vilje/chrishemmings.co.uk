@@ -135,6 +135,7 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: titleAccent, label: Title descriptor (lighter line), widget: string }
               - { name: lead, label: Lead, widget: text }
+              - { name: credentials, label: Credentials line, widget: string, required: false, hint: "Accreditations & founder status shown in small capitals under the lead, e.g. \"BACP-registered | Founder of …\"." }
               - { name: portrait, label: Portrait (framed) — social share & SEO, widget: image, hint: "A normal framed photo. Used for the social-share (OG) card and search results, NOT shown on the page itself." }
               - { name: cutout, label: Hero cutout (background removed), widget: image, hint: "The transparent PNG/WebP of Chris shown in the hero, leaning in from the right." }
               - { name: portraitAlt, label: Portrait alt text, widget: string }
@@ -150,6 +151,8 @@ collections:
             widget: object
             fields:
               - { name: title, label: Title, widget: string }
+              - { name: photo, label: Photo, widget: image, media_folder: "/static/img/photos", public_folder: "/img/photos", hint: "The photograph beside the About copy — it's automatically upscaled + turned into responsive AVIF/WebP on build." }
+              - { name: photoAlt, label: Photo alt text, widget: string }
               - { name: body, label: Body, widget: markdown, buttons: [bold, italic, link, bulleted-list], editor_components: [], modes: [rich_text] }
           - name: founder
             label: Founder of
