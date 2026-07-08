@@ -168,6 +168,9 @@ export interface Home {
     /** Lighter-weight descriptor shown under the name in the hero H1. */
     titleAccent: string;
     lead: string;
+    /** Accreditations/founder line under the lead — rendered in small
+     *  capitals, sized between the eyebrow and the lead. */
+    credentials?: string;
     /** Framed JPG — used for the OG/social card and JSON-LD imagery. */
     portrait: string;
     /** Background-removed cutout shown in the hero itself. */
@@ -176,7 +179,14 @@ export interface Home {
     ctaPrimary: string;
     ctaSecondary: string;
   };
-  about: { title: string; body: string };
+  about: {
+    title: string;
+    /** Photograph beside the About copy — lives in /img/photos so the
+     *  responsive <Photo> pipeline picks it up. */
+    photo: string;
+    photoAlt: string;
+    body: string;
+  };
   founder: { intro: string; orgs: Org[] };
   /** Press / media outlets that have featured Chris's work — shown as a
    *  scrolling logo marquee on the home page. */

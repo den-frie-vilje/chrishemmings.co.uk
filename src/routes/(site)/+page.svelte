@@ -103,6 +103,13 @@
         {home.hero.title}<span class="block text-ink-soft">{home.hero.titleAccent}</span>
       </h1>
       <p class="t-lead mt-6 max-w-xl text-ink-soft md:max-w-sm lg:max-w-xl">{home.hero.lead}</p>
+      {#if home.hero.credentials}
+        <p
+          class="mt-4 max-w-xl text-[0.9rem] font-semibold tracking-[0.12em] text-ink-soft uppercase md:max-w-sm lg:max-w-xl"
+        >
+          {home.hero.credentials}
+        </p>
+      {/if}
       <div class="mt-8 flex flex-wrap gap-3">
         <a class="btn btn-primary" href={booking.href}>{home.hero.ctaPrimary}</a>
         <a class="btn btn-outline" href="/working-together">{home.hero.ctaSecondary}</a>
@@ -143,8 +150,8 @@
     </div>
     <div class="md:order-1">
       <Photo
-        src="/img/photos/chris-working.jpg"
-        alt="Chris Hemmings, psychotherapist & coach"
+        src={home.about.photo}
+        alt={home.about.photoAlt}
         class="aspect-[4/5] w-full rounded-lg object-cover shadow-md"
         sizes="(min-width: 768px) 40vw, 100vw"
         loading="lazy"
