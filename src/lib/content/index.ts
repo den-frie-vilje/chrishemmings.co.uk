@@ -168,9 +168,10 @@ export interface Home {
     /** Lighter-weight descriptor shown under the name in the hero H1. */
     titleAccent: string;
     lead: string;
-    /** Accreditations/founder line under the lead — rendered in small
-     *  capitals, sized between the eyebrow and the lead. */
-    credentials?: string;
+    /** Accreditations/founder credits under the lead — rendered as one
+     *  small-caps line, separators added by the template. Each credit
+     *  stays unbroken across line wraps. */
+    credentials?: string[];
     /** Framed JPG — used for the OG/social card and JSON-LD imagery. */
     portrait: string;
     /** Background-removed cutout shown in the hero itself. */

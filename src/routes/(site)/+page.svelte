@@ -22,6 +22,11 @@
 
   const num = (i: number) => String(i + 1).padStart(2, '0');
 
+  // whitespace-nowrap only suppresses breaks at spaces — Safari/Firefox
+  // still treat hyphens/dashes as break opportunities. A zero-width word
+  // joiner after each dash removes that opportunity in every engine.
+  const noBreakDashes = (s: string) => s.replace(/([-\u2010\u2013\u2014])/g, '$1\u2060');
+
   // Areas-of-interest grid: pick a column count that divides the item count
   // evenly at each breakpoint, so the last row is always full — never an
   // orphaned card. (auto-fit/minmax can't guarantee this: 8 items in 3
@@ -103,11 +108,22 @@
         {home.hero.title}<span class="block text-ink-soft">{home.hero.titleAccent}</span>
       </h1>
       <p class="t-lead mt-6 max-w-xl text-ink-soft md:max-w-sm lg:max-w-xl">{home.hero.lead}</p>
-      {#if home.hero.credentials}
+      {#if home.hero.credentials?.length}
+        <!-- Eyebrow-sized; #527183 is the lightest ink-soft tint that still
+             clears WCAG AA (4.6:1) on paper — don't lighten further. Each
+             credit is a nowrap span with its trailing "|" attached, so lines
+             break only after a separator — never inside a credit. -->
         <p
-          class="mt-4 max-w-xl text-[0.9rem] font-semibold tracking-[0.12em] text-ink-soft uppercase md:max-w-sm lg:max-w-xl"
+          class="mt-4 max-w-xl text-[0.78rem] font-medium tracking-[0.05em] text-[#527183] uppercase md:max-w-sm lg:max-w-xl"
         >
-          {home.hero.credentials}
+          {#each home.hero.credentials as credential, i}
+            {#if i > 0}{' '}{/if}<span class="whitespace-nowrap"
+              >{noBreakDashes(credential)}{#if i < home.hero.credentials.length - 1}<span
+                aria-hidden="true"
+                  >{' |'}</span
+                >{/if}</span
+            >
+          {/each}
         </p>
       {/if}
       <div class="mt-8 flex flex-wrap gap-3">
@@ -316,6 +332,12 @@
       color-mix(in srgb, #4a3826 11%, transparent) 48%,
       transparent 88%
     );
+    /* Keep the wash off the copy: measured on-screen, its tail darkened the
+       paper under the hero text enough to drop ink-soft below WCAG AA
+       (4.21:1 eyebrow / 3.68:1 at 1280px). The mask fades the wash in only
+       over the cutout zone — below the copy on mobile, right of it on md+ —
+       so text always sits on full-contrast paper. */
+    mask-image: linear-gradient(to bottom, transparent 48%, black 72%);
   }
   @media (min-width: 768px) {
     .hero-wash {
@@ -325,6 +347,7 @@
         color-mix(in srgb, #4a3826 12%, transparent) 45%,
         transparent 82%
       );
+      mask-image: linear-gradient(to right, transparent 52%, black 70%);
     }
   }
 
