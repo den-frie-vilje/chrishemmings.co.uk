@@ -22,6 +22,11 @@
 
   const num = (i: number) => String(i + 1).padStart(2, '0');
 
+  // whitespace-nowrap only suppresses breaks at spaces — Safari/Firefox
+  // still treat hyphens/dashes as break opportunities. A zero-width word
+  // joiner after each dash removes that opportunity in every engine.
+  const noBreakDashes = (s: string) => s.replace(/([-\u2010\u2013\u2014])/g, '$1\u2060');
+
   // Areas-of-interest grid: pick a column count that divides the item count
   // evenly at each breakpoint, so the last row is always full — never an
   // orphaned card. (auto-fit/minmax can't guarantee this: 8 items in 3
@@ -113,7 +118,8 @@
         >
           {#each home.hero.credentials as credential, i}
             {#if i > 0}{' '}{/if}<span class="whitespace-nowrap"
-              >{credential}{#if i < home.hero.credentials.length - 1}<span aria-hidden="true"
+              >{noBreakDashes(credential)}{#if i < home.hero.credentials.length - 1}<span
+                aria-hidden="true"
                   >{' |'}</span
                 >{/if}</span
             >
