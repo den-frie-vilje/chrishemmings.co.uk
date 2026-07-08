@@ -107,7 +107,7 @@
         <!-- Eyebrow-sized; #527183 is the lightest ink-soft tint that still
              clears WCAG AA (4.6:1) on paper — don't lighten further. -->
         <p
-          class="mt-4 max-w-xl text-[0.78rem] font-medium tracking-[0.16em] text-[#527183] uppercase md:max-w-sm lg:max-w-xl"
+          class="mt-4 max-w-xl text-[0.78rem] font-medium tracking-[0.05em] text-[#527183] uppercase md:max-w-sm lg:max-w-xl"
         >
           {home.hero.credentials}
         </p>
