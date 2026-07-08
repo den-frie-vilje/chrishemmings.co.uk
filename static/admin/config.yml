@@ -135,7 +135,7 @@ collections:
               - { name: title, label: Title, widget: string }
               - { name: titleAccent, label: Title descriptor (lighter line), widget: string }
               - { name: lead, label: Lead, widget: text }
-              - { name: credentials, label: Credentials line, widget: string, required: false, hint: "Accreditations & founder status shown in small capitals under the lead, e.g. \"BACP-registered | Founder of …\"." }
+              - { name: credentials, label: Credentials, widget: list, required: false, field: { name: item, label: Credential, widget: string }, hint: "Accreditations & founder status shown as one small-capitals line under the lead, one entry per credit — separators are added automatically." }
               - { name: portrait, label: Portrait (framed) — social share & SEO, widget: image, hint: "A normal framed photo. Used for the social-share (OG) card and search results, NOT shown on the page itself." }
               - { name: cutout, label: Hero cutout (background removed), widget: image, hint: "The transparent PNG/WebP of Chris shown in the hero, leaning in from the right." }
               - { name: portraitAlt, label: Portrait alt text, widget: string }

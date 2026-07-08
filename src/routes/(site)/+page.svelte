@@ -103,13 +103,21 @@
         {home.hero.title}<span class="block text-ink-soft">{home.hero.titleAccent}</span>
       </h1>
       <p class="t-lead mt-6 max-w-xl text-ink-soft md:max-w-sm lg:max-w-xl">{home.hero.lead}</p>
-      {#if home.hero.credentials}
+      {#if home.hero.credentials?.length}
         <!-- Eyebrow-sized; #527183 is the lightest ink-soft tint that still
-             clears WCAG AA (4.6:1) on paper — don't lighten further. -->
+             clears WCAG AA (4.6:1) on paper — don't lighten further. Each
+             credit is a nowrap span with its trailing "|" attached, so lines
+             break only after a separator — never inside a credit. -->
         <p
           class="mt-4 max-w-xl text-[0.78rem] font-medium tracking-[0.05em] text-[#527183] uppercase md:max-w-sm lg:max-w-xl"
         >
-          {home.hero.credentials}
+          {#each home.hero.credentials as credential, i}
+            {#if i > 0}{' '}{/if}<span class="whitespace-nowrap"
+              >{credential}{#if i < home.hero.credentials.length - 1}<span aria-hidden="true"
+                  >{' |'}</span
+                >{/if}</span
+            >
+          {/each}
         </p>
       {/if}
       <div class="mt-8 flex flex-wrap gap-3">
