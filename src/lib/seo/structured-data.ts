@@ -8,16 +8,28 @@
  * entity. The therapist's credentials surface via the Person node.
  */
 
-import { env } from '$env/dynamic/public';
+import { PUBLIC_SITE_URL } from '$env/static/public';
 import { site, contact, home, podcast } from '$lib/content';
 
+/*
+  `$env/static/public`, not dynamic. Static env is sourced from the
+  committed `.env.[mode]` files at build time and hard-fails on a
+  missing declaration, so a build can never silently fall back to
+  the production default below. The dynamic variant resolves from
+  the build process's environment instead of the mode files, which
+  turned a mis-applied mode into silently-wrong baked output
+  (until 2026-07-30 every staging image carried production
+  canonicals + sitemap origin: the Dockerfile's `pnpm build --
+  --mode` swallowed the mode flag, no `.env.staging` existed, and
+  the dynamic fallback masked both).
+*/
 function normalizeSiteUrl(raw: string | undefined): string {
   const fallback = 'https://chrishemmings.co.uk';
   const value = (raw ?? '').trim() || fallback;
   return value.replace(/\/+$/, '');
 }
 
-export const SITE_URL = normalizeSiteUrl(env.PUBLIC_SITE_URL);
+export const SITE_URL = normalizeSiteUrl(PUBLIC_SITE_URL);
 
 const THEME_COLOR = '#093449';
 

@@ -68,8 +68,16 @@ ENV PUBLIC_GITHUB_REPO=$PUBLIC_GITHUB_REPO
 # is a fresh shell).
 RUN eval "$(pkgx dev --shellcode 2>/dev/null)" && dev on && \
     pnpm check
+# NO `--` before the flags: pnpm forwards a literal `--` to the
+# script, so `pnpm build -- --mode staging` ran
+# `vite build -- --mode staging` — Vite reads `--` as
+# end-of-options and silently built in PRODUCTION mode. Every
+# staging image before 2026-07-30 was a production-mode build
+# (no .env.staging existed back then either, so the SEO code's
+# dynamic-env fallback baked production canonicals + sitemap
+# origin into staging).
 RUN eval "$(pkgx dev --shellcode 2>/dev/null)" && dev on && \
-    pnpm build -- --mode $VITE_MODE
+    pnpm build --mode $VITE_MODE
 
 # ----- runtime --------------------------------------------------
 # nginxinc/nginx-unprivileged runs as UID 101 (nginx user),
