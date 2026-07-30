@@ -19,9 +19,12 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
-  import { env } from '$env/dynamic/public';
+  import { PUBLIC_GITHUB_REPO } from '$env/static/public';
 
-  const REPO = env.PUBLIC_GITHUB_REPO ?? '';
+  /* Static env for build-time determinism — the dynamic variant
+     resolves from the build process's environment, not the
+     committed `.env.[mode]` files (see structured-data.ts). */
+  const REPO = PUBLIC_GITHUB_REPO;
   const HEAD_BRANCH = 'staging';
   const BASE_BRANCH = 'main';
 

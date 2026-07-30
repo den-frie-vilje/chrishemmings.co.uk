@@ -54,6 +54,13 @@
     # Gzip + zstd on responses that aren't already compressed.
     encode gzip zstd
 
+    # Staging must never enter a search index. robots.txt is a
+    # plain static/ asset (production Allow-all, identical in
+    # every image), and the baked canonicals point at this
+    # staging origin — so the noindex is enforced here at the
+    # front door instead.
+    header X-Robots-Tag "noindex, nofollow"
+
     # Staging = never cache anything, anywhere. Overrides
     # whatever Cache-Control the site container's nginx set
     # (e.g. the 1-year immutable on /_app/immutable/*), so
