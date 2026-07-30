@@ -81,7 +81,10 @@ production image (`STRIP_EDITOR=true`); the editor + GitHub OAuth proxy run on s
 
 - Svelte 5 runes only (`$props`, `$state`, `$derived`). Don't name a variable `state` (clashes
   with the `$state` rune).
-- Unlinked endpoint routes must be listed in `svelte.config.js` `prerender.entries`. `robots.txt`
-  is a plain `static/` file (a `.txt` route entry is skipped by the prerender crawler).
+- Unlinked endpoint routes must be listed in `svelte.config.js` `prerender.entries` (`/sitemap.xml`,
+  `/robots.txt` — the crawler can't discover routes nothing links to). `robots.txt` is a prerendered
+  **fail-closed** route: only `PUBLIC_ALLOW_INDEXING === 'true'` (`.env.production`) bakes the
+  indexable variant; staging/dev bake Disallow-all. Its Disallow list is the shared constant in
+  `src/lib/seo/robots.ts`, which also feeds the derived sitemap's exclusion filter.
 - Verify contrast by computing WCAG ratios (a small Node script) — every orange-on-X pair must
   pass AA; the bright `orange-500` only meets AA on navy, so on light grounds use `orange-700`.
