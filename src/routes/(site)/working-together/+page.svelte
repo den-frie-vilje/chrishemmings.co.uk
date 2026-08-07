@@ -63,9 +63,16 @@
       </ul>
       <p class="mt-5 text-sm text-ink-soft">{wt.qualifications.regulatorNote}</p>
     </div>
+    <!--
+      Both marks sit on white plates of exactly the same size, and inside them
+      they are printed in full colour — no greyscale, no fade, no hover recolour.
+      The plate is what keeps two marks of very different aspect from competing,
+      which is what lets the PSA quality mark appear in its own PMS 2603C purple
+      as its licence asks.
+    -->
     <div class="flex flex-wrap items-center gap-4 md:justify-end">
       <a
-        class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6 transition-shadow hover:shadow-md"
+        class="plate transition-shadow hover:shadow-md"
         href={site.bacpRegisterUrl}
         target="_blank"
         rel="noopener"
@@ -74,15 +81,13 @@
         <img
           src="/img/bacp.png"
           alt="BACP — British Association for Counselling and Psychotherapy"
-          class="max-h-11 w-auto"
           loading="lazy"
         />
       </a>
-      <span class="flex h-20 items-center justify-center rounded-lg border border-line bg-white px-6">
+      <span class="plate">
         <img
-          src="/img/professional-standards-authority.png"
+          src="/img/professional-standards-authority.svg"
           alt="Professional Standards Authority accredited register"
-          class="max-h-14 w-auto"
           loading="lazy"
         />
       </span>
@@ -122,3 +127,30 @@
 <Testimonials surface="sand" heading="What clients say" items={testimonials.therapy} />
 
 <ContactSection />
+
+<style>
+  /* One size for every plate, whatever the mark's aspect ratio. A hairline in
+     the ink colour rather than a border, so the plate reads as a ground the
+     mark is printed on, not a box around it. Width is set by the widest mark
+     (BACP at its own size, 161px); at ≥1024px the pair sits on one row in the
+     0.8fr column, below that it wraps — as it already did. */
+  .plate {
+    display: grid;
+    place-items: center;
+    width: 212px;
+    height: 80px;
+    padding: 18px 24px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 0 0 1px rgb(14 51 70 / 0.07);
+  }
+  /* One height for both marks — BACP's own 44px — with the width following the
+     file's aspect. */
+  .plate img {
+    height: 44px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+</style>
