@@ -9,7 +9,7 @@
     • navfull+ (≥928px): all five links + the "Free consultation" CTA.
 -->
 <script lang="ts">
-  import { slide } from 'svelte/transition';
+  import { fly } from 'svelte/transition';
   import { page } from '$app/state';
   import { site, booking, nav, type NavItem } from '$lib/content';
   import { motion } from '$lib/motion.svelte';
@@ -104,18 +104,20 @@
     </button>
   </div>
 
-  <!-- Mobile overlay menu -->
+  <!-- Mobile overlay menu — a DRAWER, not a height reveal. The clip wrapper
+       sits under the sticky header (its containing block) and hides overflow;
+       the full-height panel flies down from behind the header, so the surface
+       and its items move together as one — no staggered reveal — and the page
+       underneath never moves. -->
   {#if open}
-    <!-- Absolute overlay anchored under the header bar (the sticky header is
-         its containing block) — slides open OVER the page instead of growing
-         the header and pushing content down. -->
-    <nav
-      bind:this={mobileNav}
-      id="mobile-nav"
-      class="md:hidden absolute inset-x-0 top-full border-t border-white/10 bg-navy-900 shadow-[0_12px_24px_rgba(3,19,28,0.35)]"
-      aria-label="Primary"
-      transition:slide={motion.slideOpts}
-    >
+    <div class="md:hidden pointer-events-none absolute inset-x-0 top-full overflow-hidden">
+      <nav
+        bind:this={mobileNav}
+        id="mobile-nav"
+        class="pointer-events-auto border-t border-white/10 bg-navy-900 shadow-[0_12px_24px_rgba(3,19,28,0.35)]"
+        aria-label="Primary"
+        transition:fly={{ ...motion.slideOpts, y: '-100%', opacity: 1 }}
+      >
       <ul class="container-page flex flex-col py-3">
         {#each nav as item (item.href)}
           <li>
@@ -140,6 +142,7 @@
           </a>
         </li>
       </ul>
-    </nav>
+      </nav>
+    </div>
   {/if}
 </header>
