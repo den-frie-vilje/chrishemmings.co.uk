@@ -106,10 +106,13 @@
 
   <!-- Mobile overlay menu -->
   {#if open}
+    <!-- Absolute overlay anchored under the header bar (the sticky header is
+         its containing block) — slides open OVER the page instead of growing
+         the header and pushing content down. -->
     <nav
       bind:this={mobileNav}
       id="mobile-nav"
-      class="md:hidden border-t border-white/10 bg-navy-900"
+      class="md:hidden absolute inset-x-0 top-full border-t border-white/10 bg-navy-900 shadow-[0_12px_24px_rgba(3,19,28,0.35)]"
       aria-label="Primary"
       transition:slide={motion.slideOpts}
     >
