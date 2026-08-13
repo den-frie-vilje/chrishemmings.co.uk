@@ -9,8 +9,10 @@
     • navfull+ (≥928px): all five links + the "Free consultation" CTA.
 -->
 <script lang="ts">
+  import { slide } from 'svelte/transition';
   import { page } from '$app/state';
   import { site, booking, nav, type NavItem } from '$lib/content';
+  import { motion } from '$lib/motion.svelte';
 
   let open = $state(false);
   let toggleBtn = $state<HTMLButtonElement>();
@@ -109,6 +111,7 @@
       id="mobile-nav"
       class="md:hidden border-t border-white/10 bg-navy-900"
       aria-label="Primary"
+      transition:slide={motion.slideOpts}
     >
       <ul class="container-page flex flex-col py-3">
         {#each nav as item (item.href)}

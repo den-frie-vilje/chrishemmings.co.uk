@@ -67,7 +67,14 @@ html {
   /* Kill the iOS Safari rubber-band white-flash on overscroll. */
   overscroll-behavior-y: none;
   background: var(--color-paper);
+  /* Smooth scrolling for INTRA-page hash links only. Cross-page navigations
+     must jump instantly — the (site) layout stamps `data-instant-scroll` on
+     <html> around a pathname change so SvelteKit's scroll-to-top reset
+     doesn't animate (a slow crawl on low-end mobiles). */
   scroll-behavior: smooth;
+}
+html[data-instant-scroll] {
+  scroll-behavior: auto;
 }
 
 body {

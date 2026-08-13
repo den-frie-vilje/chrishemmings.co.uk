@@ -144,7 +144,7 @@
       width="1200"
       height="879"
       class:is-revealed={heroRevealed}
-      class="hero-cutout mt-3 ml-[calc(50%-50vw)] min-h-[100vw] w-screen max-w-none flex-1 select-none object-cover object-[8%_bottom] md:hidden"
+      class="hero-cutout pointer-events-none mt-3 ml-[calc(50%-50vw)] min-h-[100vw] w-screen max-w-none flex-1 select-none object-cover object-[8%_bottom] md:hidden"
     />
   </div>
 </section>
