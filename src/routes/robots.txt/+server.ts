@@ -39,9 +39,11 @@ export const GET: RequestHandler = () => {
         ''
       ].join('\n')
     : [
-        '# Staging build — not intended for search engines.',
+        '# Staging build. Crawlable ON PURPOSE, so that the noindex on every',
+        '# response is actually read. Nothing here may enter an index.',
         'User-agent: *',
-        'Disallow: /',
+        'Allow: /',
+        ...ROBOTS_DISALLOW.map((path) => `Disallow: ${path}`),
         ''
       ].join('\n');
 

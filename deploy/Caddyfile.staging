@@ -59,7 +59,7 @@
     # every image), and the baked canonicals point at this
     # staging origin — so the noindex is enforced here at the
     # front door instead.
-    header X-Robots-Tag "noindex, nofollow"
+    header X-Robots-Tag "noindex, nofollow, noarchive, nosnippet"
 
     # Staging = never cache anything, anywhere. Overrides
     # whatever Cache-Control the site container's nginx set
