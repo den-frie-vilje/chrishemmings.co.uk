@@ -18,7 +18,7 @@
 #
 # IMPORTANT: ad-hoc `pkgx <cmd>` does NOT auto-read pkgx.yml — it
 # defaults to "latest", which silently broke when Node 26 dropped
-# upstream and pkgx started serving v26 to a project that expects
+# upstream and pkgx started serving v26 to a project that then expected
 # `~25`. The `eval "$(pkgx dev --shellcode)" && dev on` pattern
 # below is the documented activation flow that DOES read pkgx.yml
 # from CWD. Each Dockerfile RUN is a fresh shell, so we re-activate

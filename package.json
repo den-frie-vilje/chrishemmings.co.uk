@@ -18,7 +18,7 @@
     "prebuild": "node scripts/copy-sveltia.ts && node scripts/gen-og.ts && node scripts/gen-photos.ts"
   },
   "engines": {
-    "node": "~25",
+    "node": "~26",
     "pnpm": "~10"
   },
   "pnpm": {
