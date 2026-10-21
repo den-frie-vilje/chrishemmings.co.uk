@@ -52,7 +52,7 @@ interface PhotoEntry {
 }
 
 // tfjs-node 4.x calls Node's legacy `util.is*` type-checkers, which were
-// removed in Node 24+. The repo runs Node ~25, so restore them before loading
+// removed in Node 24+. The repo runs Node ~26, so restore them before loading
 // tfjs-node (trivial re-implementations of the deprecated aliases it expects).
 {
   const u = require('node:util') as Record<string, unknown>;
