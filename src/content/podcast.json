@@ -1,10 +1,10 @@
 {
   "navLabel": "Podcast",
   "hero": {
-    "eyebrow": "Podcast",
+    "eyebrow": "Men's Mental Health Podcast",
     "title": "No Man's an Island",
     "subtitle": "A podcast powered by Men's Therapy Hub",
-    "intro": "A podcast about more than therapy.  Through conversations with researchers, therapists, campaigners and people with brilliant stories to tell, No Man’s an Island explores men’s mental health, masculinity, relationships and the pressures shaping men and boys today. \n\nNew episode every Tuesday - season two starts autumn '26.",
+    "intro": "Hosted by Chris Hemmings and clinical psychologist Dr Jett Stone, No Man’s an Island is a podcast about men’s mental health, relationships and the issues affecting men and boys today. Chris brings his experience as a therapist and coach to candid conversations with researchers, therapists, campaigners and people with lived experience. Together, the hosts explore subjects such as anxiety, shame, grief, addiction and fatherhood, making space for honest perspectives and new ideas.",
     "cover": "/img/podcast-cover.jpg",
     "coverAlt": "No Man's an Island podcast cover"
   },
@@ -12,7 +12,7 @@
     "title": "Host of No Man's an Island",
     "blurb": "Conversations with leading voices in men's mental health, masculinity and emotional wellbeing."
   },
-  "about": "No Man’s an Island is a podcast about more than therapy. It’s about men’s mental health, personal growth and real-world change.\n\nEach episode is a conversation with somebody working to shape support for men as an advocate, researcher, therapist or someone with an inspirational personal story.\n\nExpect grounded conversations about the issues affecting men and that men effect; from masculinity, relationships, work, fatherhood, community, therapy and much more.\n\nWe hope to learn more about how to better engage men in the real challenges they face, and hope you will, too.\n\n[Chris Hemmings](https://chrishemmings.co.uk/) is a British therapist and coach who works only with male clients. He’s the founder of both [Men’s Therapy Hub](https://menstherapyhub.co.uk/) and [M-Path](https://m-path.co.uk/). Before training to be a therapist he was a BBC journalist and wrote the book ‘Be a Man’.\n\n[Dr. Jett Stone](https://www.jettstonephd.com/) is an American clinical psychologist who specialises in working with men. He’s the author of the book ‘[Quiet Your Mind: A Men’s Guide](https://www.penguinrandomhouse.com/books/768720/quiet-your-mind-a-mens-guide-by-jett-stone-phd/)‘ and has been featured in CNN, The New York Times, The Guardian, and Fortune.",
+  "about": "_No Man’s an Island_ is a men’s mental health podcast.\n\nThrough honest conversations with researchers, therapists, campaigners and people with lived experience, they explore anxiety, relationships, grief, identity, fatherhood and the pressures shaping men’s lives.\n\nThe aim is to make space for thoughtful, grounded conversations that help us better understand men’s experiences and what support can look like.\n\n**Explore the episodes:** [No Man’s an Island on Men’s Therapy Hub](https://menstherapyhub.com/podcast/)\n\n[Chris Hemmings](https://chrishemmings.co.uk/) is a British therapist and coach who works only with male clients. He’s the founder of both [Men’s Therapy Hub](https://menstherapyhub.co.uk/) and [M-Path](https://m-path.co.uk/). Before training to be a therapist he was a BBC journalist and wrote the book ‘Be a Man’.\n\n[Dr. Jett Stone](https://www.jettstonephd.com/) is an American clinical psychologist who specialises in working with men. He’s the author of the book ‘[Quiet Your Mind: A Men’s Guide](https://www.penguinrandomhouse.com/books/768720/quiet-your-mind-a-mens-guide-by-jett-stone-phd/)‘ and has been featured in CNN, The New York Times, The Guardian, and Fortune.",
   "feedPath": "/api/podcast-feed",
   "platforms": [
     {
