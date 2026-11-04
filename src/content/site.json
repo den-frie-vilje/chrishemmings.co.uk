@@ -1,14 +1,14 @@
 {
   "name": "Chris Hemmings",
   "tagline": "Therapist & Coach for Men",
-  "description": "Psychotherapist and coach specialising in working with men. Online therapy across the UK, Europe and beyond.",
+  "description": "BACP-registered therapist & coach specialising in working with men. Online therapy across the UK, Europe and beyond.",
   "themeColor": "#093449",
   "footerNote": "© {year} Chris Hemmings",
   "bacpRegisterUrl": "https://www.bacp.co.uk/therapists/402932",
   "schema": {
-    "jobTitle": "Men's Mental Health Speaker | Psychotherapist & Coach for Men",
+    "jobTitle": "Therapist & Coach for Men",
     "bio": "Therapist, coach and men's mental health workshop facilitator. Chris delivers workplace talks and workshops on men's mental health, masculinity, relationships and emotional wellbeing, alongside working online with therapy and coaching clients across the UK and worldwide. Founder of Men's Therapy Hub and M-Path, former BBC journalist and author of Be A Man (2017).",
-    "serviceType": "Men's mental health speaking, workplace talks, therapy and coaching for men.",
+    "serviceType": "Therapy & coaching for men - plus men's mental health workshops",
     "knowsAbout": [
       "Men's mental health",
       "Masculinity",
