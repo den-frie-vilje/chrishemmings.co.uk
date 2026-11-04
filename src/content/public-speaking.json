@@ -1,5 +1,5 @@
 {
-  "navLabel": "Public Speaking",
+  "navLabel": "Men's Mental Health Workshops",
   "hero": {
     "eyebrow": "Workplace speaker",
     "title": "Men's Mental Health Workshops & Talks for Workplaces",
@@ -98,14 +98,14 @@
     ]
   },
   "seo": {
-    "title": "Men's Mental Health Speaker for Workplaces | Chris Hemmings",
-    "description": "Men's mental health speaker Chris Hemmings delivers engaging workplace talks and workshops on men's mental health, masculinity, empathy, communication and wellbeing."
+    "title": "Men’s Mental Health Workshops for Workplaces | Chris Hemmings",
+    "description": "Men’s mental health workshops and talks for workplaces, led by Chris Hemmings, BACP-registered therapist & coach for men. Practical sessions helping employers support men’s wellbeing."
   },
   "og": {
     "image": "/img/photos/chris-nike.png",
     "eyebrow": "Keynotes, Workshops & Training",
-    "title": "Men's Mental Health Talks & Workshops for Workplaces",
-    "subtitle": "Helping organisations build healthier cultures through conversations on men's mental health, masculinity, empathy and emotional wellbeing.",
+    "title": "Men's Mental Health Workshops for Workplaces",
+    "subtitle": "Men's mental health workshops & talks delivered by Chris Hemmings - BACP-registered therapist & coach for men",
     "cta": "Enquire about speaking"
   }
 }
