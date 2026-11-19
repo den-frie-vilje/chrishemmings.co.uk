@@ -28,6 +28,11 @@
       "href": "https://www.youtube.com/@MensTherapyHub"
     }
   ],
+  "seo": {
+    "title": "No Man’s an Island | Men’s Mental Health Podcast",
+    "description": "Listen to No Man’s an Island, a men’s mental health podcast hosted by Chris Hemmings and Dr Jett Stone. Honest conversations about men’s lives and wellbeing.",
+    "schemaDescription": "No Man’s an Island is a men’s mental health podcast hosted by Chris Hemmings and Dr Jett Stone. Through honest conversations with guests and each other, they explore the experiences that shape men’s mental health, including relationships, identity, anxiety, shame, addiction and emotional wellbeing. The show offers thoughtful discussion and fresh perspectives on the issues men face."
+  },
   "og": {
     "eyebrow": "Podcast",
     "title": "No Man's an Island",
