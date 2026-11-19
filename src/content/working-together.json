@@ -1,11 +1,11 @@
 {
-  "navLabel": "Therapy & Coaching",
+  "navLabel": "Online Therapy & Coaching",
   "hero": {
     "eyebrow": "Specialist Therapy & Coaching For Men",
-    "title": "Therapy, Counselling & Coaching for Men",
+    "title": "Online Therapy, Counselling & Coaching for Men",
     "subtitle": "I'm a BACP-registered therapist & coach offering online therapy, counselling and coaching for men. I work with relationship issues, anger, identity, substance abuse,  low self-esteem, depression, anxiety, emotional suppression and more. Get in touch and see if we might be a good fit.",
     "portrait": "/img/photos/my-project-page-1.jpg",
-    "portraitAlt": "Chris Hemmings, therapist & coach"
+    "portraitAlt": "Chris Hemmings, online therapist & coach"
   },
   "intro": "## Therapy\n\nI know that traditional therapeutic approaches don't feel comfortable for a lot of men. That's why I run a practice tailored specifically to the needs of male clients.\n\nYou might be functioning on the surface; working, socialising, coping - but perhaps there’s something deeper going on that you don’t fully understand… and maybe haven’t ever spoken to anybody about.\n\nI help men who feel stuck, ashamed, emotionally flat or like they’re drifting further away from themselves. Whether it’s something long-standing or something that’s come up recently: relationship issues, anger, burnout, identity, low self-esteem or loss - we'll work together to understand what’s really going on and start building something healthier and more honest.\n\nYou won’t need to come in knowing what to say. I specialise in working with men attending therapy for the first time or those struggling to open up. That means you don’t have to explain yourself perfectly. We’ll talk about where you’re at, how you got here and what you’re holding on to.\n\nMy approach is collaborative, practical and tailored to you. Drawing on a range of therapeutic approaches, including coaching, I won't simply sit in silence. I'll challenge, guide and encourage you where it's helpful and support you in connecting the dots between your past, your present and where you'd like to go next.\n\n## Coaching\n\nAlongside therapy, I offer one-to-one coaching for men who would benefit from a more focused, practical, action-oriented approach. We might work on relationships, communication, confidence, career or a sense of direction. Coaching gives us room to clarify what matters to you, understand what’s getting in the way and turn that insight into actionable change.\n\nI offer single sessions or we can work in blocks of six. Coaching work consists of:\n\n- - One-to-one weekly sessions\n- - Text/voice note support between sessions\n- - Accountability and progress check-ins\n- - A practical, future-focused approach designed around your aims\n\nAs a former sports coach, I naturally bring energy, accountability and encouragement into my work. We'll focus on where you are now, where you want to be and the practical steps needed to get there. My role isn't to tell you what to do, but to help you challenge unhelpful patterns, develop greater self-awareness and take meaningful action.\n\nCoaching is more structured and future-focused than therapy, combining honest conversation with practical strategies and ongoing accountability. If you're looking for someone who will simply nod along, I'm probably not the right coach. If you're looking for someone who will support you, challenge you and help you keep moving forwards, we'll probably work well together.",
   "qualifications": {
@@ -21,7 +21,7 @@
     "eyebrow": "Fees",
     "items": [
       {
-        "title": "Therapy & Counselling",
+        "title": "Online Therapy & Counselling",
         "range": "£95",
         "unit": "per 50-minute session",
         "body": "Therapy is an investment in yourself, and I recognise that affordability matters. I offer a sliding scale based on income, alongside a limited number of concessionary spaces where appropriate.\n\nWe'll usually meet weekly at the same time, with sessions booked in blocks of four. I work on a sliding scale and payment is made upfront before each block begins."
@@ -39,14 +39,14 @@
     "body": "I offer a free 15-minute intro call to help you decide whether I'm the right fit for you. Feel free to call, text or email to discuss finding a time.\n\nYou'll sign a contract which includes all the details you need to know, and we can discuss this further if needed."
   },
   "seo": {
-    "title": "Therapist & Coach for Men | Chris Hemmings | Online in the UK & Worldwide",
-    "description": "Online therapy and coaching for men with Chris Hemmings, BACP-registered therapist and founder of Men's Therapy Hub. Practical support for relationships, substance abuse, anger, identity, life transitions and more."
+    "title": "Online Therapist, Counsellor & Coach for Men | Chris Hemmings",
+    "description": "Online therapy, counselling and coaching for men with Chris Hemmings, BACP-registered therapist and founder of Men's Therapy Hub. Practical support for relationships, substance abuse, anger, identity, life transitions and more."
   },
   "og": {
     "image": "/img/photos/my-project-page-1.jpg",
-    "eyebrow": "Therapy & Coaching for Men",
-    "title": "Honest conversations. Meaningful change.",
-    "subtitle": "BACP registered therapist and coach helping men better understand themselves, strengthen relationships and move forwards with confidence.",
+    "eyebrow": "Specialist Therapy & Coaching for Men",
+    "title": "Online therapy, counselling & coaching for men| Chris Hemmings",
+    "subtitle": "BACP-registered therapist and coach helping men better understand themselves, strengthen relationships and move forwards with confidence.",
     "cta": "Book a free 15-minute consultation"
   }
 }
