@@ -46,11 +46,36 @@ collections:
             widget: object
             hint: "Feeds the site-wide Schema.org data search engines read. Tuned UK-first — no physical business address, so it isn't geo-narrowed to Denmark. Put the UK first under Areas served."
             fields:
-              - { name: jobTitle, label: Job title, widget: string }
+              - { name: jobTitle, label: Job titles, widget: list, field: { name: title, label: Job title, widget: string }, hint: "Actual roles, one per entry, e.g. Therapist, Coach, Public speaker, Author." }
               - { name: bio, label: Bio, widget: text }
+              - { name: wikidata, label: Wikidata page (Chris), widget: string, required: false, hint: "Full link to Chris's own Wikidata item, e.g. https://www.wikidata.org/wiki/Q…  Helps search engines recognise him as one person across the web." }
+              - { name: profiles, label: Profiles about Chris himself, widget: list, required: false, field: { name: url, label: Profile URL, widget: string }, hint: "Pages that are about Chris personally (LinkedIn, an author page). These, the Wikidata page and the BACP register link are the only profiles search engines are told are him. Leave out pages belonging to Men's Therapy Hub, M-Path or the podcast; those are linked as his organisations and his show." }
               - { name: serviceType, label: Service type, widget: string }
+              - { name: priceRange, label: Price band, widget: string, required: false, hint: "A rough band, e.g. ££." }
+              - { name: contactType, label: Contact label, widget: string, required: false, hint: "What the email and phone are for, e.g. Professional enquiries." }
               - { name: knowsAbout, label: Topics / expertise, widget: list, field: { name: topic, label: Topic, widget: string } }
               - { name: areaServed, label: Areas served, widget: list, field: { name: area, label: Area, widget: string } }
+              - name: professionalBody
+                label: Professional body
+                widget: object
+                required: false
+                hint: "The body Chris is registered with. His membership number is read from the BACP register link above."
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: alternateName, label: Short name, widget: string, required: false }
+                  - { name: url, label: Website, widget: string }
+                  - { name: wikidata, label: Wikidata page, widget: string, required: false }
+              - name: credentials
+                label: Qualifications (structured data)
+                widget: list
+                required: false
+                summary: "{{fields.name}}"
+                hint: "The same qualifications as on the Therapy & Coaching page, broken into parts for search engines. Keep the two in step."
+                fields:
+                  - { name: name, label: Qualification, widget: string }
+                  - { name: category, label: Level, widget: string, required: false, hint: "e.g. Postgraduate diploma." }
+                  - { name: institution, label: Institution, widget: string, required: false }
+                  - { name: institutionUrl, label: Institution website, widget: string, required: false }
 
       - name: contact
         label: Contact details
@@ -166,6 +191,7 @@ collections:
                   - { name: name, label: Name, widget: string }
                   - { name: href, label: Link, widget: string, required: false }
                   - { name: logo, label: Logo, widget: image }
+                  - { name: wikidata, label: Wikidata page, widget: string, required: false, hint: "Full link to the organisation's Wikidata item. Search engines only; not shown on the page." }
           - name: featuredIn
             label: Featured in (press / media)
             widget: object
@@ -374,6 +400,7 @@ collections:
               - { name: blurb, label: Blurb, widget: text }
           - { name: about, label: About the show, widget: markdown, buttons: [bold, italic, link, bulleted-list], editor_components: [], modes: [rich_text] }
           - { name: feedPath, label: Feed path, widget: string, hint: "Same-origin proxy path (Caddy → Acast)." }
+          - { name: feedUrl, label: Public RSS feed, widget: string, hint: "The show's own feed address at Acast, as told to search engines. The episode list on the page loads through the feed path above." }
           - name: platforms
             label: Platforms
             widget: list
@@ -388,6 +415,19 @@ collections:
               - { name: title, label: Page title, widget: string, hint: "Browser tab + search-result title." }
               - { name: description, label: Meta description, widget: text, hint: "~150–160 characters; also used for link previews." }
               - { name: schemaDescription, label: Podcast description (structured data), widget: text, hint: "Describes the show in the Schema.org PodcastSeries markup." }
+              - { name: wikidata, label: Wikidata page (the show), widget: string, required: false, hint: "Full link to the podcast's Wikidata item." }
+              - { name: profiles, label: Other pages about the show, widget: list, required: false, field: { name: url, label: URL, widget: string }, hint: "Pages about the show that aren't in Platforms above, e.g. its Acast page." }
+              - name: coHosts
+                label: Co-hosts
+                widget: list
+                required: false
+                summary: "{{fields.name}}"
+                hint: "Hosts besides Chris, who is added automatically."
+                fields:
+                  - { name: name, label: Name, widget: string }
+                  - { name: url, label: Website, widget: string, required: false }
+                  - { name: wikidata, label: Wikidata page, widget: string, required: false }
+              - { name: publisher, label: Publisher, widget: string, required: false, hint: "The organisation behind the show. Spell it exactly as under Home → Founder of, e.g. Men's Therapy Hub." }
           - name: og
             label: Social-share image (OG)
             widget: object

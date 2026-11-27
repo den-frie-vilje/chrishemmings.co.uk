@@ -1,6 +1,6 @@
 <script lang="ts">
   import { site, home, booking, testimonials, accolades } from '$lib/content';
-  import { buildPageSeo } from '$lib/seo/structured-data';
+  import { buildPageSeo, PERSON_ID } from '$lib/seo/structured-data';
   import SeoHead from '$lib/components/SeoHead.svelte';
   import ContactSection from '$lib/components/ContactSection.svelte';
   import Testimonials from '$lib/components/Testimonials.svelte';
@@ -17,7 +17,8 @@
   const seo = buildPageSeo({
     path: '/',
     title: home.seo?.title ?? `${site.name} — ${site.tagline}`,
-    description: home.seo?.description ?? site.description
+    description: home.seo?.description ?? site.description,
+    mainEntity: PERSON_ID
   });
 
   const num = (i: number) => String(i + 1).padStart(2, '0');
