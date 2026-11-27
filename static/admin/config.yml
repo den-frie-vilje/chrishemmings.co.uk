@@ -46,10 +46,10 @@ collections:
             widget: object
             hint: "Feeds the site-wide Schema.org data search engines read. Tuned UK-first — no physical business address, so it isn't geo-narrowed to Denmark. Put the UK first under Areas served."
             fields:
-              - { name: jobTitle, label: Job title, widget: string }
+              - { name: jobTitle, label: Job titles, widget: list, field: { name: title, label: Job title, widget: string }, hint: "Actual roles, one per entry, e.g. Therapist, Coach, Public speaker, Author." }
               - { name: bio, label: Bio, widget: text }
               - { name: wikidata, label: Wikidata page (Chris), widget: string, required: false, hint: "Full link to Chris's own Wikidata item, e.g. https://www.wikidata.org/wiki/Q…  Helps search engines recognise him as one person across the web." }
-              - { name: profiles, label: Profiles about Chris himself, widget: list, required: false, field: { name: url, label: Profile URL, widget: string }, hint: "Pages that are about Chris personally (LinkedIn, an author page). Leave out pages belonging to Men's Therapy Hub, M-Path or the podcast. The BACP register link is added automatically." }
+              - { name: profiles, label: Profiles about Chris himself, widget: list, required: false, field: { name: url, label: Profile URL, widget: string }, hint: "Pages that are about Chris personally (LinkedIn, an author page). These, the Wikidata page and the BACP register link are the only profiles search engines are told are him. Leave out pages belonging to Men's Therapy Hub, M-Path or the podcast; those are linked as his organisations and his show." }
               - { name: serviceType, label: Service type, widget: string }
               - { name: priceRange, label: Price band, widget: string, required: false, hint: "A rough band, e.g. ££." }
               - { name: contactType, label: Contact label, widget: string, required: false, hint: "What the email and phone are for, e.g. Professional enquiries." }

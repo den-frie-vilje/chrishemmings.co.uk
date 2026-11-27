@@ -93,17 +93,13 @@ const foundedOrgs = home.founder.orgs.filter(
   (o): o is typeof o & { href: string } => Boolean(o.href)
 );
 
-/** External profiles that disambiguate the entity (E-E-A-T): the Wikidata
- *  item and personal profiles from the CMS, then the BACP register, founded
- *  orgs, podcast platforms and social links from the rest of the content. */
-const personSameAs = compact([
-  schema.wikidata,
-  ...(schema.profiles ?? []),
-  site.bacpRegisterUrl,
-  ...home.founder.orgs.map((o) => o.href),
-  ...podcast.platforms.map((p) => p.href),
-  ...(contact.social ?? []).map((s) => s.url)
-]);
+/**
+ * Pages that are about Chris himself, which is what `sameAs` means: the
+ * Wikidata item, the personal profiles listed in the CMS and the BACP
+ * register entry. Organisations he founded and the podcast are entities of
+ * their own, linked through `founder` / `creator` instead.
+ */
+const personSameAs = compact([schema.wikidata, ...(schema.profiles ?? []), site.bacpRegisterUrl]);
 
 /**
  * Site-wide JSON-LD nodes, reinforced on every page so the entity is
@@ -170,7 +166,7 @@ function siteGraph(): object[] {
     name: site.name,
     url: `${SITE_URL}/`,
     image: absUrl(home.hero.portrait),
-    jobTitle: schema.jobTitle ?? 'Psychotherapist & Coach for Men',
+    jobTitle: compact(schema.jobTitle ?? []),
     description: schema.bio ?? site.description,
     mainEntityOfPage: { '@id': webPageId('/') },
     worksFor: { '@id': BUSINESS_ID },

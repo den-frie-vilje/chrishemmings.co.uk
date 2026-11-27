@@ -69,7 +69,8 @@ export interface Site {
    *  practice is modelled as an online service (no local Copenhagen address,
    *  which would geo-narrow to Denmark), `areaServed` leads with the UK. */
   schema?: {
-    jobTitle?: string;
+    /** Roles, one per entry (Schema.org Person.jobTitle). */
+    jobTitle?: string[];
     /** Person bio (Schema.org Person.description). */
     bio?: string;
     /** Chris's Wikidata item URL — the strongest identity link for search
