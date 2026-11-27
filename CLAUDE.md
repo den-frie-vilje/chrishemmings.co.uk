@@ -53,7 +53,18 @@ Episodes load **client-side** from Acast (show "No Man's an Island"). The browse
 to `feeds.acast.com` (Acast sends no CORS headers); under `vite dev`/`preview` the
 `src/routes/api/podcast-feed/+server.ts` endpoint does the same. Cloudflare edge-caches the
 proxied feed (`s-maxage=3600`). The show id lives in **both** the Caddyfiles and the dev
-endpoint — keep them in sync. Feed parsing + DOMPurify sanitising: `src/lib/podcast.ts`.
+endpoint — keep them in sync (and with `feedUrl` in `src/content/podcast.json`, the public
+feed URL advertised in the PodcastSeries JSON-LD). Feed parsing + DOMPurify sanitising: `src/lib/podcast.ts`.
+
+## Structured data (JSON-LD)
+
+`src/lib/seo/structured-data.ts` emits one `@graph` per page: WebSite, the practice
+(ProfessionalService), Chris (Person), his professional body, the organisations he founded and
+the page's own WebPage (plus PodcastSeries on `/podcast`), cross-linked by `@id`. Editorial values
+are CMS fields — Wikidata items, profiles, professional body and credentials sit under
+General → Site → Search & structured data; the org and podcast items sit beside those
+entries. An optional value that is absent is omitted from the markup. New identity links go
+in the CMS, not in code.
 
 ## Responsive images (`Photo.svelte`)
 
