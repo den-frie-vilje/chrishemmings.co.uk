@@ -29,12 +29,14 @@
       {
         "name": "Men's Therapy Hub",
         "href": "https://menstherapyhub.com",
-        "logo": "/img/logos/mth-mono.png"
+        "logo": "/img/logos/mth-mono.png",
+        "wikidata": "https://www.wikidata.org/wiki/Q142203650"
       },
       {
         "name": "M-Path",
         "href": "https://m-path.co.uk",
-        "logo": "/img/logos/m-path-mono.png"
+        "logo": "/img/logos/m-path-mono.png",
+        "wikidata": "https://www.wikidata.org/wiki/Q142204327"
       }
     ]
   },

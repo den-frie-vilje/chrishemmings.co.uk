@@ -8,7 +8,13 @@
   "schema": {
     "jobTitle": "Online therapy & coaching for Men",
     "bio": "Therapist, coach and men's mental health workshop facilitator. Chris delivers workplace talks and workshops on men's mental health, masculinity, relationships and emotional wellbeing, alongside working online with therapy and coaching clients across the UK and worldwide. Founder of Men's Therapy Hub and M-Path, former BBC journalist and author of Be A Man (2017).",
+    "wikidata": "https://www.wikidata.org/wiki/Q142203427",
+    "profiles": [
+      "https://www.linkedin.com/in/chris-hemmings-therapist/"
+    ],
     "serviceType": "Online therapy & coaching for men - plus men's mental health workshops",
+    "priceRange": "££",
+    "contactType": "Professional enquiries",
     "knowsAbout": [
       "Men's mental health",
       "Masculinity",
@@ -23,6 +29,26 @@
       "United Kingdom",
       "Worldwide (online)",
       "Denmark"
+    ],
+    "professionalBody": {
+      "name": "British Association for Counselling and Psychotherapy",
+      "alternateName": "BACP",
+      "url": "https://www.bacp.co.uk/",
+      "wikidata": "https://www.wikidata.org/wiki/Q4969513"
+    },
+    "credentials": [
+      {
+        "name": "PGDip Integrative Counselling and Coaching",
+        "category": "Postgraduate diploma",
+        "institution": "University of East London",
+        "institutionUrl": "https://www.uel.ac.uk/"
+      },
+      {
+        "name": "Foundation in Psychodynamic Counselling Skills",
+        "category": "Foundation training",
+        "institution": "WPF Therapy",
+        "institutionUrl": "https://wpf.org.uk/"
+      }
     ]
   }
 }

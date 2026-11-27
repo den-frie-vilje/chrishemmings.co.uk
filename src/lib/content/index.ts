@@ -72,10 +72,37 @@ export interface Site {
     jobTitle?: string;
     /** Person bio (Schema.org Person.description). */
     bio?: string;
+    /** Chris's Wikidata item URL — the strongest identity link for search
+     *  engines' knowledge graphs. */
+    wikidata?: string;
+    /** Other pages that are about Chris himself (LinkedIn, author pages).
+     *  The BACP register link is added automatically. */
+    profiles?: string[];
     serviceType?: string;
+    /** Price band of the practice, e.g. "££". */
+    priceRange?: string;
+    /** Label for the contact details, e.g. "Professional enquiries". */
+    contactType?: string;
     knowsAbout?: string[];
     /** Where the service is offered — UK first, then wider. */
     areaServed?: string[];
+    /** The professional body Chris is registered with. */
+    professionalBody?: {
+      name: string;
+      alternateName?: string;
+      url: string;
+      wikidata?: string;
+    };
+    /** Qualifications, structured for search engines. The visible list is
+     *  on the Therapy & Coaching page. */
+    credentials?: {
+      name: string;
+      /** Level, e.g. "Postgraduate diploma". */
+      category?: string;
+      /** Awarding institution. */
+      institution?: string;
+      institutionUrl?: string;
+    }[];
   };
 }
 
@@ -152,6 +179,8 @@ export interface Org {
   name: string;
   href?: string;
   logo: string;
+  /** The organisation's Wikidata item URL (structured data only). */
+  wikidata?: string;
 }
 
 export interface Interest {
@@ -271,10 +300,24 @@ export interface Podcast {
   };
   /** Markdown. */
   about: string;
+  /** Same-origin path the browser loads episodes from. */
   feedPath: string;
+  /** The show's public RSS feed (`webFeed` in the PodcastSeries JSON-LD). */
+  feedUrl?: string;
   platforms: PodcastPlatform[];
-  /** `schemaDescription` also feeds the PodcastSeries JSON-LD node. */
-  seo?: PageMeta & { schemaDescription?: string };
+  /** Page meta plus the fields that feed the PodcastSeries JSON-LD node. */
+  seo?: PageMeta & {
+    schemaDescription?: string;
+    /** The show's Wikidata item URL. */
+    wikidata?: string;
+    /** Other pages about the show that aren't listening platforms. */
+    profiles?: string[];
+    /** Hosts besides Chris. */
+    coHosts?: { name: string; url?: string; wikidata?: string }[];
+    /** Name of the publishing organisation — matches a "Founder of"
+     *  organisation on the home page. */
+    publisher?: string;
+  };
   og: Og;
 }
 
